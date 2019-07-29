@@ -15,6 +15,9 @@ import { _HttpClient } from '@delon/theme';
 import { environment } from '@env/environment';
 import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
 
+import { AppSessionService } from '@shared/config/app-session';
+
+
 const CODEMESSAGE = {
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',
@@ -38,7 +41,9 @@ const CODEMESSAGE = {
  */
 @Injectable()
 export class DefaultInterceptor implements HttpInterceptor {
-  constructor(private injector: Injector) { }
+  constructor(private injector: Injector, private appSession: AppSessionService, ) {
+
+  }
 
   private get notification(): NzNotificationService {
     return this.injector.get(NzNotificationService);
@@ -114,7 +119,17 @@ export class DefaultInterceptor implements HttpInterceptor {
       url = environment.SERVER_URL + url;
     }
 
-    const newReq = req.clone({ url });
+    let headers;
+
+    if (this.appSession.getAccessToken()) {
+      headers = req.headers.set('Authorization', 'Bearer ' + this.appSession.getAccessToken());
+    }
+    const newReq = req.clone({
+      'headers': headers,
+      'url': url
+    });
+
+
     return next.handle(newReq).pipe(
       mergeMap((event: any) => {
         // 允许统一对请求错误处理

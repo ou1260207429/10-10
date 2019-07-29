@@ -15,7 +15,7 @@ import { URLConfig } from '@shared/config/host';
 // import { ITokenService } from '@delon/auth';
 import { AccountBase } from '../public/account-base.component';
 
-import { AppSessionService } from '@shared/config/app-session'
+import { AppSessionService } from '@shared/config/app-session';
 
 let checkCode: any;
 @Component({
