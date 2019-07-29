@@ -24,7 +24,22 @@
             "polyfills": "src/polyfills.ts",
             "assets": [
               "src/assets",
-              "src/assets/images/logos/logo.png"
+              "src/assets/images/logos/logo.png",
+              {
+                "glob": "**/*",
+                "input": "node_modules/tinymce/skins",
+                "output": "/skins/"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/tinymce/plugins",
+                "output": "/plugins/"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/tinymce/themes",
+                "output": "/themes/"
+              }
             ],
             "styles": [
               "src/styles.less"
@@ -34,7 +49,8 @@
               "node_modules/@antv/data-set/dist/data-set.min.js",
               "node_modules/@antv/g2-plugin-slider/dist/g2-plugin-slider.min.js",
               "node_modules/ajv/dist/ajv.bundle.js",
-              "node_modules/qrious/dist/qrious.min.js"
+              "node_modules/qrious/dist/qrious.min.js",
+              "node_modules/tinymce/tinymce.min.js"
             ]
           },
           "configurations": {
