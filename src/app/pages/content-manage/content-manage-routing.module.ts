@@ -9,6 +9,11 @@ import { HandlingGuideComponent } from './handling-guide/handling-guide.componen
 
 const routes: Routes = [
   {
+    path: '',
+    component: PoliciesAndRegulationsComponent,
+    data: { title: "政策法规" }
+  },
+  {
     path: 'policiesAndRegulationsComponent',
     component: PoliciesAndRegulationsComponent,
     data: { title: "政策法规" }

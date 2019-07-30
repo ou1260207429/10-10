@@ -1,4 +1,4 @@
-import { ProjectFlowServcieServiceProxy, ScreenServiceServiceProxy } from './../../../../shared/service-proxies/service-proxies';
+// import { ProjectFlowServcieServiceProxy, ScreenServiceServiceProxy } from './../../../../shared/service-proxies/service-proxies';
 import { OnInit, Component } from "@angular/core";
 import { _HttpClient } from "@delon/theme";
 
@@ -7,13 +7,13 @@ import { URLConfig } from "@shared/config/host";
   selector: 'app-big-screen',
   templateUrl: './big-screen.component.html',
   styleUrls: ['./big-screen.component.less'],
-  providers: [ScreenServiceServiceProxy]
+  // providers: [ScreenServiceServiceProxy]
 })
 
 export class BigScreenComponent {
   constructor(
     private http: _HttpClient,
-    private screenService: ScreenServiceServiceProxy
+    // private screenService: ScreenServiceServiceProxy
   ) {
     const currComponent = this;
     if (document.body.scrollHeight === window.screen.height && document.body.scrollWidth === window.screen.width) {
@@ -170,46 +170,46 @@ export class BigScreenComponent {
     const OutTimefireAudit = [];
     const OutTimefireComplete = [];
 
-    this.screenService.post_GetDeclareRate().subscribe((res) => {
-      if (res.data != null) {
-        res.data.forEach(e => {
-          switch (e.flowPathType) {
-            case '1':
-              fireAudit.push(e.applyNumber);
-              CityList.push(e.cityName);
-              OutTimefireAudit.push(e.outTimeNumber);
-              break;
-            case '2':
-              fireComplete.push(e.applyNumber);
-              OutTimefireComplete.push(e.outTimeNumber);
-              break;
-            case '3':
-              completeList.push(e.applyNumber);
-              OutTimecompleteList.push(e.outTimeNumber);
-              break;
-          }
+    // this.screenService.post_GetDeclareRate().subscribe((res) => {
+    //   if (res.data != null) {
+    //     res.data.forEach(e => {
+    //       switch (e.flowPathType) {
+    //         case '1':
+    //           fireAudit.push(e.applyNumber);
+    //           CityList.push(e.cityName);
+    //           OutTimefireAudit.push(e.outTimeNumber);
+    //           break;
+    //         case '2':
+    //           fireComplete.push(e.applyNumber);
+    //           OutTimefireComplete.push(e.outTimeNumber);
+    //           break;
+    //         case '3':
+    //           completeList.push(e.applyNumber);
+    //           OutTimecompleteList.push(e.outTimeNumber);
+    //           break;
+    //       }
 
-        });
-        this.CityList.forEach(e => {
-          if (CityList.indexOf(e) === -1) {
-            CityList.push(e);
-            fireAudit.push(0);
-            fireComplete.push(0);
-            completeList.push(0);
-            OutTimefireAudit.push(0);
-            OutTimefireComplete.push(0);
-            OutTimecompleteList.push(0);
-          }
-        });
-        this.OverTimeBar1(CityList, fireAudit);
-        this.OverTimeBar2(CityList, fireComplete);
-        this.OverTimeBar3(CityList, completeList);
+    //     });
+    //     this.CityList.forEach(e => {
+    //       if (CityList.indexOf(e) === -1) {
+    //         CityList.push(e);
+    //         fireAudit.push(0);
+    //         fireComplete.push(0);
+    //         completeList.push(0);
+    //         OutTimefireAudit.push(0);
+    //         OutTimefireComplete.push(0);
+    //         OutTimecompleteList.push(0);
+    //       }
+    //     });
+    //     this.OverTimeBar1(CityList, fireAudit);
+    //     this.OverTimeBar2(CityList, fireComplete);
+    //     this.OverTimeBar3(CityList, completeList);
 
-        this.Bar2(CityList, OutTimefireAudit);
-        this.Bar3(CityList, OutTimefireComplete);
-        this.Bar4(CityList, OutTimecompleteList);
-      }
-    });
+    //     this.Bar2(CityList, OutTimefireAudit);
+    //     this.Bar3(CityList, OutTimefireComplete);
+    //     this.Bar4(CityList, OutTimecompleteList);
+    //   }
+    // });
   }
   // 各事项申报数量占比
   Post_GetApplyRate() {
@@ -220,35 +220,35 @@ export class BigScreenComponent {
     let Month2 = 0;
     let Month3 = 0;
 
-    this.screenService.post_GetApplyRate().subscribe((res: any) => {
-      console.log(res);
+    // this.screenService.post_GetApplyRate().subscribe((res: any) => {
+    //   console.log(res);
 
-      res.data.forEach(e => {
-        switch (e.flowPathType) {
-          case 1:
-            Year1 = e.numYear * 100;
-            Month1 = e.numMonth * 100;
-            break;
+    //   res.data.forEach(e => {
+    //     switch (e.flowPathType) {
+    //       case 1:
+    //         Year1 = e.numYear * 100;
+    //         Month1 = e.numMonth * 100;
+    //         break;
 
-          case 2:
-            Year2 = e.numYear * 100;
-            Month2 = e.numMonth * 100;
-            break;
-          case 3:
-            Year3 = e.numYear * 100;
-            Month3 = e.numMonth * 100;
-            break;
-        }
-      });
-      Year1 = this.Floor(Year1);
-      Year2 = this.Floor(Year2);
-      Year3 = this.Floor(Year3);
-      Month1 = this.Floor(Month1);
-      Month2 = this.Floor(Month2);
-      Month3 = this.Floor(Month3);
-      this.Pie1(Year1, Year2, Year3);
-      this.Pie2(Month1, Month2, Month3);
-    });
+    //       case 2:
+    //         Year2 = e.numYear * 100;
+    //         Month2 = e.numMonth * 100;
+    //         break;
+    //       case 3:
+    //         Year3 = e.numYear * 100;
+    //         Month3 = e.numMonth * 100;
+    //         break;
+    //     }
+    //   });
+    //   Year1 = this.Floor(Year1);
+    //   Year2 = this.Floor(Year2);
+    //   Year3 = this.Floor(Year3);
+    //   Month1 = this.Floor(Month1);
+    //   Month2 = this.Floor(Month2);
+    //   Month3 = this.Floor(Month3);
+    //   this.Pie1(Year1, Year2, Year3);
+    //   this.Pie2(Month1, Month2, Month3);
+    // });
   }
   // 一次性通过率
   GetATimeByStatistics() {
@@ -257,33 +257,33 @@ export class BigScreenComponent {
     const fireAuditList = [];
     const fireCompleteList = [];
     const completeList = [];
-    this.screenService.post_GetATimeByStatistics().subscribe((res) => {
-      if (res.data != null) {
-        res.data.forEach(e => {
-          switch (e.flowPathType) {
-            case 1:
-              fireAuditList.push(e.throughRate);
-              CityList.push(e.cityName);
-              break;
-            case 2:
-              fireCompleteList.push(e.throughRate);
-              break;
-            case 3:
-              completeList.push(e.throughRate);
-              break;
-          }
-        });
-      }
-      this.CityList.forEach(e => {
-        if (CityList.indexOf(e) === -1) {
-          CityList.push(e);
-          fireAuditList.push(0);
-          fireCompleteList.push(0);
-          completeList.push(0);
-        }
-      });
-      this.Line2(CityList, fireAuditList, fireCompleteList, completeList);
-    });
+    // this.screenService.post_GetATimeByStatistics().subscribe((res) => {
+    //   if (res.data != null) {
+    //     res.data.forEach(e => {
+    //       switch (e.flowPathType) {
+    //         case 1:
+    //           fireAuditList.push(e.throughRate);
+    //           CityList.push(e.cityName);
+    //           break;
+    //         case 2:
+    //           fireCompleteList.push(e.throughRate);
+    //           break;
+    //         case 3:
+    //           completeList.push(e.throughRate);
+    //           break;
+    //       }
+    //     });
+    //   }
+    //   this.CityList.forEach(e => {
+    //     if (CityList.indexOf(e) === -1) {
+    //       CityList.push(e);
+    //       fireAuditList.push(0);
+    //       fireCompleteList.push(0);
+    //       completeList.push(0);
+    //     }
+    //   });
+    //   this.Line2(CityList, fireAuditList, fireCompleteList, completeList);
+    // });
   }
   GetScreenYearApplyNumber() {
     const model: any = {
@@ -293,18 +293,18 @@ export class BigScreenComponent {
       maxResultCount: 5
     };
     model.page = this.ScreenYearApplyPage;
-    this.screenService.post_GetScreenYearApplyNumber(model).subscribe(res => {
-      this.ScreenYearApplyData = res.data;
-      if (res.total <= 5) {
-        if (res.total % 5 === 0) {
-          this.ScreenTimeoutNumBer = res.total / 5;
-        } else {
-          this.ScreenTimeoutNumBer = Math.ceil(res.total / 5);
-        }
-      } else {
-        this.ScreenTimeoutNumBer = 0;
-      }
-    });
+    // this.screenService.post_GetScreenYearApplyNumber(model).subscribe(res => {
+    //   this.ScreenYearApplyData = res.data;
+    //   if (res.total <= 5) {
+    //     if (res.total % 5 === 0) {
+    //       this.ScreenTimeoutNumBer = res.total / 5;
+    //     } else {
+    //       this.ScreenTimeoutNumBer = Math.ceil(res.total / 5);
+    //     }
+    //   } else {
+    //     this.ScreenTimeoutNumBer = 0;
+    //   }
+    // });
   }
   ScreenYearApplyChangePage() {
     if (this.ScreenTimeoutPage <= this.ScreenTimeoutNumBer) {
@@ -316,24 +316,24 @@ export class BigScreenComponent {
     }
   }
   GetApplyStatistics() {
-    this.screenService.post_GetApplyStatistics().subscribe((res: any) => {
-      res.data.forEach(e => {
-        switch (e.flowPathType) {
-          case 1:
-            this.statisticsNumberCount = e.applyNumber;
-            this.ApplyStatistics1 = e.rate;
-            break;
-          case 2:
-            this.fireCompleteNumberCount = e.applyNumber;
-            this.ApplyStatistics2 = e.rate;
-            break;
-          case 3:
-            this.completeNumberCount = e.applyNumber;
-            this.ApplyStatistics3 = e.rate;
-            break;
-        }
-      });
-    });
+    // this.screenService.post_GetApplyStatistics().subscribe((res: any) => {
+    //   res.data.forEach(e => {
+    //     switch (e.flowPathType) {
+    //       case 1:
+    //         this.statisticsNumberCount = e.applyNumber;
+    //         this.ApplyStatistics1 = e.rate;
+    //         break;
+    //       case 2:
+    //         this.fireCompleteNumberCount = e.applyNumber;
+    //         this.ApplyStatistics2 = e.rate;
+    //         break;
+    //       case 3:
+    //         this.completeNumberCount = e.applyNumber;
+    //         this.ApplyStatistics3 = e.rate;
+    //         break;
+    //     }
+    //   });
+    // });
   }
   GetScreenTimeoutList() {
     const model: any = {
@@ -343,19 +343,19 @@ export class BigScreenComponent {
       maxResultCount: 3
     };
     model.page = this.ScreenTimeoutPage;
-    this.screenService.post_GetScreenTimeoutList(model).subscribe(res => {
-      this.ScreenTimeoutList = res.data;
-      if (res.total <= 3) {
-        if (res.total % 3 === 0) {
-          this.ScreenTimeoutNumBer = res.total / 3;
-        } else {
-          this.ScreenTimeoutNumBer = Math.ceil(res.total / 3);
-        }
-      } else {
-        this.ScreenTimeoutNumBer = 0;
-      }
+    // this.screenService.post_GetScreenTimeoutList(model).subscribe(res => {
+    //   this.ScreenTimeoutList = res.data;
+    //   if (res.total <= 3) {
+    //     if (res.total % 3 === 0) {
+    //       this.ScreenTimeoutNumBer = res.total / 3;
+    //     } else {
+    //       this.ScreenTimeoutNumBer = Math.ceil(res.total / 3);
+    //     }
+    //   } else {
+    //     this.ScreenTimeoutNumBer = 0;
+    //   }
 
-    });
+    // });
   }
   ScreenTimeoutChangePage() {
     if (this.ScreenTimeoutPage <= this.ScreenTimeoutNumBer) {
@@ -371,71 +371,71 @@ export class BigScreenComponent {
     const CityName = [];
     this.MapList = [];
     this.rankingTop3List = [];
-    this.screenService.post_GetFireDataList().subscribe((res: any) => {
-      res.data.forEach(e => {
-        CityName.push(e.cityName);
-        this.MapList.push({
-          name: e.cityName,
-          value: e.completeNumber,
-          aTimeByCountNumber: e.aTimeByNumber,
-          avgCompleteTimeCountNumber: e.aTimeByNumber,
-          timeoutCountNumber: e.timeoutNumber
-        });
-      });
-      this.CityList.forEach(e => {
-        if (CityName.indexOf(e) === -1) {
-          this.MapList.push({
-            name: e,
-            value: 0,
-            aTimeByCountNumber: 0,
-            avgCompleteTimeCountNumber: 0,
-            timeoutCountNumber: 0
-          });
-        }
-      });
+    // this.screenService.post_GetFireDataList().subscribe((res: any) => {
+    //   res.data.forEach(e => {
+    //     CityName.push(e.cityName);
+    //     this.MapList.push({
+    //       name: e.cityName,
+    //       value: e.completeNumber,
+    //       aTimeByCountNumber: e.aTimeByNumber,
+    //       avgCompleteTimeCountNumber: e.aTimeByNumber,
+    //       timeoutCountNumber: e.timeoutNumber
+    //     });
+    //   });
+    //   this.CityList.forEach(e => {
+    //     if (CityName.indexOf(e) === -1) {
+    //       this.MapList.push({
+    //         name: e,
+    //         value: 0,
+    //         aTimeByCountNumber: 0,
+    //         avgCompleteTimeCountNumber: 0,
+    //         timeoutCountNumber: 0
+    //       });
+    //     }
+    //   });
 
-      this.rankingTop3List = this.MapList;
-      for (let i = 3; i < this.rankingTop3List.length; i++) {
-        this.rankingData.push(this.rankingTop3List[i]);
-      }
-      for (let i = 0; i < this.rankingData.length - 1; i++) {
-        for (let j = 0; j < this.rankingData.length - 1 - i; j++) {
-          if (this.rankingData[j].completeCountNumber > this.rankingData[j + 1].completeCountNumber) {
-            const temp = this.rankingData[j];
-            this.rankingData[j] = this.rankingData[j + 1];
-            this.rankingData[j + 1] = temp;
-          }
-        }
-      }
-      this.EchartsMap();
+    //   this.rankingTop3List = this.MapList;
+    //   for (let i = 3; i < this.rankingTop3List.length; i++) {
+    //     this.rankingData.push(this.rankingTop3List[i]);
+    //   }
+    //   for (let i = 0; i < this.rankingData.length - 1; i++) {
+    //     for (let j = 0; j < this.rankingData.length - 1 - i; j++) {
+    //       if (this.rankingData[j].completeCountNumber > this.rankingData[j + 1].completeCountNumber) {
+    //         const temp = this.rankingData[j];
+    //         this.rankingData[j] = this.rankingData[j + 1];
+    //         this.rankingData[j + 1] = temp;
+    //       }
+    //     }
+    //   }
+    //   this.EchartsMap();
 
-    });
+    // });
   }
   post_GetFireDataSumList() {
     this.GetThrough = [];
-    this.screenService.post_GetFireDataSumList().subscribe((res: any) => {
-      res.data.forEach(e => {
-        switch (e.flowPathType) {
-          case 1:
-            this.FireData1 = e;
-            break;
-          case 2:
-            this.FireData2 = e;
-            break;
-          case 3:
-            this.FireData3 = e;
-            break;
-        }
-      });
-      const a = JSON.stringify(this.FireData1.completeNumber + this.FireData2.completeNumber + this.FireData3.completeNumber);
-      for (let i = 0; i < 8 - a.split("").length; i++) {
-        this.GetThrough.push(0);
-      }
-      a.split("").forEach(e => {
-        this.GetThrough.push(e);
-      });
-      // this.Pie1();
-    });
+    // this.screenService.post_GetFireDataSumList().subscribe((res: any) => {
+    //   res.data.forEach(e => {
+    //     switch (e.flowPathType) {
+    //       case 1:
+    //         this.FireData1 = e;
+    //         break;
+    //       case 2:
+    //         this.FireData2 = e;
+    //         break;
+    //       case 3:
+    //         this.FireData3 = e;
+    //         break;
+    //     }
+    //   });
+    //   const a = JSON.stringify(this.FireData1.completeNumber + this.FireData2.completeNumber + this.FireData3.completeNumber);
+    //   for (let i = 0; i < 8 - a.split("").length; i++) {
+    //     this.GetThrough.push(0);
+    //   }
+    //   a.split("").forEach(e => {
+    //     this.GetThrough.push(e);
+    //   });
+    //   // this.Pie1();
+    // });
 
   }
   Line() { // city, flowPathTypeList, throughRateList
@@ -1458,7 +1458,7 @@ export class BigScreenComponent {
         tooltip: {
           trigger: 'item',
           backgroundColor: 'rgba(255,255,255,0)',
-          formatter (params, ticket, callback) {
+          formatter(params, ticket, callback) {
             const retStr = `
                         <div style="background-image:url('./assets/images/big2/img_bg_tk.png');background-size: 100% 100%;height: 210px;
                         width: 265px;position:absolute;top:-120px;left:-20px">

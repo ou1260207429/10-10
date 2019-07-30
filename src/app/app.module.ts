@@ -93,7 +93,7 @@ import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { RoutesModule } from './routes/routes.module';
 import { LayoutModule } from './layout/layout.module';
-import { ContentManageModule } from './pages/content-manage/content-manage.module';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -106,10 +106,10 @@ import { ContentManageModule } from './pages/content-manage/content-manage.modul
     SharedModule,
     LayoutModule,
     RoutesModule,
+    AppRoutingModule,
     ...I18NSERVICE_MODULES,
     ...GLOBAL_THIRD_MODULES,
     ...FORM_MODULES,
-    ContentManageModule,
   ],
   providers: [...LANG_PROVIDES, ...INTERCEPTOR_PROVIDES, ...I18NSERVICE_PROVIDES, ...APPINIT_PROVIDES],
   bootstrap: [AppComponent],
