@@ -11,39 +11,30 @@ import { LayoutDefaultComponent } from './layout/default/default.component';
 
 
 const routes: Routes = [
+  {
+    path: '',
+    component: LayoutFullScreenComponent,
+    data: { title: '首页' },
+    children: [
+      { path: '', loadChildren: './home/home.module#HomeModule' }
+    ],
+  },
   // {
   //   path: '',
   //   component: LayoutFullScreenComponent,
   //   data: { title: '首页' },
   //   children: [
-  //     { path: '', loadChildren: './home/home.module#HomeModule' }
+  //     {
+  //       path: '',
+  //       loadChildren: 'routes/routes.module#RoutesModule', // Lazy load account module
+  //       data: { title: "登录", preload: true },
+  //     },
   //   ],
   // },
-
-  {
-    path: 'app',
-    component: LayoutDefaultComponent,
-    data: { title: '统计', preload: true },
-    // canActivateChild: [AppRouteGuard],
-    children: [
-      {
-        path: 'content-manage', loadChildren: './pages/content-manage/content-manage.module#ContentManageModule',
-        data: {
-          role: [AppMenus.aclOrg, AppMenus.aclCompany, AppMenus.aclSys]
-        },
-
-      },
-
-
-    ],
-  },
   // {
-  //   path: 'big-screen/big',
-  //   // canActivateChild: [AppRouteGuard],
-  //   component: BigScreenComponent,
-  //   data: {
-  //     role: AppMenus.aclSys
-  //   },
+  //   path: '',
+  //   loadChildren: 'routes/routes.module#RoutesModule', // Lazy load account module
+  //   data: { title: "登录", preload: true },
   // },
 ];
 

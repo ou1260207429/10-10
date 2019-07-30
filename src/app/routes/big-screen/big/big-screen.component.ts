@@ -44,7 +44,7 @@ export class BigScreenComponent {
       currComponent.RightWidth = currComponent.clientWidth * 0.18 + 'px';
     };
   }
-  echarts = require('echarts');
+  // echarts = require('echarts');
   percent = 87;
   color = '#2f9cff';
   NewYear = new Date().getFullYear();
@@ -1436,7 +1436,7 @@ export class BigScreenComponent {
   EchartsMap() {
 
     this.http.get('assets/guangxi.json').subscribe((e) => {
-      this.echarts.registerMap('广西壮族自治区', e);
+      //  this.echarts.registerMap('广西壮族自治区', e);
       this.map = {
         visualMap: {
           show: false,
@@ -1508,7 +1508,7 @@ export class BigScreenComponent {
           }
         ]
       };
-      this.myChart = this.echarts.init(document.getElementById('echarts'));
+      // this.myChart = this.echarts.init(document.getElementById('echarts'));
       this.myChart.setOption(this.map);
       let faultByHourIndex = 0; // 播放所在下标
       const faultByHourTime = setInterval(() => {

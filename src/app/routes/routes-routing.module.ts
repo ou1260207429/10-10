@@ -6,19 +6,39 @@ import { environment } from '@env/environment';
 import { LayoutDefaultComponent } from '../layout/default/default.component';
 import { LayoutFullScreenComponent } from '../layout/fullscreen/fullscreen.component';
 import { LayoutPassportComponent } from '../layout/passport/passport.component';
+import { AppMenus } from '@shared/AppMenus';
 
 
 const routes: Routes = [
   {
     path: '',
     component: LayoutFullScreenComponent,
-
     children: [
       { path: '', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
       // Exception
       { path: 'exception', loadChildren: () => import('./exception/exception.module').then(m => m.ExceptionModule) },
     ],
   },
+  {
+    path: 'app',
+    component: LayoutDefaultComponent,
+    // canActivateChild: [SimpleGuard],
+    children: [
+      {
+        path: 'content-manage', loadChildren: './content-manage/content-manage.module#ContentManageModule',
+        data: {
+          role: [AppMenus.aclOrg, AppMenus.aclCompany, AppMenus.aclSys]
+        },
+      },
+      {
+        path: 'big-screen', loadChildren: './big-screen/big-screen.module#BigScreenModule',
+        data: {
+          role: [AppMenus.aclOrg, AppMenus.aclCompany, AppMenus.aclSys]
+        },
+      },
+    ],
+  },
+
 
   // {
   //   path: '',

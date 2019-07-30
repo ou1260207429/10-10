@@ -26,7 +26,6 @@ export class AppMenus {
           text: "",
           i18n: "监控大屏",
           link: "/app/big-screen/big",
-
           target: "_blank",
           hideInBreadcrumb: true,
           "reuse": false
