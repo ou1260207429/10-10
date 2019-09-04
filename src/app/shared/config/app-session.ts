@@ -72,7 +72,8 @@ export class AppSessionService {
 
 
   getAccessToken(): string {
-    return this.tokenService.get().token;
+    // return this.tokenService.get().token;
+    return '11111';
   }
   public clearToken() {
     this.tokenService.clear();

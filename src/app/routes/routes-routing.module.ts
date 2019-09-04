@@ -5,7 +5,6 @@ import { environment } from '@env/environment';
 // layout
 import { LayoutDefaultComponent } from '../layout/default/default.component';
 import { LayoutFullScreenComponent } from '../layout/fullscreen/fullscreen.component';
-import { LayoutPassportComponent } from '../layout/passport/passport.component';
 import { AppMenus } from '@shared/AppMenus';
 import { LayoutAccountComponent } from '../layout/account/account.component';
 
@@ -23,7 +22,16 @@ const routes: Routes = [
 
     ],
   },
+  {
+    path: 'home',
+    component: LayoutDefaultComponent,
 
+    children: [
+
+      { path: '', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
+
+    ],
+  },
   {
     path: 'exception',
     component: LayoutFullScreenComponent,
