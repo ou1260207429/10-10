@@ -5,14 +5,16 @@ import { catchError } from 'rxjs/operators';
 import { MenuService, SettingsService, TitleService, ALAIN_I18N_TOKEN } from '@delon/theme';
 import { ACLService } from '@delon/acl';
 import { TranslateService } from '@ngx-translate/core';
-import { I18NService } from '../i18n/i18n.service';
-
+// import { I18NService } from '../i18n/i18n.service';
+import { environment } from '@env/environment';
 import { NzIconService } from 'ng-zorro-antd';
 import { ICONS_AUTO } from '../../../style-icons-auto';
 import { ICONS } from '../../../style-icons';
 
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
+import { URLConfig } from '@shared/config/host';
+import { AppSessionService } from '@shared/config/app-session';
 registerLocaleData(zh);
 /**
  * 用于应用启动时
@@ -24,11 +26,12 @@ export class StartupService {
     iconSrv: NzIconService,
     private menuService: MenuService,
     private translate: TranslateService,
-    @Inject(ALAIN_I18N_TOKEN) private i18n: I18NService,
+    // @Inject(ALAIN_I18N_TOKEN) private i18n: I18NService,
     private settingService: SettingsService,
     private aclService: ACLService,
     private titleService: TitleService,
     private httpClient: HttpClient,
+    private appSession: AppSessionService,
   ) {
     iconSrv.addIcon(...ICONS_AUTO, ...ICONS);
   }
@@ -81,7 +84,46 @@ export class StartupService {
       this.titleService.default = '';
       this.titleService.suffix = "广西建设工程消防设计审查验收备案管理平台";
 
-      resolve(null);
+      let envName = 'prod';
+      // tslint:disable-next-line: prefer-conditional-expression
+      if (environment.production) {
+        envName = 'prod';
+      } else {
+        envName = 'dev';
+      }
+      const url = 'assets/appconfig.' + envName + '.json';
+
+      this.httpClient.get(url).subscribe({
+        next: (res: any) => {
+          URLConfig.getInstance().APP_URL = window.location.protocol + '//' + window.location.host;
+          URLConfig.getInstance().SERVER_URL = res.SERVER_URL;
+          URLConfig.getInstance().REGISTER_URL = res.REGISTER_URL;
+
+          URLConfig.getInstance().XIEFENG_SERVICES_URL = res.XIEFENG_SERVICES_URL;
+
+          if (this.appSession.getAccessToken()) {
+            this.appSession.initUserInfo(() => {
+              resolve(null);
+            }, err => {
+
+              this.appSession.clearAccessToken();
+              location.href = URLConfig.getInstance().APP_URL + '/#/account/login';
+              resolve(null);
+
+            });
+          } else {
+            location.href = URLConfig.getInstance().APP_URL + '/#/account/login';
+            resolve(null);
+          }
+
+
+        },
+        error: err => {
+          location.href = URLConfig.getInstance().APP_URL + '/#/account/login';
+          resolve(null);
+        },
+        complete: () => { resolve(null); }
+      });
     });
   }
 }

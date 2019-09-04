@@ -16,7 +16,9 @@ const COMPONENTS_NOROUNT = [];
   imports: [
     SharedModule,
     RouteRoutingModule,
-    AccountModule, ContentManageModule, BigScreenModule],
+    AccountModule,
+    ContentManageModule,
+    BigScreenModule],
   declarations: [...COMPONENTS, ...COMPONENTS_NOROUNT],
   entryComponents: COMPONENTS_NOROUNT,
 })

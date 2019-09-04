@@ -16,6 +16,7 @@ import { environment } from '@env/environment';
 import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
 
 import { AppSessionService } from '@shared/config/app-session';
+import { URLConfig } from '@shared/config/host';
 
 
 const CODEMESSAGE = {
@@ -116,7 +117,7 @@ export class DefaultInterceptor implements HttpInterceptor {
     // 统一加上服务端前缀
     let url = req.url;
     if (!url.startsWith('https://') && !url.startsWith('http://')) {
-      url = environment.SERVER_URL + url;
+      url = URLConfig.getInstance().SERVER_URL + url
     }
 
     let headers;

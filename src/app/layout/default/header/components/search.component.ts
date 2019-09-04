@@ -9,7 +9,7 @@ import { Component, HostBinding, Input, ElementRef, AfterViewInit, ChangeDetecti
         [(ngModel)]="q"
         (focus)="qFocus()"
         (blur)="qBlur()"
-        [placeholder]="'menu.search.placeholder' | translate"
+        [placeholder]="'menu.search.placeholder' "
       />
     </nz-input-group>
   `,
@@ -34,7 +34,7 @@ export class HeaderSearchComponent implements AfterViewInit {
     setTimeout(() => this.qIpt.focus(), 300);
   }
 
-  constructor(private el: ElementRef) {}
+  constructor(private el: ElementRef) { }
 
   ngAfterViewInit() {
     this.qIpt = (this.el.nativeElement as HTMLElement).querySelector('.ant-input') as HTMLInputElement;

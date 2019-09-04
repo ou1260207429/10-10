@@ -74,7 +74,16 @@ export class AppSessionService {
   getAccessToken(): string {
     return this.tokenService.get().token;
   }
+  public clearToken() {
+    this.tokenService.clear();
+  }
 
+  public clearAccessToken() {
+    this.tokenService.set({
+
+      token: null
+    });
+  }
   setAccessToken(tokenSrc) {
     return this.tokenService.set({
       // key: "access_token",

@@ -92,7 +92,6 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
-import { AppRoutingModule } from './app-routing.module';
 import { RoutesModule } from './routes/routes.module';
 
 @NgModule({
@@ -106,7 +105,6 @@ import { RoutesModule } from './routes/routes.module';
     SharedModule,
     LayoutModule,
     RoutesModule,
-    AppRoutingModule,
     ...I18NSERVICE_MODULES,
     ...GLOBAL_THIRD_MODULES,
     ...FORM_MODULES,

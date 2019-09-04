@@ -16,7 +16,7 @@ export class HandlingGuideComponent extends PublicFormComponent implements OnIni
     super();
   }
   // @ViewChild('treeCom') treeCom;
-  // @ViewChild('st') st: STComponent;
+  // @ViewChild('st', { static: false })  st: STComponent;
   params: any = {
     page: 1,
     size: 200,

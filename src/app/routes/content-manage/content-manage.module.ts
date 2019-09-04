@@ -5,10 +5,10 @@ import { FormDownloadComponent } from './form-download/form-download.component';
 // import { PipesModule } from 'pipes/pipes.module';
 import { SharedModule } from '@shared/shared.module';
 import { PoliciesAndRegulationsDetailsComponent } from './policies-and-regulations-details/policies-and-regulations-details.component';
-import { UEditorModule } from 'ngx-ueditor';
+// import { UEditorModule } from 'ngx-ueditor';
 import { HandlingGuidDetailComponent } from './handling-guid-detail/handling-guid-detail.component';
 import { FormDownloadDetailComponent } from './form-download-detail/form-download-detail.component';
-import { ComponentsModule } from 'src/app/components/components.module';
+
 import { HandlingGuideComponent } from './handling-guide/handling-guide.component';
 
 
@@ -19,10 +19,9 @@ const COMPONENTS_NOROUNT = [PoliciesAndRegulationsComponent, HandlingGuideCompon
 @NgModule({
   imports: [
     SharedModule,
-    ComponentsModule,
     // PipesModule,
     ContentManageRoutingModule,
-    UEditorModule
+    // UEditorModule
   ],
   declarations: [...COMPONENTS, ...COMPONENTS_NOROUNT, FormDownloadComponent, PoliciesAndRegulationsDetailsComponent, HandlingGuidDetailComponent, FormDownloadDetailComponent],
   entryComponents: COMPONENTS_NOROUNT

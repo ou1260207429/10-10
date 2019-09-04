@@ -10,7 +10,7 @@ import { I18NService } from '@core';
   template: `
     <div *ngIf="showLangText" nz-dropdown [nzDropdownMenu]="langMenu" nzPlacement="bottomRight">
       <i nz-icon nzType="global"></i>
-      {{ 'menu.lang' | translate }}
+      {{ 'menu.lang'  }}
       <i nz-icon nzType="down"></i>
     </div>
     <i
@@ -53,7 +53,7 @@ export class HeaderI18nComponent {
     private settings: SettingsService,
     @Inject(ALAIN_I18N_TOKEN) private i18n: I18NService,
     @Inject(DOCUMENT) private doc: any,
-  ) {}
+  ) { }
 
   change(lang: string) {
     const spinEl = this.doc.createElement('div');

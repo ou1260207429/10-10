@@ -9,12 +9,14 @@ import { DelonChartModule } from '@delon/chart';
 import { DelonACLModule } from '@delon/acl';
 import { DelonFormModule } from '@delon/form';
 // i18n
-import { TranslateModule } from '@ngx-translate/core';
+// import { TranslateModule } from '@ngx-translate/core';
 
 // #region third libs
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { CountdownModule } from 'ngx-countdown';
-import { UEditorModule } from 'ngx-ueditor';
+// import { UEditorModule } from 'ngx-ueditor';
+import { EditorModule } from '@tinymce/tinymce-angular';
+
 import { NgxTinymceModule } from 'ngx-tinymce';
 
 
@@ -23,11 +25,15 @@ import { AppSessionService } from '@shared/config/app-session';
 import { TokenService } from '@delon/auth';
 
 
-const THIRDMODULES = [NgZorroAntdModule, CountdownModule, UEditorModule, NgxTinymceModule];
+const THIRDMODULES = [NgZorroAntdModule, CountdownModule, EditorModule, NgxTinymceModule];
 // #endregion
 
 // #region your componets & directives
-const COMPONENTS = [];
+
+import { SelectorOrgComponent } from './components/selector/selector-org';
+import { TinyEditorComponent } from './components/tiny-editor/tiny-editor.component';
+
+const COMPONENTS = [SelectorOrgComponent, TinyEditorComponent];
 const DIRECTIVES = [];
 // #endregion
 
@@ -42,6 +48,7 @@ const DIRECTIVES = [];
     DelonChartModule,
     DelonACLModule,
     DelonFormModule,
+    EditorModule,
     // third libs
     ...THIRDMODULES,
   ],
@@ -58,10 +65,11 @@ const DIRECTIVES = [];
     AlainThemeModule,
     DelonABCModule,
     DelonChartModule,
+
     DelonACLModule,
     DelonFormModule,
     // i18n
-    TranslateModule,
+    // TranslateModule,
     // third libs
     ...THIRDMODULES,
     // your components

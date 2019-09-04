@@ -18,7 +18,7 @@ import { PublicFormComponent } from '../public/public-form.component';
 
 export class PoliciesAndRegulationsComponent extends PublicFormComponent implements OnInit {
   // @ViewChild('treeCom') treeCom;
-  // @ViewChild('st') st: STComponent;
+  // @ViewChild('st', { static: false })  st: STComponent;
 
   params: any = {
     page: 1,

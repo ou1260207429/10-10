@@ -16,12 +16,15 @@ import { HeaderUserComponent } from './default/header/components/user.component'
 
 import { SettingDrawerComponent } from './default/setting-drawer/setting-drawer.component';
 import { SettingDrawerItemComponent } from './default/setting-drawer/setting-drawer-item.component';
+import { LayoutAccountComponent } from './account/account.component';
+
 
 const SETTINGDRAWER = [SettingDrawerComponent, SettingDrawerItemComponent];
 const COMPONENTS = [
   LayoutDefaultComponent,
   LayoutFullScreenComponent,
   HeaderComponent,
+  LayoutAccountComponent,
   SidebarComponent,
   ...SETTINGDRAWER,
 ];
@@ -47,4 +50,4 @@ const PASSPORT = [LayoutPassportComponent];
   declarations: [...COMPONENTS, ...HEADERCOMPONENTS, ...PASSPORT],
   exports: [...COMPONENTS, ...PASSPORT],
 })
-export class LayoutModule {}
+export class LayoutModule { }

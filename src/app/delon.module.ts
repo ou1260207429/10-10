@@ -51,11 +51,13 @@ export function fnPageHeaderConfig(): PageHeaderConfig {
   };
 }
 
+// tslint:disable-next-line: no-duplicate-imports
 import { DelonAuthConfig } from '@delon/auth';
 export function fnDelonAuthConfig(): DelonAuthConfig {
   return {
     ...new DelonAuthConfig(),
-    login_url: '/passport/login',
+    login_url: '/api/Home/login',
+    ignores: [/\/api\/Home/, /assets\//],
   };
 }
 

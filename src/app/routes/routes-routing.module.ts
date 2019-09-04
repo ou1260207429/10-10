@@ -7,48 +7,44 @@ import { LayoutDefaultComponent } from '../layout/default/default.component';
 import { LayoutFullScreenComponent } from '../layout/fullscreen/fullscreen.component';
 import { LayoutPassportComponent } from '../layout/passport/passport.component';
 import { AppMenus } from '@shared/AppMenus';
-
+import { LayoutAccountComponent } from '../layout/account/account.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: LayoutFullScreenComponent,
+    component: LayoutAccountComponent,
+
     children: [
       { path: '', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
-      // Exception
-      { path: 'exception', loadChildren: () => import('./exception/exception.module').then(m => m.ExceptionModule) },
+      { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
+      // { path: 'catagory', loadChildren: () => import('./catagory/catagory.module').then(m => m.CatagoryModule) },
+
+
+
     ],
   },
+
   {
-    path: 'app',
-    component: LayoutDefaultComponent,
-    // canActivateChild: [SimpleGuard],
+    path: 'exception',
+    component: LayoutFullScreenComponent,
+
     children: [
-      {
-        path: 'content-manage', loadChildren: './content-manage/content-manage.module#ContentManageModule',
-        data: {
-          role: [AppMenus.aclOrg, AppMenus.aclCompany, AppMenus.aclSys]
-        },
-      },
-      {
-        path: 'big-screen', loadChildren: './big-screen/big-screen.module#BigScreenModule',
-        data: {
-          role: [AppMenus.aclOrg, AppMenus.aclCompany, AppMenus.aclSys]
-        },
-      },
+
+      { path: '', loadChildren: () => import('./exception/exception.module').then(m => m.ExceptionModule) },
+
     ],
   },
 
+  {
+    path: 'user-center',
+    component: LayoutDefaultComponent,
 
-  // {
-  //   path: '',
-  //   component: LayoutFullScreenComponent,
-  //   data: { title: '首页' },
-  //   children: [
-  //     { path: '', loadChildren: './account/account.module#AccountModule' },
-  //     { path: 'exception', loadChildren: () => import('./exception/exception.module').then(m => m.ExceptionModule) },
-  //   ],
-  // },
+    children: [
+
+      { path: '', loadChildren: () => import('./user-center/user-center.module').then(m => m.UserCenterModule) },
+
+    ],
+  },
   // 单页不包裹Layout
   { path: '**', redirectTo: 'exception/404' },
 ];
