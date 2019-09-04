@@ -9,7 +9,7 @@ import { SettingsService } from '@delon/theme';
 export class HeaderComponent {
   searchToggleStatus: boolean;
 
-  constructor(public settings: SettingsService) {}
+  constructor(public settings: SettingsService) { }
 
   toggleCollapsedSidebar() {
     this.settings.setLayout('collapsed', !this.settings.layout.collapsed);
@@ -17,5 +17,9 @@ export class HeaderComponent {
 
   searchToggleChange() {
     this.searchToggleStatus = !this.searchToggleStatus;
+  }
+
+  openHall() {
+    window.open("http://dn5.gxcic.net:8302/#/index");
   }
 }
