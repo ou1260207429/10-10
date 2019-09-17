@@ -57,7 +57,6 @@ const routes: Routes = [
   },
   // 单页不包裹Layout
   { path: '**', redirectTo: 'exception/404' },
-  ,
 ];
 
 @NgModule({
