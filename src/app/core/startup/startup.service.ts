@@ -15,6 +15,7 @@ import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { URLConfig } from '@shared/config/host';
 import { AppSessionService } from '@shared/config/app-session';
+import { TokenService } from '@delon/auth';
 registerLocaleData(zh);
 /**
  * 用于应用启动时
@@ -32,6 +33,7 @@ export class StartupService {
     private titleService: TitleService,
     private httpClient: HttpClient,
     private appSession: AppSessionService,
+    private tokenService: TokenService,
   ) {
     iconSrv.addIcon(...ICONS_AUTO, ...ICONS);
   }
@@ -80,6 +82,16 @@ export class StartupService {
 
 
     return new Promise(resolve => {
+
+
+      const user: any = {
+        name: 'Admin',
+        // avatar: './assets/tmp/img/avatar.jpg',
+        email: 'cipchk@qq.com',
+        token: '9417876e-3c81-4f96-b5e7-adf9b706c98f'
+      };
+      this.tokenService.set({ token: user.token });
+
       // this.translate.setDefaultLang(this.i18n.defaultLang);
       this.titleService.default = '';
       this.titleService.suffix = "广西建设工程消防设计审查验收备案管理平台";
@@ -99,7 +111,7 @@ export class StartupService {
           URLConfig.getInstance().SERVER_URL = res.SERVER_URL;
           URLConfig.getInstance().REGISTER_URL = res.REGISTER_URL;
 
-          URLConfig.getInstance().XIEFENG_SERVICES_URL = res.XIEFENG_SERVICES_URL;
+          URLConfig.getInstance().XIEFENG_SERVICES_URL = res.XIEFENG_SERVICES_URL
 
           if (this.appSession.getAccessToken()) {
             this.appSession.initUserInfo(() => {
@@ -124,6 +136,7 @@ export class StartupService {
         },
         complete: () => { resolve(null); }
       });
-    });
+    }
+    );
   }
 }

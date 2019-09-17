@@ -88,7 +88,8 @@ export class AppSessionService {
   setAccessToken(tokenSrc) {
     return this.tokenService.set({
       // key: "access_token",
-      token: tokenSrc
+      token: tokenSrc,
+
     });
   }
 

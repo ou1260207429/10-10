@@ -8,6 +8,7 @@ import { LayoutFullScreenComponent } from '../layout/fullscreen/fullscreen.compo
 import { AppMenus } from '@shared/AppMenus';
 import { LayoutAccountComponent } from '../layout/account/account.component';
 
+
 const routes: Routes = [
   {
     path: '',
@@ -17,9 +18,10 @@ const routes: Routes = [
       { path: '', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
       { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
       // { path: 'catagory', loadChildren: () => import('./catagory/catagory.module').then(m => m.CatagoryModule) },
-
-
-
+      { path: 'engineering-management', loadChildren: './engineering-management/engineering-management.module#EngineeringManagementModule' },
+      //{ path: 'engineering-management', loadChildren: () => import('./engineering-management/engineering-management.module').then(m => m.EngineeringManagementModule) },
+      // { path: 'work-matters', loadChildren: () => import('./work-matters/work-matters.module').then(m => m.WorkMattersModule) },
+      { path: 'work-matters', loadChildren: './work-matters/work-matters.module#WorkMattersModule' },
     ],
   },
   {
@@ -37,9 +39,9 @@ const routes: Routes = [
     component: LayoutFullScreenComponent,
 
     children: [
-
-      { path: '', loadChildren: () => import('./exception/exception.module').then(m => m.ExceptionModule) },
-
+      { path: 'login', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
+      // Exception
+      { path: 'exception', loadChildren: () => import('./exception/exception.module').then(m => m.ExceptionModule) },
     ],
   },
 
@@ -55,6 +57,7 @@ const routes: Routes = [
   },
   // 单页不包裹Layout
   { path: '**', redirectTo: 'exception/404' },
+  ,
 ];
 
 @NgModule({

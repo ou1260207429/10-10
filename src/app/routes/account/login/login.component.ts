@@ -84,7 +84,7 @@ export class AccountLoginComponent extends AccountBase implements OnInit, AfterV
 
     if (this.appSession.getAccessToken()) {
 
-      this._router.navigate(['/app/home/welcome']);
+      //this._router.navigate(['/engineering-management/fire-design']);
     }
     this.reuseTabService.clear();
   }
@@ -174,7 +174,6 @@ export class AccountLoginComponent extends AccountBase implements OnInit, AfterV
       this.submitting = true;
 
 
-
       const url = URLConfig.getInstance().REGISTER_URL + "api/User/Login";// ?MerchantId=C8793952-540E-414C-98FF-9C65D6";
       // const url = URLConfig.getInstance().SERVER_URL + "/api/services/app/Login/Authenticate";
 
@@ -186,8 +185,10 @@ export class AccountLoginComponent extends AccountBase implements OnInit, AfterV
         if (res) {
           if (res.result == 0) {
 
-
             this.appSession.setAccessToken(res.data.access_token);
+
+
+
 
             this.appSession.initUserInfo(
               () => {

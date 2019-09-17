@@ -56,7 +56,7 @@ import { DelonAuthConfig } from '@delon/auth';
 export function fnDelonAuthConfig(): DelonAuthConfig {
   return {
     ...new DelonAuthConfig(),
-    login_url: '/api/Home/login',
+    login_url: '/login',
     ignores: [/\/api\/Home/, /assets\//],
   };
 }
