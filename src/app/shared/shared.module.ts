@@ -19,9 +19,6 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 
 import { NgxTinymceModule } from 'ngx-tinymce';
 
-
-
-import { AppSessionService } from '@shared/config/app-session';
 import { TokenService } from '@delon/auth';
 
 
@@ -30,10 +27,7 @@ const THIRDMODULES = [NgZorroAntdModule, CountdownModule, EditorModule, NgxTinym
 
 // #region your componets & directives
 
-import { SelectorOrgComponent } from './components/selector/selector-org';
-import { TinyEditorComponent } from './components/tiny-editor/tiny-editor.component';
-
-const COMPONENTS = [SelectorOrgComponent, TinyEditorComponent];
+const COMPONENTS = [];
 const DIRECTIVES = [];
 // #endregion
 
@@ -76,6 +70,6 @@ const DIRECTIVES = [];
     ...COMPONENTS,
     ...DIRECTIVES,
   ],
-  providers: [AppSessionService, TokenService]
+  providers: [TokenService]
 })
 export class SharedModule { }

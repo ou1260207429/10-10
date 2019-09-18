@@ -13,9 +13,9 @@ import { ICONS } from '../../../style-icons';
 
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import { URLConfig } from '@shared/config/host';
-import { AppSessionService } from '@shared/config/app-session';
 import { TokenService } from '@delon/auth';
+import { ConfigService } from 'src/app/services/config.service';
+import { HttpService } from 'src/app/services/http.service';
 registerLocaleData(zh);
 /**
  * 用于应用启动时
@@ -25,118 +25,25 @@ registerLocaleData(zh);
 export class StartupService {
   constructor(
     iconSrv: NzIconService,
-    private menuService: MenuService,
-    private translate: TranslateService,
-    // @Inject(ALAIN_I18N_TOKEN) private i18n: I18NService,
-    private settingService: SettingsService,
-    private aclService: ACLService,
-    private titleService: TitleService,
-    private httpClient: HttpClient,
-    private appSession: AppSessionService,
-    private tokenService: TokenService,
+    private configService: ConfigService,
+    private httpService: HttpService
   ) {
     iconSrv.addIcon(...ICONS_AUTO, ...ICONS);
   }
 
+  private viaMock(resolve: any, reject: any) {
+    // 初始化配置
+    this.configService.init().then(res => {
+      resolve({});
+    }).catch(ex => {
+      this.httpService.goTo(`/exception/500`);
+      resolve({});
+    });
+  }
+
   load(): Promise<any> {
-    // only works with promises
-    // https://github.com/angular/angular/issues/15088
-    // return new Promise(resolve => {
-    //   zip(
-    //     this.httpClient.get(`assets/tmp/i18n/${this.i18n.defaultLang}.json`),
-    //     this.httpClient.get('assets/tmp/app-data.json'),
-    //   )
-    //     .pipe(
-    //       // 接收其他拦截器后产生的异常消息
-    //       catchError(([langData, appData]) => {
-    //         resolve(null);
-    //         return [langData, appData];
-    //       }),
-    //     )
-    //     .subscribe(
-    //       ([langData, appData]) => {
-    //         // setting language data
-    //         this.translate.setTranslation(this.i18n.defaultLang, langData);
-    //         this.translate.setDefaultLang(this.i18n.defaultLang);
-
-    //         // application data
-    //         const res: any = appData;
-    //         // 应用信息：包括站点名、描述、年份
-    //         this.settingService.setApp(res.app);
-    //         // 用户信息：包括姓名、头像、邮箱地址
-    //         this.settingService.setUser(res.user);
-    //         // ACL：设置权限为全量
-    //         this.aclService.setFull(true);
-    //         // 初始化菜单
-    //         this.menuService.add(res.menu);
-    //         // 设置页面标题的后缀
-    //         this.titleService.default = '';
-    //         this.titleService.suffix = res.app.name;
-    //       },
-    //       () => {},
-    //       () => {
-    //         resolve(null);
-    //       },
-    //     );
-    // });
-
-
-    return new Promise(resolve => {
-
-
-      const user: any = {
-        name: 'Admin',
-        // avatar: './assets/tmp/img/avatar.jpg',
-        email: 'cipchk@qq.com',
-        token: '9417876e-3c81-4f96-b5e7-adf9b706c98f'
-      };
-      this.tokenService.set({ token: user.token });
-
-      // this.translate.setDefaultLang(this.i18n.defaultLang);
-      this.titleService.default = '';
-      this.titleService.suffix = "广西建设工程消防设计审查验收备案管理平台";
-
-      let envName = 'prod';
-      // tslint:disable-next-line: prefer-conditional-expression
-      if (environment.production) {
-        envName = 'prod';
-      } else {
-        envName = 'dev';
-      }
-      const url = 'assets/appconfig.' + envName + '.json';
-
-      this.httpClient.get(url).subscribe({
-        next: (res: any) => {
-          URLConfig.getInstance().APP_URL = window.location.protocol + '//' + window.location.host;
-          URLConfig.getInstance().SERVER_URL = res.SERVER_URL;
-          URLConfig.getInstance().REGISTER_URL = res.REGISTER_URL;
-
-          URLConfig.getInstance().XIEFENG_SERVICES_URL = res.XIEFENG_SERVICES_URL
-
-          if (this.appSession.getAccessToken()) {
-            this.appSession.initUserInfo(() => {
-              resolve(null);
-            }, err => {
-
-              this.appSession.clearAccessToken();
-              location.href = URLConfig.getInstance().APP_URL + '/#/account/login';
-              resolve(null);
-
-            });
-          } else {
-            location.href = URLConfig.getInstance().APP_URL + '/#/account/login';
-            resolve(null);
-          }
-
-
-        },
-        error: err => {
-          location.href = URLConfig.getInstance().APP_URL + '/#/account/login';
-          resolve(null);
-        },
-        complete: () => { resolve(null); }
-      });
-    }
-    );
+    return new Promise((resolve, reject) => {
+      this.viaMock(resolve, reject);
+    });
   }
 }

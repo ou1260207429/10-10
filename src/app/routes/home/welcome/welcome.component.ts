@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AppSessionService } from '@shared/config/app-session';
 
 
 @Component({
@@ -9,14 +8,9 @@ import { AppSessionService } from '@shared/config/app-session';
 })
 export class HomeWelcomeComponent implements OnInit {
   loginName = "";
-  constructor(private appSessionService: AppSessionService) {
-    this.loginName = this.appSessionService.getShownLoginName();
+  constructor() {
   }
 
   ngOnInit() { }
 
-
-  _onReuseDestroy() {
-
-  }
 }

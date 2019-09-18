@@ -11,13 +11,14 @@ import {
   Inject,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { Router, NavigationEnd, RouteConfigLoadStart, RouteConfigLoadEnd, NavigationError, NavigationCancel } from '@angular/router';
+import { Router, NavigationEnd, RouteConfigLoadStart, RouteConfigLoadEnd, NavigationError, NavigationCancel, ActivatedRoute } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
 import { updateHostClass } from '@delon/util';
 import { SettingsService } from '@delon/theme';
 import { environment } from '@env/environment';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 // import { SettingDrawerComponent } from './setting-drawer/setting-drawer.component';
 
@@ -38,6 +39,8 @@ export class LayoutDefaultComponent implements OnInit, AfterViewInit, OnDestroy 
     private settings: SettingsService,
     private el: ElementRef,
     private renderer: Renderer2,
+    private authenticationService: AuthenticationService,
+    private routerParams: ActivatedRoute,
     @Inject(DOCUMENT) private doc: any,
   ) {
     // scroll to top in change page
@@ -60,6 +63,16 @@ export class LayoutDefaultComponent implements OnInit, AfterViewInit, OnDestroy 
           this.isFetching = false;
         }, 100);
       }
+    });
+
+    routerParams.queryParams.subscribe(values => {
+      const ticket = values.ticket;
+      if (ticket != null) {
+        this.authenticationService.setToken(ticket);
+        this.authenticationService.goHome();
+      }
+
+      this.authenticationService.setMenu();
     });
   }
 

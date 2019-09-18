@@ -2,7 +2,6 @@
 import { OnInit, Component } from "@angular/core";
 import { _HttpClient } from "@delon/theme";
 
-import { URLConfig } from "@shared/config/host";
 @Component({
   selector: 'app-big-screen-screen-content',
   templateUrl: './screen-content.component.html',

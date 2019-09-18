@@ -4,8 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { NzModalService } from 'ng-zorro-antd';
-import { URLConfig } from "@shared/config/host";
-import { AppSessionService } from "@shared/config/app-session";
 @Component({
   selector: 'app-user-center-modify-psw',
   templateUrl: './modify-psw.component.html',
@@ -22,7 +20,6 @@ export class UserCenterModifyPswComponent implements OnInit {
   confirmPassword = "";
   modifying = false;
   constructor(
-    private appSession: AppSessionService,
     private modalService: NzModalService,
     public http: HttpClient,
     private fb: FormBuilder) {
@@ -50,7 +47,7 @@ export class UserCenterModifyPswComponent implements OnInit {
 
   modify() {
     this.modifying = true;
-    const url = URLConfig.getInstance().REGISTER_URL + "api/User/LoginUserChangePassword";
+    // const url = URLConfig.getInstance().REGISTER_URL + "api/User/LoginUserChangePassword";
 
 
     const param = {
@@ -59,7 +56,7 @@ export class UserCenterModifyPswComponent implements OnInit {
       ConfirmPassword: this.confirmPassword
     }
 
-    this.http.post(url
+    this.http.post(""
       // + "?oldPassword=" + this.oldPassword + "&newPassword=" + this.newPassword + "&confirmPassword=" + this.confirmPassword 
       , param).subscribe((res: any) => {
 

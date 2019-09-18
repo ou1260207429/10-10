@@ -57,8 +57,7 @@ const GLOBAL_THIRD_MODULES = [];
 // #endregion
 
 // #region JSON Schema form (using @delon/form)
-import { JsonSchemaModule } from '@shared/json-schema/json-schema.module';
-const FORM_MODULES = [JsonSchemaModule];
+const FORM_MODULES = [];
 // #endregion
 
 // #region Http Interceptors
@@ -93,6 +92,11 @@ import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
 import { RoutesModule } from './routes/routes.module';
+import { MessageBox } from './services/message-box';
+import { HttpService } from './services/http.service';
+import { ConfigService } from './services/config.service';
+import { AuthenticationService } from './services/authentication.service';
+import { CustomGuard } from './services/custom-guard';
 
 @NgModule({
   declarations: [AppComponent],
@@ -109,7 +113,12 @@ import { RoutesModule } from './routes/routes.module';
     ...GLOBAL_THIRD_MODULES,
     ...FORM_MODULES,
   ],
-  providers: [...LANG_PROVIDES, ...INTERCEPTOR_PROVIDES, ...I18NSERVICE_PROVIDES, ...APPINIT_PROVIDES],
+  providers: [...LANG_PROVIDES, ...INTERCEPTOR_PROVIDES, ...I18NSERVICE_PROVIDES, ...APPINIT_PROVIDES,
+    MessageBox,
+    HttpService,
+    ConfigService,
+    AuthenticationService,
+    CustomGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

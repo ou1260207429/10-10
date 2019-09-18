@@ -1,104 +1,44 @@
-<div class="alain-default__header-logo">
-  <!-- <a [routerLink]="['/']" class="alain-default__header-logo-link">
+<!-- <div class="alain-default__header-logo">
+  <a [routerLink]="['/']" class="alain-default__header-logo-link">
     <img class="alain-default__header-logo-expanded" src="./assets/logo-full.svg" alt="{{ settings.app.name }}"
       style="max-height:40px;" />
     <img class="alain-default__header-logo-collapsed" src="./assets/logo.svg" alt="{{ settings.app.name }}"
       style="max-height:30px;" />
-  </a>  -->
-  <ul class="alain-default__nav">
-
-    <li>
-      <div class="alain-default__nav-item" (click)="toggleCollapsedSidebar()">
-        <i nz-icon nzType="menu-{{ settings.layout.collapsed ? 'unfold' : 'fold' }}"></i>
-      </div>
-    </li>
-    <li>
-      <div class="alain-default__nav-item" (click)="openHall()">
-        <i nz-icon nzType="home"></i>
-      </div>
-    </li>
-  </ul>
-
-</div>
+  </a>
+</div> -->
 <div class="alain-default__nav-wrap">
-  <div style="display: inline-flex;align-items: center;">
-    <img style="width: 40px;height: 40px;" src="../../../assets/images/logo.png" />
-    <label
-      style="color: white;font-size: 36px;font-weight: 800;text-align: center;letter-spacing: 6px; margin-left: 8px;">
-      广西建设工程消防设计审查验收备案管理平台</label>
-  </div>
   <ul class="alain-default__nav">
     <!-- Menu -->
-    <!-- <li>
+    <li>
       <div class="alain-default__nav-item" (click)="toggleCollapsedSidebar()">
         <i nz-icon nzType="menu-{{ settings.layout.collapsed ? 'unfold' : 'fold' }}"></i>
       </div>
-    </li> -->
-    <!-- Github Page -->
-    <!-- <li>
-      <a class="alain-default__nav-item" href="//github.com/ng-alain/ng-alain" target="_blank">
-        <i nz-icon nzType="github"></i>
-      </a>
-    </li> -->
-    <!-- Lock Page -->
-    <!-- <li class="hidden-mobile">
-      <div class="alain-default__nav-item" routerLink="/passport/lock">
-        <i nz-icon nzType="lock"></i>
+    </li>
+    <li>
+      <div style="display: flex;align-items: center;text-align: center;justify-content: flex-start;"
+        class="alain-default__nav-item" (click)="toggleCollapsedSidebar()">
+        <img style="height:30px;" src="../../../assets/images/logo.png" />
+        <span style='color: white; text-align: left;font-size: 24px;margin-left: 5px;'>广西建设工程消防设计审查验收备案管理平台</span>
       </div>
-    </li> -->
-    <!-- Search Button -->
-    <!-- <li class="hidden-pc" (click)="searchToggleChange()">
-      <div class="alain-default__nav-item">
-        <i nz-icon nzType="search"></i>
-      </div>
-    </!-->
+    </li>
   </ul>
   <!-- <header-search class="alain-default__search" [toggleChange]="searchToggleStatus"></header-search> -->
-  <!-- <div class="alain-default__nav">
-    <img src="../../../assets/images/logo.png" style="width: 36px;height: 36px;align-content: center" />
-  </div> -->
-
+  <!-- <h1 style='color: white; text-align: left;'>统一认证中心</h1> -->
   <ul class="alain-default__nav">
-
-    <!-- <li>
-      <header-notify></header-notify>
-    </li>
-
     <li class="hidden-mobile">
-      <header-task></header-task>
-    </li>
-
-    <li class="hidden-mobile">
-      <header-icon></header-icon>
-    </li>
-
-    <li class="hidden-mobile">
-      <div
-        class="alain-default__nav-item"
-        nz-dropdown
-        [nzDropdownMenu]="settingsMenu"
-        nzTrigger="click"
-        nzPlacement="bottomRight"
-      >
-        <i nz-icon nzType="setting"></i>
-      </div>
-      <nz-dropdown-menu #settingsMenu="nzDropdownMenu">
-        <div nz-menu style="width:200px;">
-          <div nz-menu-item>
-            <header-fullscreen></header-fullscreen>
-          </div>
-          <div nz-menu-item>
-            <header-storage></header-storage>
-          </div>
-          <div nz-menu-item>
-            <header-i18n></header-i18n>
-          </div>
+      <div class="alain-default__nav-item  align-items-center px-sm" nzTitle="统一认证中心" nzPlacement="bottom" nz-tooltip>
+        <div style="text-align: center;display: flex;align-items: center;justify-content: center;font-size: 20px;">
+          <i nz-icon nzType="appstore" nzTheme="outline"></i>
         </div>
-      </nz-dropdown-menu>
-    </li> -->
-    <!-- <li>
-      <header-notice></header-notice>
-    </li> -->
+      </div>
+    </li>
+    <li class="hidden-mobile">
+      <div class="alain-default__nav-item  align-items-center px-sm" nzTitle="办事大厅" nzPlacement="bottom" nz-tooltip>
+        <div style="text-align: center;display: flex;align-items: center;justify-content: center;font-size: 20px;">
+          <i nz-icon nzType="bank" nzTheme="outline"></i>
+        </div>
+      </div>
+    </li>
     <li class="hidden-mobile">
       <header-user></header-user>
     </li>

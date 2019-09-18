@@ -8,7 +8,7 @@ import { throwIfAlreadyLoaded } from '@core';
 import { AlainThemeModule } from '@delon/theme';
 import { DelonACLModule } from '@delon/acl';
 
-import { DA_STORE_TOKEN, MemoryStore } from '@delon/auth'
+import { DA_STORE_TOKEN, MemoryStore, SessionStorageStore, LocalStorageStore } from '@delon/auth'
 
 
 // #region mock
@@ -33,11 +33,11 @@ const MOCK_MODULES = true ? [DelonMockModule.forRoot({ data: MOCKDATA })] : [];
 import { RouteReuseStrategy } from '@angular/router';
 import { ReuseTabService, ReuseTabStrategy } from '@delon/abc/reuse-tab';
 const REUSETAB_PROVIDES = [
-  // {
-  //   provide: RouteReuseStrategy,
-  //   useClass: ReuseTabStrategy,
-  //   deps: [ReuseTabService],
-  // },
+  {
+    provide: RouteReuseStrategy,
+    useClass: ReuseTabStrategy,
+    deps: [ReuseTabService],
+  },
 ];
 // #endregion
 
@@ -51,15 +51,19 @@ export function fnPageHeaderConfig(): PageHeaderConfig {
   };
 }
 
-// tslint:disable-next-line: no-duplicate-imports
 import { DelonAuthConfig } from '@delon/auth';
 export function fnDelonAuthConfig(): DelonAuthConfig {
   return {
     ...new DelonAuthConfig(),
-    login_url: '/login',
-    ignores: [/\/api\/Home/, /assets\//],
+    login_url: '/account/redirect2Login',
+    ignores: [/\/api\/v1\/Permissions\/User\/Login/, /assets\//],
+    allow_anonymous_key: 'allow',
+    token_send_key: "Authorize",
+    token_send_place: 'header',
   };
 }
+
+
 
 // tslint:disable-next-line: no-duplicate-imports
 import { STConfig } from '@delon/abc';
@@ -75,7 +79,7 @@ const GLOBAL_CONFIG_PROVIDES = [
   { provide: STConfig, useFactory: fnSTConfig },
   { provide: PageHeaderConfig, useFactory: fnPageHeaderConfig },
   { provide: DelonAuthConfig, useFactory: fnDelonAuthConfig },
-  { provide: DA_STORE_TOKEN, useClass: MemoryStore },
+  { provide: DA_STORE_TOKEN, useClass: LocalStorageStore },
 ];
 
 // #endregion

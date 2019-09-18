@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '@shared';
 import { AccountRoutingModule } from './account-routing.module';
-import { AccountLoginComponent } from './login/login.component';
+import { Redirect2Login } from './login/redirect2Login';
 
 const COMPONENTS = [
-  AccountLoginComponent
+  Redirect2Login
 ];
 const COMPONENTS_NOROUNT = [];
 

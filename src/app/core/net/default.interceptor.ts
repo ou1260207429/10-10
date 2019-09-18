@@ -15,10 +15,6 @@ import { _HttpClient } from '@delon/theme';
 import { environment } from '@env/environment';
 import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
 
-import { AppSessionService } from '@shared/config/app-session';
-import { URLConfig } from '@shared/config/host';
-
-
 const CODEMESSAGE = {
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',
@@ -42,7 +38,7 @@ const CODEMESSAGE = {
  */
 @Injectable()
 export class DefaultInterceptor implements HttpInterceptor {
-  constructor(private injector: Injector, private appSession: AppSessionService, ) {
+  constructor(private injector: Injector, ) {
 
   }
 
@@ -115,18 +111,13 @@ export class DefaultInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // 统一加上服务端前缀
-    let url = req.url;
-    if (!url.startsWith('https://') && !url.startsWith('http://')) {
-      url = URLConfig.getInstance().SERVER_URL + url
-    }
+    const url = req.url;
+    // if (!url.startsWith('https://') && !url.startsWith('http://')) {
+    //   url = URLConfig.getInstance().SERVER_URL + url
+    // }
 
-    let headers;
-
-    if (this.appSession.getAccessToken()) {
-      headers = req.headers.set('Authorization', 'Bearer ' + this.appSession.getAccessToken());
-    }
     const newReq = req.clone({
-      'headers': headers,
+      // 'headers': headers,
       'url': url
     });
 

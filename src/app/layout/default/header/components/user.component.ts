@@ -1,31 +1,72 @@
 import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { AppSessionService } from '@shared/config/app-session';
+import { SettingsService } from '@delon/theme';
+import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
+// import { HeaderService } from '../header.service';
 
 @Component({
   selector: 'header-user',
   template: `
-  <div
-  class="alain-default__nav-item d-flex align-items-center px-sm"
-  nzPlacement="bottomRight"
-  (click)="logout()"
->
-
-  <i nz-icon nzType="logout" class="mr-sm"></i>
-  <span>退出</span>
-</div>
+    <div
+      class="alain-default__nav-item d-flex align-items-center px-sm"
+      nz-dropdown
+      nzPlacement="bottomRight"
+      [nzDropdownMenu]="userMenu"
+    >
+      <nz-avatar [nzSrc]="settings.user.avatar" nzIcon="user" nzSize="default" class="mr-sm"></nz-avatar>
+      {{ settings.user.name }}
+    </div>
+    <nz-dropdown-menu #userMenu="nzDropdownMenu">
+      <div nz-menu class="width-sm">
+        <div nz-menu-item routerLink="/pro/account/center">
+          <i nz-icon nzType="user" class="mr-sm"></i>
+         个人中心
+        </div>
+        <div nz-menu-item (click)="changePsw()">
+          <i nz-icon nzType="setting" class="mr-sm"></i>
+          修改密码
+        </div>
+        <div nz-menu-item routerLink="/exception/trigger">
+          <i nz-icon nzType="close-circle" class="mr-sm"></i>
+          触发错误
+        </div>
+        <li nz-menu-divider></li>
+        <div nz-menu-item (click)="logout()">
+          <i nz-icon nzType="logout" class="mr-sm"></i>
+          退出登录
+        </div>
+      </div>
+    </nz-dropdown-menu>
   `,
+  providers: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderUserComponent {
+
   constructor(
-    private appSessionService: AppSessionService,
+    public settings: SettingsService,
     private router: Router,
+    // provide: HTTP_INTERCEPTORS, useClass: SimpleInterceptor, multi: true ,
+    @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
+    //
   ) { }
 
+
   logout() {
-    this.appSessionService.clearAccessToken();
-    this.router.navigateByUrl("/account/login");
+    const exitParams = {
+      token: this.tokenService.get().token,
+      userID: this.tokenService.get().id,
+    }
+
+    // this.loginService.exit(exitParams, data => {
+
+    // }, () => {
+    //   this.tokenService.clear();
+    //   this.router.navigateByUrl(this.tokenService.login_url!);
+    // });
+
+  }
+  changePsw() {
+    this.router.navigate(['/modify-psw']);
   }
 }

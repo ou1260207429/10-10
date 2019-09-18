@@ -1,26 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AccountLoginComponent } from './login/login.component';
-
+import { Redirect2Login } from './login/redirect2Login';
 
 const routes: Routes = [
 
   {
-    path: 'login',
-    component: AccountLoginComponent,
+    path: 'redirect2Login',
+    component: Redirect2Login,
     data: {
       title: "登录"
     }
   }
-  ,
-  {
-    path: '',
-    component: AccountLoginComponent,
-    data: {
-      title: "登录"
-    }
-  },
-
 ];
 
 @NgModule({

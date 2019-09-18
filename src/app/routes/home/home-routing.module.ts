@@ -5,9 +5,8 @@ import { HomeWelcomeComponent } from './welcome/welcome.component';
 const routes: Routes = [
 
   {
-    path: 'welcome', component: HomeWelcomeComponent, data: {
-      title: "欢迎",
-      reuseClosable: false
+    path: '', component: HomeWelcomeComponent, data: {
+      title: "欢迎"
     }
   }
 ];
