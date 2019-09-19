@@ -3,9 +3,17 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '@shared/shared.module';
 import { EngineeringManagementRoutingModule } from './engineering-management-routing.module';
 import { EngManageService } from './engineering-management.service';
+import { EngineeringManagementCompletedAcceptanceComponent } from './completed-acceptance/completed-acceptance.component';
+import { EngineeringManagementDraftsComponent } from './drafts/drafts.component';
+import { EngineeringManagementFireAcceptanceComponent } from './fire-acceptance/fire-acceptance.component';
+import { EngineeringManagementFireDesignComponent } from './fire-design/fire-design.component';
 
 
-const COMPONENTS = [];
+const COMPONENTS = [
+  EngineeringManagementCompletedAcceptanceComponent,
+  EngineeringManagementDraftsComponent,
+  EngineeringManagementFireAcceptanceComponent,
+  EngineeringManagementFireDesignComponent];
 const COMPONENTS_NOROUNT = [
 ];
 

@@ -1,0 +1,247 @@
+<div class="c-box">
+  <form nz-form class="ant-advanced-search-form">
+    <div nz-row class="search-form">
+
+      <div class="form-item-search">
+        <nz-form-item nzFlex>
+          <nz-form-label>工程名称：</nz-form-label>
+          <nz-form-control>
+            <input nz-input placeholder="工程名称" [(ngModel)]="postmodel.appCode" name="appCode">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div class="form-item-search">
+        <nz-form-item nzFlex>
+          <nz-form-label nzFor="appName">建设单位：</nz-form-label>
+          <nz-form-control>
+            <input nz-input placeholder="建设单位" [(ngModel)]="postmodel.appName" name="appName">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+
+      <div class="form-item-search">
+        <nz-form-item nzFlex>
+          <nz-form-label nzFor="isExpire">是否超时：</nz-form-label>
+          <nz-form-control>
+            <nz-select class="search_menu_input" nzShowSearch nzAllowClear style="width: 100%;"
+              [(ngModel)]="postmodel.isExpire" name="isExpire" nzPlaceHolder="请是否超时">
+              <nz-option nzLabel="是" nzValue="true"></nz-option>
+              <nz-option nzLabel="否" nzValue="false"></nz-option>
+
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div class="form-item-search">
+        <nz-form-item nzFlex>
+          <nz-form-control>
+            <nz-range-picker [(ngModel)]="rangeTime" name="rangeTime" nzFormat="yyyy/MM/dd" style="margin-right: 10px;">
+            </nz-range-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+
+
+
+
+      <div class="form-item-search btn-control" style="width:300px">
+        <div class="search-btn-group">
+          <button nz-button type="button" nzType="primary" (click)="search()"><i nz-icon type="search"></i>搜索</button>
+          <button nz-button type="button" nzType="default" (click)="reset()"><i nz-icon type="redo"></i>重置</button>
+
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+
+
+
+
+
+<!-- <st *ngIf="listData" [data]="listData.items" [columns]="columns" [page]="pageConfig" [total]="listData.totalNum"
+    [pi]="listData.currentPage" [ps]="listData.pageSize" (change)="change($event)">
+  </st> -->
+
+
+
+<div class="search-result-list">
+
+  <nz-table #ajaxTable nzBordered nzSize="small" nzShowSizeChanger [nzFrontPagination]="false"
+    [nzShowQuickJumper]="true" [nzData]="listData.items" [nzTotal]="listData.totalNum"
+    [(nzPageIndex)]="listData.currentPage" [(nzPageSize)]="listData.pageSize" (nzPageIndexChange)="goPage($event)"
+    (nzPageSizeChange)="search()">
+    <thead>
+      <tr>
+        <th>工程名称</th>
+        <th>工程编号</th>
+        <th>建设单位</th>
+        <th>工程类型</th>
+        <th>节点处理人</th>
+        <th>申报时间</th>
+        <th>处理时间</th>
+        <th>流程是否超时</th>
+        <th class="action-column">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of ajaxTable.data">
+        <td>{{data.appName}}</td>
+        <td>{{data.appCode}}</td>
+        <td>{{getAppTypeName(data.appType)}}</td>
+        <td>{{getAppTypeName(data.appType)}}</td>
+        <td>{{getAppTypeName(data.appType)}}</td>
+        <td>{{getAppTypeName(data.appType)}}</td>
+        <td>{{getAppTypeName(data.appType)}}</td>
+        <td class="data-center">
+          <i nz-icon [type]="'close'" class="disable-data" [style.display]="data.disable==1?'block':'none'"></i>
+        </td>
+        <td class="data-center">
+          <a href="javascript:void(0);" nzTitle="详情" nzPlacement="top" nz-tooltip (click)="edit(data)">
+            <i nz-icon type="edit"></i></a>
+
+          <a href="javascript:void(0);" nzTitle="受理凭证" nzPlacement="top" nz-tooltip (click)="edit(data)">
+            <i nz-icon type="edit"></i></a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+
+
+<!-- 添加 -->
+<nz-modal [nzMaskClosable]='false' [(nzVisible)]="isEdit" nzTitle="应用管理" (nzOnCancel)="handleCancel()"
+  (nzOnOk)="save()">
+  <form nz-form class="edit-form" [formGroup]="formGroup">
+    <div nz-row>
+
+      <div nz-col [nzSpan]="24" class="gutter-box" style="display:none;">
+        <nz-form-item nzFlex>
+          <nz-form-label [nzSm]="6" nzFor="appID">ID</nz-form-label>
+          <nz-form-control [nzSm]="18">
+            <input nz-input placeholder="ID" formControlName="appID" [(ngModel)]="editData.appID">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="24" class="gutter-box" style="display:none;">
+        <nz-form-item nzFlex>
+          <nz-form-label [nzSm]="6" nzFor="userID">ID</nz-form-label>
+          <nz-form-control [nzSm]="18">
+            <input nz-input placeholder="ID" formControlName="userID" [(ngModel)]="editData.userID">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="24" class="gutter-box">
+        <nz-form-item nzFlex>
+          <nz-form-label [nzSm]="6" nzFor="appName" nzRequired>应用名称：</nz-form-label>
+          <nz-form-control [nzSm]="18">
+            <input nz-input placeholder="应用名称" formControlName="appName" [(ngModel)]="editData.appName">
+            <nz-form-explain *ngIf="formGroup.get('appName').dirty && formGroup.get('appName').errors">
+              请填写应用名称</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="24" class="gutter-box">
+        <nz-form-item nzFlex>
+          <nz-form-label [nzSm]="6" nzFor="appCode" nzRequired>应用编码：</nz-form-label>
+          <nz-form-control [nzSm]="18">
+            <input nz-input placeholder="应用编码" formControlName="appCode" [(ngModel)]="editData.appCode">
+            <nz-form-explain *ngIf="formGroup.get('appCode').dirty && formGroup.get('appCode').errors">
+              请填写应用编码</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="24" class="gutter-box" style="display:none;">
+        <nz-form-item nzFlex>
+          <nz-form-label [nzSm]="6" nzFor="isClusteredApp" nzRequired>是否内部应用：</nz-form-label>
+          <nz-form-control [nzSm]="18">
+            <nz-select class="search_menu_input" nzShowSearch nzAllowClear style="width: 100%;"
+              [(ngModel)]="editData.isClusteredApp" name="isClusteredApp" formControlName="isClusteredApp"
+              nzPlaceHolder="请选择是否内部应用">
+              <nz-option nzLabel="是" [nzValue]="0"></nz-option>
+              <nz-option nzLabel="否" [nzValue]="1"></nz-option>
+            </nz-select>
+            <nz-form-explain *ngIf="formGroup.get('isClusteredApp').dirty && formGroup.get('isClusteredApp').errors">
+              请选择是否内部应用</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="24" class="gutter-box" style="display:none;">
+        <nz-form-item nzFlex>
+          <nz-form-label [nzSm]="6" nzFor="host" nzRequired>根地址：</nz-form-label>
+          <nz-form-control [nzSm]="18">
+            <input nz-input placeholder="根地址" formControlName="host" [(ngModel)]="editData.host">
+            <nz-form-explain *ngIf="formGroup.get('host').dirty && formGroup.get('host').errors">
+              请填写根地址</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="24" class="gutter-box">
+        <nz-form-item nzFlex>
+          <nz-form-label [nzSm]="6" nzFor="appType" nzRequired>应用类型：</nz-form-label>
+          <nz-form-control [nzSm]="18">
+            <nz-select class="search_menu_input" nzShowSearch nzAllowClear style="width: 100%;"
+              [(ngModel)]="editData.appType" name="appType" formControlName="appType" nzPlaceHolder="请选择应用类型">
+              <nz-option nzLabel="bs" [nzValue]="1"></nz-option>
+              <nz-option nzLabel="cs" [nzValue]="2"></nz-option>
+              <nz-option nzLabel="app" [nzValue]="3"></nz-option>
+            </nz-select>
+            <nz-form-explain *ngIf="formGroup.get('appType').dirty && formGroup.get('appType').errors">
+              请选择应用类型</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+
+      <div nz-col [nzSpan]="24" class="gutter-box" style="padding-top:15px;">
+        <nz-form-item nzFlex>
+          <div class="data-center">
+            <label nz-checkbox formControlName="disable" [(checkboxNumber)]="editData.disable">禁用</label>
+          </div>
+        </nz-form-item>
+      </div>
+
+    </div>
+
+  </form>
+</nz-modal>
+
+
+<!-- <nz-modal [nzMaskClosable]='false' [(nzVisible)]="editBounced" nzTitle="编辑" (nzOnCancel)="editCancel()"
+    (nzOnOk)="editHandleOk()">
+    <div nz-row class="search-form">
+  
+      <div class="form-item-search">
+        <span>应用名称：</span>
+        <input nz-input placeholder="应用名称" [(ngModel)]="editParams.appName" name="appName">
+      </div>
+  
+      <div class="form-item-search">
+        <span>应用编码：</span>
+        <input nz-input placeholder="应用编码" [(ngModel)]="editParams.appCode" name="appCode">
+      </div>
+  
+      <div class="form-item-search">
+        <span>是否禁用：</span>
+        <nz-select class="search_menu_input" nzPlaceHolder="是否禁用" nzShowSearch nzAllowClear style="width: 100%;"
+          [(ngModel)]="editParams.disable" name="disable">
+  
+  
+          <nz-option nzLabel="禁用" nzValue="0"></nz-option>
+          <nz-option nzLabel="启用" nzValue="1"></nz-option>
+        </nz-select>
+      </div>
+  
+    </div> -->
+<!-- </nz-modal> -->
