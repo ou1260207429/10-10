@@ -29,6 +29,9 @@ export class CustomGuard extends SimpleGuard {
         const ticket = route.queryParams.ticket;
         if (ticket && ticket != null) {
             this.authenticationService.setToken(ticket);
+            let url = state.url;
+            url = UrlHelper.deleteParam(url, "ticket");
+            location.href = url;
             // let promise = this.injectorEx.get(AccountService).validateTicket(ticket, data => {
             //     this.injectorEx.get(UserService).clearLogin();
             //     this.tokenService.set({ token: data });
@@ -38,9 +41,6 @@ export class CustomGuard extends SimpleGuard {
             //     this.injectorEx.get(Router).navigateByUrl(url);
             // });
 
-            let url = state.url;
-            url = UrlHelper.deleteParam(url, "ticket");
-            location.href = url;
             return false;
         }
 

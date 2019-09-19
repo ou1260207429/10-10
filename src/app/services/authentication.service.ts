@@ -1,9 +1,10 @@
 import { Injectable, Injector, Inject } from '@angular/core';
-import { _HttpClient, MenuService, TitleService } from '@delon/theme';
+import { _HttpClient, MenuService, TitleService, SettingsService } from '@delon/theme';
 import { MessageBox } from './message-box';
 import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
 import { HttpService } from './http.service';
 import { ReuseTabService } from '@delon/abc';
+import { UserInfoService } from './user-info-sevice';
 
 @Injectable()
 export class AuthenticationService {
@@ -14,6 +15,8 @@ export class AuthenticationService {
         private menuService: MenuService,
         private reuseTabService: ReuseTabService,
         private titleService: TitleService,
+        private settingService: SettingsService,
+        private userInfoService: UserInfoService,
         @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService
     ) {
     }
@@ -27,10 +30,9 @@ export class AuthenticationService {
         const token = this.tokenService.get().token;
         if (token != null) {
             const params = {
-                userId: this.tokenService.get().id == null ? 0 : this.tokenService.get().id,
-                AppId: 1024
+                AppCode: "FireInspectionApprove"
             };
-            return this.httpService.syncGet('/api/v1/Permissions/Menu/GetMenu', params, (res) => {
+            return this.httpService.syncGet('/api/v1/Fire/User/GetFireMenu', params, (res) => {
                 const menus = this.getMenuTree(res);
                 const menusRoot = {
                     text: '功能菜单',
@@ -68,7 +70,9 @@ export class AuthenticationService {
     }
 
     public setToken(data) {
+        this.settingService.setApp(null);
         this.tokenService.clear();
+        this.menuService.clear();
         this.tokenService.set({
             token: data,
             id: data.userId

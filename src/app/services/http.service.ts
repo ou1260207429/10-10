@@ -1,5 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
-import { _HttpClient } from '@delon/theme';
+import { _HttpClient, MenuService, SettingsService } from '@delon/theme';
 import { Router } from '@angular/router';
 import { MessageBox } from './message-box';
 import { Observable } from 'rxjs';
@@ -134,6 +134,9 @@ export class HttpService {
 
     public goLogin(callback) {
         (this.injector.get(DA_SERVICE_TOKEN) as ITokenService).clear();
+        (this.injector.get(MenuService)).clear();
+        (this.injector.get(SettingsService)).setUser(null);
+
         let url = this.configService.config.serviceSetting.loginUrl;
         if (callback == null) {
             callback = location.href;

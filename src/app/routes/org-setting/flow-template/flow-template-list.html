@@ -1,0 +1,91 @@
+<div class="c-box">
+    <form nz-form class="ant-advanced-search-form">
+        <div nz-row class="search-form">
+            <div class="form-item-search">
+                <nz-form-item nzFlex>
+                    <nz-form-label nzFor="appID">应用名称：</nz-form-label>
+                    <nz-form-control>
+                        <app-list-select name="appID" [(ngModel)]="searchData.appID"
+                            (initComplete)="initAppListComplete()" (selectChange)='appSelectChange($event)'
+                            [allowClear]='false' [defaultFirstOption]='true'>
+                        </app-list-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="form-item-search">
+                <nz-form-item nzFlex>
+                    <nz-form-label nzFor="roleName">角色名称：</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input placeholder="模糊匹配" name="roleName" [(ngModel)]="searchData.roleName">
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="form-item-search">
+                <nz-form-item nzFlex>
+                    <nz-form-label nzFor="roleCode">角色编码：</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input placeholder="全匹配" name="searchData.roleCode" [(ngModel)]="searchData.roleCode">
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div class="form-item-search btn-control">
+                <div class="search-btn-group">
+                    <button nz-button type="button" nzType="primary" (click)="search()"><i nz-icon
+                            type="search"></i>搜索</button>
+                    <button nz-button type="button" nzType="default" (click)="reset()"><i nz-icon
+                            type="redo"></i>重置</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div>
+    <button nz-button [nzType]="'primary'" (click)="edit(null)"><i nz-icon type="plus"></i>添加</button>
+</div>
+
+<div class="search-result-list">
+    <nz-table #ajaxTable nzBordered nzSize="small" nzShowSizeChanger [nzShowQuickJumper]="true"
+        [nzFrontPagination]="false" [nzData]="pageData.items" [nzLoading]="loading" [nzTotal]="pageData.totalNum"
+        [(nzPageIndex)]="pageData.currentPage" [(nzPageSize)]="pageData.pageSize" (nzPageIndexChange)="goPage()"
+        (nzPageSizeChange)="search()">
+        <thead>
+            <tr>
+                <th>模板ID</th>
+                <th>模板编码</th>
+                <th>模板名称</th>
+                <th>是否禁用</th>
+                <th class="action-column">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of ajaxTable.data">
+                <td>{{data.appName}}</td>
+                <td>{{data.roleName}}</td>
+                <td>{{data.roleCode}}</td>
+                <td class="data-center">
+                    <i nz-icon [type]="'close'" class="disable-data"
+                        [style.display]="data.disable==1?'block':'none'"></i>
+                </td>
+                <td class="data-center">
+                    <a href="javascript:void(0);" nzTitle="编辑" nzPlacement="top" nz-tooltip (click)="edit(data)">
+                        <i nz-icon type="edit"></i></a>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <a href="javascript:void(0);" nzTitle="资源授权" nzPlacement="top" nz-tooltip (click)="authorize(data)">
+                        <!-- <i nz-icon type="team"></i> -->
+                        <i nz-icon nzType="lock" nzTheme="outline"></i></a>
+                    <!-- <nz-divider nzType="vertical"></nz-divider>
+            <nz-popconfirm [nzTitle]="'确定禁用吗？'" (nzOnConfirm)="delete(data.appId, data.roleId)">
+              <a nz-popconfirm> <i nz-icon type="eye-invisible" nzTitle="禁用" nzPlacement="top" nz-tooltip></i></a>
+            </nz-popconfirm> -->
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>
+
+<role-edit *ngIf="isEdit==true" [(visible)]='isEdit' [date4Search]='editData' (complete)="goPage()">
+</role-edit>
+
+<role-res *ngIf="isAuthorize==true" [(visible)]='isAuthorize' [date4Search]='editData'></role-res>

@@ -1,11 +1,12 @@
 {
-    "app": {
-      "name": "统一认证中心",
-      "description": "统一认证中心实现单点登录、单点退出和统一的身份认证功能"
-    },
-    "serviceSetting": {
-        "fireUrl": "http://192.168.30.103:8051",
-        "loginUrl": "http://192.168.30.103:8123/#/login"
-    }
+  "app": {
+    "name": "广西建设工程消防设计审查验收备案管理平台",
+    "description": "广西建设工程消防设计审查验收备案管理平台"
+  },
+  "serviceSetting": {
+      "fireUrl": "http://192.168.30.103:8051",
+      "loginUrl": "http://192.168.30.103:8123/#/login",
+      "officeHallUrl":"http://222.84.250.158:8112/#/index",
+      "uaaUrl":"http://192.168.30.103:8123"
   }
-  
+}

@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '@shared';
 import { OrgSettingRoutingModule } from './org-setting-routing.module';
+import { FlowTemplateListComponent } from './flow-template/flow-template-list';
 
 const COMPONENTS = [
+    FlowTemplateListComponent,
 ];
 const COMPONENTS_NOROUNT = [];
 

@@ -5,6 +5,8 @@
   },
   "serviceSetting": {
       "fireUrl": "http://192.168.30.103:8051",
-      "loginUrl": "http://192.168.30.103:8123/#/login"
+      "loginUrl": "http://192.168.30.103:8123/#/login",
+      "officeHallUrl":"http://222.84.250.158:8112/#/index",
+      "uaaUrl":"http://192.168.30.103:8123"
   }
 }

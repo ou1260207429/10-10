@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { SettingsService } from '@delon/theme';
+import { ConfigService } from 'src/app/services/config.service';
 
 @Component({
   selector: 'layout-header',
@@ -9,7 +10,7 @@ import { SettingsService } from '@delon/theme';
 export class HeaderComponent {
   searchToggleStatus: boolean;
 
-  constructor(public settings: SettingsService) { }
+  constructor(public settings: SettingsService, private configService: ConfigService) { }
 
   toggleCollapsedSidebar() {
     this.settings.setLayout('collapsed', !this.settings.layout.collapsed);
@@ -20,6 +21,11 @@ export class HeaderComponent {
   }
 
   openHall() {
-    window.open("http://dn5.gxcic.net:8302/#/index");
+    window.open(this.configService.config.serviceSetting.officeHallUrl);
   }
+
+  openUaa() {
+    window.open(this.configService.config.serviceSetting.uaaUrl);
+  }
+
 }

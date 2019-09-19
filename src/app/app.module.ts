@@ -97,6 +97,7 @@ import { HttpService } from './services/http.service';
 import { ConfigService } from './services/config.service';
 import { AuthenticationService } from './services/authentication.service';
 import { CustomGuard } from './services/custom-guard';
+import { UserInfoService } from './services/user-info-sevice';
 
 @NgModule({
   declarations: [AppComponent],
@@ -118,6 +119,7 @@ import { CustomGuard } from './services/custom-guard';
     HttpService,
     ConfigService,
     AuthenticationService,
+    UserInfoService,
     CustomGuard],
   bootstrap: [AppComponent],
 })

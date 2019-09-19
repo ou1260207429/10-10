@@ -2,6 +2,8 @@ import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { SettingsService } from '@delon/theme';
 import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { UserInfoService } from 'src/app/services/user-info-sevice';
 // import { HeaderService } from '../header.service';
 
 @Component({
@@ -14,7 +16,9 @@ import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
       [nzDropdownMenu]="userMenu"
     >
       <nz-avatar [nzSrc]="settings.user.avatar" nzIcon="user" nzSize="default" class="mr-sm"></nz-avatar>
+      <p style="text-overflow: ellipsis;max-width:130px;margin-bottom:0;-webkit-line-clamp: 2;display: -webkit-box;overflow: hidden;-webkit-box-orient: vertical;">
       {{ settings.user.name }}
+      </p>
     </div>
     <nz-dropdown-menu #userMenu="nzDropdownMenu">
       <div nz-menu class="width-sm">
@@ -46,10 +50,13 @@ export class HeaderUserComponent {
   constructor(
     public settings: SettingsService,
     private router: Router,
+    private userInfoService: UserInfoService,
     // provide: HTTP_INTERCEPTORS, useClass: SimpleInterceptor, multi: true ,
     @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
     //
-  ) { }
+  ) {
+    this.userInfoService.init();
+  }
 
 
   logout() {
