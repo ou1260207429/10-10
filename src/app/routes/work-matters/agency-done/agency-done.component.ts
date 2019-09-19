@@ -41,7 +41,7 @@ export class WorkMattersAgencyDoneComponent implements OnInit {
   // fliterForm: FormGroup;
 
   isEdit = false; // 是否编辑状态
-
+  rangeTime: [];//时间
   constructor(
     private formBuilder: FormBuilder,
     //  private AppManageService: AppManageService,

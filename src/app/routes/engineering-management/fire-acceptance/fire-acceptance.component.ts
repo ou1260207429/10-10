@@ -36,7 +36,7 @@ export class EngineeringManagementFireAcceptanceComponent implements OnInit {
   }
 
   formGroup: FormGroup;
-
+  rangeTime = [];//时间
   listData;// 接收应用列表数据
 
 

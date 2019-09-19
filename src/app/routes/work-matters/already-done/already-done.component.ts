@@ -28,7 +28,7 @@ export class WorkMattersAlreadyDoneComponent implements OnInit {
   formGroup: FormGroup;
 
   listData;// 接收应用列表数据
-
+  rangeTime;
 
   pageConfig: STPage = {
     front: false,

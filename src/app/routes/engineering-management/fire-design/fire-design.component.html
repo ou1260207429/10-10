@@ -39,10 +39,10 @@
 
       <div class="form-item-search">
         <nz-form-item nzFlex>
-          <nz-form-label nzFor="isExpireTime">是否超时：</nz-form-label>
+          <nz-form-label nzFor="isExpire">是否超时：</nz-form-label>
           <nz-form-control>
             <nz-select class="search_menu_input" nzShowSearch nzAllowClear style="width: 100%;"
-              [(ngModel)]="postmodel.isExpireTime" name="isExpireTime" nzPlaceHolder="请是否超时">
+              [(ngModel)]="postmodel.isExpire" name="isExpire" nzPlaceHolder="请是否超时">
               <nz-option nzLabel="是" nzValue="true"></nz-option>
               <nz-option nzLabel="否" nzValue="false"></nz-option>
 
@@ -55,7 +55,7 @@
         <nz-form-item nzFlex>
           <nz-form-label nzFor="rangeTime">申报时间：</nz-form-label>
           <nz-form-control>
-            <nz-range-picker [(ngModel)]="postmodel.rangeTime" name="rangeTime" nzFormat="yyyy/MM/dd">
+            <nz-range-picker [(ngModel)]="rangeTime" name="rangeTime" nzFormat="yyyy/MM/dd">
             </nz-range-picker>
           </nz-form-control>
         </nz-form-item>

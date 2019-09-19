@@ -46,7 +46,7 @@ export class EngineeringManagementFireDesignComponent implements OnInit {
   };
 
   editData: AppModel; // 添加和编辑数据模型
-
+  rangeTime: [];//时间
   // fliterForm: FormGroup;
 
   isEdit = false; // 是否编辑状态

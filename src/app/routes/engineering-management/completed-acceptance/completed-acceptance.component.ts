@@ -33,11 +33,10 @@ export class EngineeringManagementCompletedAcceptanceComponent implements OnInit
     natureName: '',
     proType: '-1',
   }
-  rangeTime = [];
   formGroup: FormGroup;
 
   listData;// 接收数据
-
+  rangeTime;
 
   pageConfig: STPage = {
     front: false,
@@ -70,12 +69,14 @@ export class EngineeringManagementCompletedAcceptanceComponent implements OnInit
       userID: [false],
       appID: [false],
     });
-    this.listData = {}
+    this.listData = {};
+    this.rangeTime = {};
   }
 
   ngOnInit() {
     this.resetTime();
     //this.getlist();
+
   }
 
   // 获取列表
