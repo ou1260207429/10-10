@@ -24,6 +24,7 @@ const routes: Routes = [
       // { path: 'work-matters', loadChildren: () => import('./work-matters/work-matters.module').then(m => m.WorkMattersModule) },
       { path: 'work-matters', loadChildren: './work-matters/work-matters.module#WorkMattersModule' },
       { path: 'user-center', loadChildren: () => import('./user-center/user-center.module').then(m => m.UserCenterModule) },
+      { path: 'org-setting', loadChildren: './org-setting/org-setting.module#OrgSettingModule' },
     ],
   },
   {
