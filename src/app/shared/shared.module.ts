@@ -20,6 +20,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 import { NgxTinymceModule } from 'ngx-tinymce';
 
 import { TokenService } from '@delon/auth';
+import { DirectiveModule } from '../directive/directive.module';
 
 
 const THIRDMODULES = [NgZorroAntdModule, CountdownModule, EditorModule, NgxTinymceModule];
@@ -43,6 +44,7 @@ const DIRECTIVES = [];
     DelonACLModule,
     DelonFormModule,
     EditorModule,
+    DirectiveModule,
     // third libs
     ...THIRDMODULES,
   ],
@@ -62,6 +64,7 @@ const DIRECTIVES = [];
 
     DelonACLModule,
     DelonFormModule,
+    DirectiveModule,
     // i18n
     // TranslateModule,
     // third libs

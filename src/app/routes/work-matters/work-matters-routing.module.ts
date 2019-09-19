@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { WorkMattersAgencyDoneComponent } from './agency-done/agency-done.component';
+import { WorkMattersAllDoneComponent } from './all-done/all-done.component';
+import { WorkMattersAlreadyDoneComponent } from './already-done/already-done.component';
 
 const routes: Routes = [
   // {
@@ -43,7 +46,10 @@ const routes: Routes = [
   // { path: 'sign-for/:flowId', component: SignForComponent, data: { title: '签收' } },
 
   // { path: 'all-done', component: WorkMattersAllDoneComponent, data: { title: '经办事项' } },
-];
+
+  { path: 'agency-done', component: WorkMattersAgencyDoneComponent },
+  { path: 'all-done', component: WorkMattersAllDoneComponent },
+  { path: 'already-done', component: WorkMattersAlreadyDoneComponent }];
 
 
 @NgModule({
