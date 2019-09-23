@@ -12,9 +12,12 @@ export class PrintPagesCompletedAcceptancePrintComponent implements OnInit {
   constructor(private el: ElementRef) {
   }
   data: any;
+  box;
 
   ngOnInit() {
-    this.data = JSON.parse(this.getToken());
+    //this.data = JSON.parse(this.getToken());
+    this.data = {};
+    this.box = {};
   }
   ngOnDestroy(): void {
     localStorage.removeItem('jsonPrintForm');

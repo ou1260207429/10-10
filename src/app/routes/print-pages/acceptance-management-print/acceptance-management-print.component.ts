@@ -12,9 +12,12 @@ export class PrintPagesAcceptanceManagementPrintComponent implements OnInit {
   constructor(private el: ElementRef) {
   }
   data: any;
+  item;
 
   ngOnInit() {
-    this.data = JSON.parse(this.getToken());
+    // this.data = JSON.parse(this.getToken());
+    this.data = {};
+    this.item = {};
   }
 
 
