@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { _HttpClient, ModalHelper } from '@delon/theme';
 import { STColumn, STComponent } from '@delon/abc';
 import { SFSchema } from '@delon/form';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-details-fire-acceptance-assembly',
@@ -33,7 +34,11 @@ export class DetailsFireAcceptanceAssemblyComponent implements OnInit {
   }
   errorData
 
-  constructor(private http: _HttpClient, private modal: ModalHelper) {
+  constructor(
+    private http: _HttpClient,
+    private modal: ModalHelper,
+    private router: Router,
+  ) {
 
     this.position = {};
     this.data = {};
@@ -51,5 +56,8 @@ export class DetailsFireAcceptanceAssemblyComponent implements OnInit {
   }
   changeValue() {
 
+  }
+  printFormData() {
+    this.router.navigate([`/print-pages/acceptance-management-print`]);
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { _HttpClient, ModalHelper } from '@delon/theme';
 import { STColumn, STComponent } from '@delon/abc';
 import { SFSchema } from '@delon/form';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-details-fire-design-declare-assembly',
@@ -34,7 +35,10 @@ export class DetailsFireDesignDeclareAssemblyComponent implements OnInit {
   planStartTime = "2019-11-11";
   planEndTime = "2019-11-12";
   specialEngineering;
-  constructor(private http: _HttpClient, private modal: ModalHelper) {
+  constructor(private http: _HttpClient,
+    private modal: ModalHelper,
+    private router: Router,
+  ) {
 
     this.position = {};
     this.data = {};
@@ -50,6 +54,10 @@ export class DetailsFireDesignDeclareAssemblyComponent implements OnInit {
     // this.modal
     //   .createStatic(FormEditComponent, { i: { id: 0 } })
     //   .subscribe(() => this.st.reload());
+  }
+  printFormData() {
+
+    this.router.navigate([`/print-pages/fiew-design-declare-print`]);
   }
 
 }

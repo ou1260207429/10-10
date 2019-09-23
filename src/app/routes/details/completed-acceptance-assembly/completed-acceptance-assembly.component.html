@@ -5,9 +5,8 @@
 
       <thead>
         <tr>
-          <td colspan='20' rowspan='1'>建设工程竣工验收消防备案表<i *ngIf="type==1"
-              style="cursor: pointer;margin-left: 5px;color: #BD1127;" title="打印" nz-icon type="printer"
-              (click)="printFormData()" nzTheme="outline"></i></td>
+          <td colspan='20' rowspan='1'>建设工程竣工验收消防备案表<i style="cursor: pointer;margin-left: 5px;color: #BD1127;"
+              title="打印" nz-icon type="printer" (click)="printFormData()" nzTheme="outline"></i></td>
 
         </tr>
       </thead>
@@ -125,14 +124,9 @@
 
             <!-- <nz-spin [nzSpinning]="!useNatureSelect"></nz-spin> -->
             <nz-select nzPlaceHolder='请选择使用性质' [(ngModel)]="selectedValue" name="selectedValue" required>
-              <!-- <nz-option *ngFor="let option of useNatureSelect" [nzLabel]="option.natureName"
+              <nz-option *ngFor="let option of useNatureSelect" [nzLabel]="option.natureName"
                 [nzValue]="option.natureCode">
-              </nz-option> -->
-
-              <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
-              <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
-              <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
-
+              </nz-option>
             </nz-select>
             <!-- <p style="color: #f5222d;text-align: center;">
               必填
