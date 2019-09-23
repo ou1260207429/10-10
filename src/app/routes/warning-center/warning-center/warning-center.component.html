@@ -4,17 +4,41 @@
 
       <div class="form-item-search">
         <nz-form-item nzFlex>
-          <nz-form-label>工程名称：</nz-form-label>
+          <nz-form-label nzFor="projectName">工程名称：</nz-form-label>
           <nz-form-control>
-            <input nz-input placeholder="工程名称" [(ngModel)]="postmodel.draftName" name="draftName">
+            <input nz-input placeholder="工程名称" [(ngModel)]="postmodel.projectName" name="projectName">
           </nz-form-control>
         </nz-form-item>
       </div>
 
-      <div class="form-item-search btn-control">
+      <div class="form-item-search">
+        <nz-form-item nzFlex>
+          <nz-form-label nzFor="companyName">工程类型：</nz-form-label>
+          <nz-form-control>
+            <input nz-input placeholder="工程类型" [(ngModel)]="postmodel.companyName" name="companyName">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div class="form-item-search">
+        <nz-form-item nzFlex>
+          <nz-form-label nzFor="rangeTime">申报时间：</nz-form-label>
+          <nz-form-control>
+            <nz-range-picker [(ngModel)]="rangeTime" name="rangeTime" nzFormat="yyyy/MM/dd">
+            </nz-range-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <!-- <div class="form-item-search check-control" [formGroup]="formGroup">
+      
+          <label nz-checkbox formControlName="disable" [(checkboxNumber)]="postmodel.disable">显示已禁用</label>
+        </div> -->
+
+      <div class="form-item-search btn-control" style="width:300px">
         <div class="search-btn-group">
-          <!-- <button nz-button type="button" nzType="primary" (click)="search()"><i nz-icon type="search"></i>搜索</button>
-          <button nz-button type="button" nzType="default" (click)="reset()"><i nz-icon type="redo"></i>重置</button> -->
+          <button nz-button type="button" nzType="primary" (click)="search()"><i nz-icon type="search"></i>搜索</button>
+          <button nz-button type="button" nzType="default" (click)="reset()"><i nz-icon type="redo"></i>重置</button>
         </div>
       </div>
 
@@ -22,6 +46,10 @@
   </form>
 </div>
 
+
+<!-- <div>
+  <button nz-button [nzType]="'primary'" (click)="edit(null)"><i nz-icon type="plus"></i>新增竣工申报</button>
+</div> -->
 
 
 
@@ -36,31 +64,32 @@
 
   <nz-table #ajaxTable nzBordered nzSize="small" nzShowSizeChanger [nzFrontPagination]="false"
     [nzShowQuickJumper]="true" [nzData]="listData.items" [nzTotal]="listData.totalNum"
-    [(nzPageIndex)]="listData.currentPage" [(nzPageSize)]="listData.pageSize" (nzPageIndexChange)="goPage($event)"
+    [(nzPageIndex)]="listData.maxResultCount" [(nzPageSize)]="listData.page" (nzPageIndexChange)="goPage($event)"
     (nzPageSizeChange)="search()">
     <thead>
       <tr>
-        <th>项目编号</th>
+        <th>流程流水号</th>
+        <th>工程类型</th>
         <th>工程名称</th>
+        <th>工程编号</th>
         <th>建设单位</th>
-        <th>流程类型</th>
-        <th class="action-column">操作</th>
+        <th>节点名称</th>
+        <th>流程发起人</th>
+        <th>申报时间</th>
+        <th>剩余审批时间(h)</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let data of ajaxTable.data">
-        <td>{{data.draftName}}</td>
-        <td>{{data.draftName}}</td>
-        <td>{{data.draftName}}</td>
-        <td>{{data.draftName}}</td>
-
-        <td class="data-center">
-          <a href="javascript:void(0);" nzTitle="编辑" nzPlacement="top" nz-tooltip (click)="edit(data)">
-            <i nz-icon type="edit"></i></a>
-
-          <a href="javascript:void(0);" nzTitle="删除" nzPlacement="top" nz-tooltip (click)="edit(data)">
-            <i nz-icon type="edit"></i></a>
-        </td>
+        <td>{{data.recordNumber}}</td>
+        <td>{{data.projectName}}</td>
+        <td>{{data.companyName}}</td>
+        <td>{{data.isSelected}}</td>
+        <td>{{data.currentNodeName}}</td>
+        <td>{{data.isExpireTime}}</td>
+        <td>{{data.status}}</td>
+        <td>{{data.applyTime}}</td>
+        <td>{{data.applyTime}}</td>
       </tr>
     </tbody>
   </nz-table>

@@ -5,15 +5,13 @@ import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
 //import { AppManageService } from '../app-manage.service'
 import { NzMessageService } from 'ng-zorro-antd';
 import { MessageBox } from 'src/app/services/message-box';
-import { EngManageService } from '../engineering-management.service';
 //import { PageDataHelper } from 'src/app/model/page-data-helper';
 
-
 @Component({
-  selector: 'app-engineering-management-completed-acceptance',
-  templateUrl: './completed-acceptance.component.html',
+  selector: 'app-statistics-unit-project-statis',
+  templateUrl: './unit-project-statis.component.html',
 })
-export class EngineeringManagementCompletedAcceptanceComponent implements OnInit {
+export class StatisticsUnitProjectStatisComponent implements OnInit {
   postmodel = {
     endApplyTime: "2019-07-31 23:59:59",
     flowPathType: 3,
@@ -51,7 +49,7 @@ export class EngineeringManagementCompletedAcceptanceComponent implements OnInit
 
   constructor(
     private formBuilder: FormBuilder,
-    private engManageService: EngManageService,
+    //private engManageService: EngManageService,
     private messageBox: MessageBox,
     private fb: FormBuilder,
 

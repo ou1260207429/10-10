@@ -5,15 +5,14 @@ import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
 //import { AppManageService } from '../app-manage.service'
 import { NzMessageService } from 'ng-zorro-antd';
 import { MessageBox } from 'src/app/services/message-box';
-import { EngManageService } from '../engineering-management.service';
 //import { PageDataHelper } from 'src/app/model/page-data-helper';
 
 
 @Component({
-  selector: 'app-engineering-management-completed-acceptance',
-  templateUrl: './completed-acceptance.component.html',
+  selector: 'app-statistics-weekly-statistics',
+  templateUrl: './weekly-statistics.component.html',
 })
-export class EngineeringManagementCompletedAcceptanceComponent implements OnInit {
+export class StatisticsWeeklyStatisticsComponent implements OnInit {
   postmodel = {
     endApplyTime: "2019-07-31 23:59:59",
     flowPathType: 3,
@@ -44,6 +43,8 @@ export class EngineeringManagementCompletedAcceptanceComponent implements OnInit
   };
 
   editData: AppModel; // 添加和编辑数据模型
+  reportData;
+  data;
 
   // fliterForm: FormGroup;
 
@@ -51,7 +52,7 @@ export class EngineeringManagementCompletedAcceptanceComponent implements OnInit
 
   constructor(
     private formBuilder: FormBuilder,
-    private engManageService: EngManageService,
+    //private engManageService: EngManageService,
     private messageBox: MessageBox,
     private fb: FormBuilder,
 
@@ -70,6 +71,8 @@ export class EngineeringManagementCompletedAcceptanceComponent implements OnInit
       appID: [false],
     });
     this.listData = {};
+    this.reportData = {};
+    this.data = {};
   }
 
   ngOnInit() {

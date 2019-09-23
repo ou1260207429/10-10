@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
 //import { AppManageService } from '../app-manage.service'
 import { NzMessageService } from 'ng-zorro-antd';
 import { MessageBox } from 'src/app/services/message-box';
+import { EngManageService } from '../engineering-management.service';
 //import { PageDataHelper } from 'src/app/model/page-data-helper';
 // import { SFSchema } from '@delon/form';
 
@@ -15,15 +16,13 @@ import { MessageBox } from 'src/app/services/message-box';
 })
 export class EngineeringManagementDraftsComponent implements OnInit {
   postmodel = {
-    appName: '',
-    appCode: '',
-    disable: -1,
-    userID: 0,
+    draftName: '',
+    applyType: 0,
     currentPage: 1,
     pageSize: 10,
-    sorting: '',
-    // startDateTime: "2019-8-10",
-    // endDateTime: "2019-8-20"
+    sorting: 0,
+    startDateTime: '',
+    endDateTime: '',
   }
 
   formGroup: FormGroup;
@@ -44,7 +43,7 @@ export class EngineeringManagementDraftsComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    //  private AppManageService: AppManageService,
+    private engManageService: EngManageService,
     private messageBox: MessageBox,
     private fb: FormBuilder,
 
@@ -74,10 +73,10 @@ export class EngineeringManagementDraftsComponent implements OnInit {
   getlist() {
     // this.postmodel.currentPage = this.listData.currentPage;
     // this.postmodel.pageSize = this.listData.pageSize;
-    // this.AppManageService.GetAppManageList(this.postmodel, data => {
-    //   this.listData = data;
-    // }, () => {
-    // });
+    this.engManageService.GetDraftList(this.postmodel, data => {
+      this.listData = data;
+    }, () => {
+    });
   }
 
   getAppTypeName(appType) {
@@ -113,25 +112,23 @@ export class EngineeringManagementDraftsComponent implements OnInit {
 
   // 搜索
   search() {
-    this.postmodel.appCode = this.postmodel.appCode.trim();
-    this.postmodel.appName = this.postmodel.appName.trim();
-    this.listData.currentPage = 1,
-      this.getlist()
+    // this.postmodel.appCode = this.postmodel.appCode.trim();
+    // this.postmodel.appName = this.postmodel.appName.trim();
+    // this.listData.currentPage = 1,
+    this.getlist()
 
   };
 
   // 重置
   reset() {
     this.postmodel = {
-      appName: "",
-      appCode: "",
-      disable: -1,
-      userID: -1,
+      draftName: '',
+      applyType: 0,
       currentPage: 1,
       pageSize: 10,
-      sorting: "",
-      // startDateTime: "2019-8-10",
-      // endDateTime: "2019-8-20"
+      sorting: 0,
+      startDateTime: '',
+      endDateTime: '',
     }
 
     this.listData.currentPage = 1;

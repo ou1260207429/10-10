@@ -4,90 +4,32 @@
 
       <div class="form-item-search">
         <nz-form-item nzFlex>
-          <nz-form-label nzFor="projectName">工程名称：</nz-form-label>
+          <nz-form-label nzFor="projectName">开始时间：</nz-form-label>
           <nz-form-control>
-            <input nz-input placeholder="工程名称" [(ngModel)]="postmodel.projectName" name="projectName">
+            <nz-date-picker name="startDate" [(ngModel)]="startDate" [nzAllowClear]="false"
+              (ngModelChange)="onDateChange($event)" nzFormat="yyyy/MM/dd"></nz-date-picker>
           </nz-form-control>
         </nz-form-item>
       </div>
 
       <div class="form-item-search">
         <nz-form-item nzFlex>
-          <nz-form-label nzFor="companyName">建设单位：</nz-form-label>
+          <nz-form-label nzFor="companyName">截至时间：</nz-form-label>
           <nz-form-control>
-            <input nz-input placeholder="单位名称" [(ngModel)]="postmodel.companyName" name="companyName">
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-
-      <div class="form-item-search">
-        <nz-form-item nzFlex>
-          <nz-form-label nzFor="currentNodeName">当前环节：</nz-form-label>
-          <nz-form-control>
-            <nz-select class="search_menu_input" nzShowSearch nzAllowClear style="width: 100%;"
-              [(ngModel)]="postmodel.currentNodeName" name="currentNodeName" nzPlaceHolder="当前环节">
-              <nz-option nzLabel="全部" nzValue=""></nz-option>
-              <nz-option nzLabel="大厅发放结果" nzValue="大厅发放结果"></nz-option>
-              <nz-option nzLabel="大厅受理" nzValue="大厅受理"></nz-option>
-              <nz-option nzLabel="完结" nzValue="完结"></nz-option>
-              <nz-option nzLabel="业务承办人审核" nzValue="业务承办人审核"></nz-option>
-              <nz-option nzLabel="业务审批负责人审批" nzValue="业务审批负责人审批"></nz-option>
-            </nz-select>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-
-      <div class="form-item-search">
-        <nz-form-item nzFlex>
-          <nz-form-label nzFor="isExpire">是否超时：</nz-form-label>
-          <nz-form-control>
-            <nz-select class="search_menu_input" nzShowSearch nzAllowClear style="width: 100%;"
-              [(ngModel)]="postmodel.isExpire" name="isExpire" nzPlaceHolder="请是否超时">
-              <nz-option nzLabel="是" nzValue="true"></nz-option>
-              <nz-option nzLabel="否" nzValue="false"></nz-option>
-
-            </nz-select>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-
-      <div class="form-item-search">
-        <nz-form-item nzFlex>
-          <nz-form-label nzFor="rangeTime">申报时间：</nz-form-label>
-          <nz-form-control>
-            <nz-range-picker [(ngModel)]="rangeTime" name="rangeTime" nzFormat="yyyy/MM/dd">
-            </nz-range-picker>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-
-      <div class="form-item-search">
-        <nz-form-item nzFlex>
-          <nz-form-label nzFor="status">审查结果：</nz-form-label>
-          <nz-form-control>
-            <nz-select class="search_menu_input" nzShowSearch nzAllowClear style="width: 100%;"
-              [(ngModel)]="postmodel.status" name="status" nzPlaceHolder="请审查结果">
-              <nz-option nzLabel="全部" nzValue="-1"></nz-option>
-              <nz-option nzLabel="未处理" nzValue="0"></nz-option>
-              <nz-option nzLabel="受理" nzValue="1"></nz-option>
-              <nz-option nzLabel="不受理" nzValue="2"></nz-option>
-              <nz-option nzLabel="不合格" nzValue="3"></nz-option>
-              <nz-option nzLabel="合格" nzValue="4"></nz-option>
-              <nz-option nzLabel="未抽中" nzValue="5"></nz-option>
-            </nz-select>
+            <nz-date-picker name="startDate" [(ngModel)]="startDate" [nzAllowClear]="false"
+              (ngModelChange)="onDateChange($event)" nzFormat="yyyy/MM/dd"></nz-date-picker>
           </nz-form-control>
         </nz-form-item>
       </div>
 
       <!-- <div class="form-item-search check-control" [formGroup]="formGroup">
-      
-          <label nz-checkbox formControlName="disable" [(checkboxNumber)]="postmodel.disable">显示已禁用</label>
-        </div> -->
+          
+              <label nz-checkbox formControlName="disable" [(checkboxNumber)]="postmodel.disable">显示已禁用</label>
+            </div> -->
 
       <div class="form-item-search btn-control" style="width:300px">
         <div class="search-btn-group">
           <button nz-button type="button" nzType="primary" (click)="search()"><i nz-icon type="search"></i>搜索</button>
-          <button nz-button type="button" nzType="default" (click)="reset()"><i nz-icon type="redo"></i>重置</button>
           <button nz-button type="button" nzType="default" (click)="reset()"><i nz-icon type="redo"></i>导出</button>
         </div>
       </div>
@@ -95,18 +37,9 @@
     </div>
   </form>
 </div>
-
-
-<div>
-  <button nz-button [nzType]="'primary'" (click)="edit(null)"><i nz-icon type="plus"></i>新增竣工申报</button>
-</div>
-
-
-
-
 <!-- <st *ngIf="listData" [data]="listData.items" [columns]="columns" [page]="pageConfig" [total]="listData.totalNum"
-    [pi]="listData.currentPage" [ps]="listData.pageSize" (change)="change($event)">
-  </st> -->
+        [pi]="listData.currentPage" [ps]="listData.pageSize" (change)="change($event)">
+      </st> -->
 
 
 
@@ -118,31 +51,113 @@
     (nzPageSizeChange)="search()">
     <thead>
       <tr>
-        <th>竣工验收备案申报编号</th>
-        <th>工程名称</th>
-        <th>建设单位</th>
-        <th>是否被抽中</th>
-        <th>当前处理环节</th>
-        <th>流程是否超时</th>
-        <th>结果</th>
-        <th>操作时间</th>
-        <th class="action-column">操作</th>
+        <th rowspan="1" colspan="2" nzLeft="0px">此表统计{{startDateName}}~{{endDateName}}数据</th>
+        <th colspan="2">消防设计审查</th>
+        <th colspan="2">消防验收</th>
+        <th colspan="2" nzRight="0px">竣工验收备案</th>
+      </tr>
+      <tr>
+        <th class="data-center" style="width: 50px;">序号</th>
+        <th class="data-center" style="width: 125px;">各地市住建局</th>
+        <th class="data-center">受理项目（项）</th>
+        <th class="data-center">已办结项目（项）</th>
+        <th class="data-center">受理项目（项）</th>
+        <th class="data-center">已办结项目（项）</th>
+        <th class="data-center">受理项目（项）</th>
+        <th class="data-center">备案抽查项目（项）</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let data of ajaxTable.data">
-        <td>{{data.recordNumber}}</td>
-        <td>{{data.projectName}}</td>
-        <td>{{data.companyName}}</td>
-        <td>{{data.isSelected}}</td>
-        <td>{{data.currentNodeName}}</td>
-        <td>{{data.isExpireTime}}</td>
-        <td>{{data.status}}</td>
-        <td>{{data.applyTime}}</td>
         <td class="data-center">
-          <a href="javascript:void(0);" nzTitle="查看" nzPlacement="top" nz-tooltip (click)="edit(data)">
-            <i nz-icon type="edit"></i></a>
+          <!-- {{i+1}} -->
+        </td>
+        <td>
+          <!-- {{data.itemName}} -->
+        </td>
+        <td class="data-center" [ngStyle]="data.isChangeInvestigateAccept === 0 ? notUpdateInWeekStyle : null">
+          <!-- {{data.investigateAcceptCount}} -->
+        </td>
+        <td class="data-center" [ngStyle]="data.isChangeInvestigateComplete === 0 ? notUpdateInWeekStyle : null">
+          <!-- {{data.investigateCompleteCount}} -->
+        </td>
+        <td class="data-center" [ngStyle]="data.isChangeAcceptanceAccept === 0 ? notUpdateInWeekStyle : null">
+          <!-- {{data.acceptanceAcceptCount}} -->
+        </td>
+        <td class="data-center" [ngStyle]="data.isChangeAcceptanceComplete === 0 ? notUpdateInWeekStyle : null">
+          <!-- {{data.acceptanceCompleteCount}} -->
+        </td>
+        <td class="data-center" [ngStyle]="data.isChangePutOnRecordAccept === 0 ? notUpdateInWeekStyle : null">
+          <!-- {{data.putOnRecordAcceptCount}} -->
+        </td>
+        <td class="data-center"
+          [ngStyle]="data.isChangePutOnRecordAcceptAndSelected === 0 ? notUpdateInWeekStyle : null">
+          <!-- {{data.putOnRecordAcceptAndSelectedCount}} -->
+        </td>
+      </tr>
 
+      <tr style="background: #F1F1F1;">
+        <td colspan="2" nzLeft="0px" style="background: #F1F1F1;font-weight: 700;text-align: right;">平台小计：
+        </td>
+        <td class="data-center">
+          <!-- {{reportData.cityAmount.investigateAcceptCount}} -->
+        </td>
+        <td class="data-center">
+          <!-- {{reportData.cityAmount.investigateCompleteCount}} -->
+        </td>
+        <td class="data-center">
+          <!-- {{reportData.cityAmount.acceptanceAcceptCount}} -->
+        </td>
+        <td class="data-center">
+          <!-- {{reportData.cityAmount.acceptanceCompleteCount}} -->
+        </td>
+        <td class="data-center">
+          <!-- {{reportData.cityAmount.putOnRecordAcceptCount}} -->
+        </td>
+        <td class="data-center">
+        </td>
+      </tr>
+      <tr style="background: #F1F1F1;">
+        <td colspan="2" nzLeft="0px" style="background: #F1F1F1;font-weight: 700;text-align: right;">合计：
+        </td>
+        <td class="data-center">
+          <!-- {{reportData.amount.investigateAcceptCount}} -->
+        </td>
+        <td class="data-center">
+          <!-- {{reportData.amount.investigateAcceptCount}} -->
+        </td>
+        <td class="data-center">
+          <!-- {{reportData.amount.investigateAcceptCount}} -->
+        </td>
+        <td class="data-center">
+          <!-- {{reportData.amount.investigateAcceptCount}} -->
+        </td>
+        <td class="data-center">
+          <!-- {{reportData.amount.investigateAcceptCount}} -->
+        </td>
+        <td class="data-center">
+          <!-- {{reportData.amount.investigateAcceptCount}} -->
+        </td>
+      </tr>
+      <tr style="background: #F1F1F1;">
+        <td colspan="2" nzLeft="0px" style="background: #F1F1F1;text-align: right;">本周新增项目：</td>
+        <td class="data-center" style="font-weight: 700;">
+          <!-- {{reportData.weeklyCityAmount.investigateAcceptCount}} -->
+        </td>
+        <td class="data-center" style="font-weight: 700;">
+          <!-- {{reportData.weeklyCityAmount.investigateAcceptCount}} -->
+        </td>
+        <td class="data-center" style="font-weight: 700;">
+          <!-- {{reportData.weeklyCityAmount.investigateAcceptCount}} -->
+        </td>
+        <td class="data-center" style="font-weight: 700;">
+          <!-- {{reportData.weeklyCityAmount.investigateAcceptCount}} -->
+        </td>
+        <td class="data-center" style="font-weight: 700;">
+          <!-- {{reportData.weeklyCityAmount.investigateAcceptCount}} -->
+        </td>
+        <td class="data-center" style="font-weight: 700;">
+          <!-- {{reportData.weeklyCityAmount.investigateAcceptCount}} -->
         </td>
       </tr>
     </tbody>
@@ -255,29 +270,29 @@
 
 
 <!-- <nz-modal [nzMaskClosable]='false' [(nzVisible)]="editBounced" nzTitle="编辑" (nzOnCancel)="editCancel()"
-    (nzOnOk)="editHandleOk()">
-    <div nz-row class="search-form">
-  
-      <div class="form-item-search">
-        <span>应用名称：</span>
-        <input nz-input placeholder="应用名称" [(ngModel)]="editParams.appName" name="appName">
-      </div>
-  
-      <div class="form-item-search">
-        <span>应用编码：</span>
-        <input nz-input placeholder="应用编码" [(ngModel)]="editParams.appCode" name="appCode">
-      </div>
-  
-      <div class="form-item-search">
-        <span>是否禁用：</span>
-        <nz-select class="search_menu_input" nzPlaceHolder="是否禁用" nzShowSearch nzAllowClear style="width: 100%;"
-          [(ngModel)]="editParams.disable" name="disable">
-  
-  
-          <nz-option nzLabel="禁用" nzValue="0"></nz-option>
-          <nz-option nzLabel="启用" nzValue="1"></nz-option>
-        </nz-select>
-      </div>
-  
-    </div> -->
+        (nzOnOk)="editHandleOk()">
+        <div nz-row class="search-form">
+      
+          <div class="form-item-search">
+            <span>应用名称：</span>
+            <input nz-input placeholder="应用名称" [(ngModel)]="editParams.appName" name="appName">
+          </div>
+      
+          <div class="form-item-search">
+            <span>应用编码：</span>
+            <input nz-input placeholder="应用编码" [(ngModel)]="editParams.appCode" name="appCode">
+          </div>
+      
+          <div class="form-item-search">
+            <span>是否禁用：</span>
+            <nz-select class="search_menu_input" nzPlaceHolder="是否禁用" nzShowSearch nzAllowClear style="width: 100%;"
+              [(ngModel)]="editParams.disable" name="disable">
+      
+      
+              <nz-option nzLabel="禁用" nzValue="0"></nz-option>
+              <nz-option nzLabel="启用" nzValue="1"></nz-option>
+            </nz-select>
+          </div>
+      
+        </div> -->
 <!-- </nz-modal> -->
