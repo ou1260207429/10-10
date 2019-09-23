@@ -20,7 +20,7 @@ export class EngineeringManagementDraftsComponent implements OnInit {
     applyType: 0,
     currentPage: 1,
     pageSize: 10,
-    sorting: 0,
+    sorting: '',
     startDateTime: '',
     endDateTime: '',
   }
@@ -126,7 +126,7 @@ export class EngineeringManagementDraftsComponent implements OnInit {
       applyType: 0,
       currentPage: 1,
       pageSize: 10,
-      sorting: 0,
+      sorting: '',
       startDateTime: '',
       endDateTime: '',
     }
