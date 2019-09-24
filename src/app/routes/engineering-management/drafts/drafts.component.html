@@ -4,7 +4,7 @@
 
       <div class="form-item-search">
         <nz-form-item nzFlex>
-          <nz-form-label>工程名称：</nz-form-label>
+          <nz-form-label>草稿箱名称</nz-form-label>
           <nz-form-control>
             <input nz-input placeholder="工程名称" [(ngModel)]="postmodel.draftName" name="draftName">
           </nz-form-control>
@@ -40,20 +40,23 @@
     (nzPageSizeChange)="search()">
     <thead>
       <tr>
-        <th>项目编号</th>
-        <th>工程名称</th>
-        <th>建设单位</th>
-        <th>流程类型</th>
+        <th>草稿箱名称</th>
+        <th>申报类型</th>
+        <th>创建时间</th>
+        <th>最近更新时间</th>
+        <th>最近更新用户编码</th>
+        <th>最近更新用户姓名</th>
         <th class="action-column">操作</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let data of ajaxTable.data">
         <td>{{data.draftName}}</td>
-        <td>{{data.draftName}}</td>
-        <td>{{data.draftName}}</td>
         <td>{{data.applyType}}</td>
-
+        <td>{{data.createTime}}</td>
+        <td>{{data.lastUpdateTime}}</td>
+        <td>{{data.lastUpdateUserCode}}</td>
+        <td>{{data.lastUpdateUserName}}</td>
         <td class="data-center">
           <a href="javascript:void(0);" nzTitle="编辑" nzPlacement="top" nz-tooltip (click)="edit(data)">
             <i nz-icon type="edit"></i></a>

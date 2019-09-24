@@ -16,7 +16,13 @@ import { EngManageService } from '../engineering-management.service';
 })
 export class EngineeringManagementDraftsComponent implements OnInit {
   postmodel = {
+    DraftId: 0,
     draftName: '',
+    Content: '',
+    CreateTime: '',
+    LastUpdateTime: '',
+    LastUpdateUserCode: '',
+    LastUpdateUserName: '',
     applyType: 0,
     currentPage: 1,
     pageSize: 10,
@@ -27,7 +33,10 @@ export class EngineeringManagementDraftsComponent implements OnInit {
 
   formGroup: FormGroup;
 
-  listData;// 接收应用列表数据
+  listData;// 接收列表数据
+  //接收id数据
+  idData;
+  draftById;
 
 
   pageConfig: STPage = {
@@ -71,11 +80,20 @@ export class EngineeringManagementDraftsComponent implements OnInit {
 
   // 获取列表
   getlist() {
-    // this.postmodel.currentPage = this.listData.currentPage;
-    // this.postmodel.pageSize = this.listData.pageSize;
+    this.postmodel.DraftId = this.draftById;
+    this.postmodel.currentPage = this.listData.currentPage;
+    this.postmodel.pageSize = this.listData.pageSize;
     this.engManageService.GetDraftList(this.postmodel, data => {
       this.listData = data;
     }, () => {
+    });
+  }
+
+  //获取ID
+
+  getId() {
+    this.engManageService.getDraftById(this.draftById, data => {
+      this.idData = data;
     });
   }
 
@@ -122,8 +140,14 @@ export class EngineeringManagementDraftsComponent implements OnInit {
   // 重置
   reset() {
     this.postmodel = {
+      DraftId: 1,
       draftName: '',
-      applyType: 0,
+      applyType: 1,
+      CreateTime: '',
+      LastUpdateTime: '',
+      LastUpdateUserCode: '',
+      LastUpdateUserName: '',
+      Content: '',
       currentPage: 1,
       pageSize: 10,
       sorting: '',

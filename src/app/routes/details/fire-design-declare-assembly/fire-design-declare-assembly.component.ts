@@ -55,6 +55,7 @@ export class DetailsFireDesignDeclareAssemblyComponent implements OnInit {
     //   .createStatic(FormEditComponent, { i: { id: 0 } })
     //   .subscribe(() => this.st.reload());
   }
+
   printFormData() {
 
     this.router.navigate([`/print-pages/fiew-design-declare-print`]);

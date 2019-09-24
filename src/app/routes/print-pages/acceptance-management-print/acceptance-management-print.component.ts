@@ -35,6 +35,7 @@ export class PrintPagesAcceptanceManagementPrintComponent implements OnInit {
   }
   ngAfterViewInit() {
     let rows = this.el.nativeElement.querySelectorAll(".row");
+    console.log(rows);
     for (var i = 0; i < rows.length; i++) {
       let ss = rows[i].offsetTop / 1470;
       let num = Math.floor(ss);

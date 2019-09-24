@@ -14,4 +14,9 @@ export class EngManageService {
     GetDraftList(model: any, successFun: (data) => void, compelteFun: () => void) {
         return this.httpService.post('/api/v1/Fire/Draft/GetDraftList', model, null, successFun, null, compelteFun);
     }
+    getDraftById(draftId, successFun: (data) => void) {
+        this.httpService.get('/api/v1/Fire/Draft/GetDraftById', { Id: draftId }, data => {
+            successFun(data);
+        }, null, null);
+    }
 }

@@ -93,16 +93,14 @@
       <tr *ngFor="let data of ajaxTable.data">
         <td>{{data.appName}}</td>
         <td>{{data.appCode}}</td>
-        <td>{{getAppTypeName(data.appType)}}</td>
-        <td>{{getAppTypeName(data.appType)}}</td>
-        <td>{{getAppTypeName(data.appType)}}</td>
-        <td>{{getAppTypeName(data.appType)}}</td>
-        <td>{{getAppTypeName(data.appType)}}</td>
+        <td>{{data.appCode}}</td>
+        <td>{{data.appCode}}</td>
+        <td>{{data.appCode}}</td>
+        <td>{{data.appCode}}</td>
+        <td>{{data.appCode}}</td>
+        <td>{{data.appCode}}</td>
         <td class="data-center">
-          <i nz-icon [type]="'close'" class="disable-data" [style.display]="data.disable==1?'block':'none'"></i>
-        </td>
-        <td class="data-center">
-          <a href="javascript:void(0);" nzTitle="详情" nzPlacement="top" nz-tooltip (click)="edit(data)">
+          <a href="javascript:void(0);" nzTitle="详情" nzPlacement="top" nz-tooltip (click)="watchItem()">
             <i nz-icon type="edit"></i></a>
 
           <a href="javascript:void(0);" nzTitle="受理凭证" nzPlacement="top" nz-tooltip (click)="edit(data)">
@@ -115,7 +113,7 @@
 
 
 <!-- 添加 -->
-<nz-modal [nzMaskClosable]='false' [(nzVisible)]="isEdit" nzTitle="应用管理" (nzOnCancel)="handleCancel()"
+<!-- <nz-modal [nzMaskClosable]='false' [(nzVisible)]="isEdit" nzTitle="应用管理" (nzOnCancel)="handleCancel()"
   (nzOnOk)="save()">
   <form nz-form class="edit-form" [formGroup]="formGroup">
     <div nz-row>
@@ -215,33 +213,4 @@
     </div>
 
   </form>
-</nz-modal>
-
-
-<!-- <nz-modal [nzMaskClosable]='false' [(nzVisible)]="editBounced" nzTitle="编辑" (nzOnCancel)="editCancel()"
-      (nzOnOk)="editHandleOk()">
-      <div nz-row class="search-form">
-    
-        <div class="form-item-search">
-          <span>应用名称：</span>
-          <input nz-input placeholder="应用名称" [(ngModel)]="editParams.appName" name="appName">
-        </div>
-    
-        <div class="form-item-search">
-          <span>应用编码：</span>
-          <input nz-input placeholder="应用编码" [(ngModel)]="editParams.appCode" name="appCode">
-        </div>
-    
-        <div class="form-item-search">
-          <span>是否禁用：</span>
-          <nz-select class="search_menu_input" nzPlaceHolder="是否禁用" nzShowSearch nzAllowClear style="width: 100%;"
-            [(ngModel)]="editParams.disable" name="disable">
-    
-    
-            <nz-option nzLabel="禁用" nzValue="0"></nz-option>
-            <nz-option nzLabel="启用" nzValue="1"></nz-option>
-          </nz-select>
-        </div>
-    
-      </div> -->
-<!-- </nz-modal> -->
+</nz-modal> -->

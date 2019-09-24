@@ -6,9 +6,21 @@ import { PrintPagesFiewDesignDeclarePrintComponent } from './fiew-design-declare
 
 const routes: Routes = [
 
-  { path: 'acceptance-management-print', component: PrintPagesAcceptanceManagementPrintComponent },
-  { path: 'completed-acceptance-print', component: PrintPagesCompletedAcceptancePrintComponent },
-  { path: 'fiew-design-declare-print', component: PrintPagesFiewDesignDeclarePrintComponent }];
+  {
+    path: 'acceptance-management-print',
+    component: PrintPagesAcceptanceManagementPrintComponent,
+    data: { title: '消防验收打印', reuse: false },
+  },
+  {
+    path: 'completed-acceptance-print',
+    component: PrintPagesCompletedAcceptancePrintComponent,
+    data: { title: '竣工验收打印', reuse: false },
+  },
+  {
+    path: 'fiew-design-declare-print',
+    component: PrintPagesFiewDesignDeclarePrintComponent,
+    data: { title: '消防设计打印', reuse: false },
+  }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

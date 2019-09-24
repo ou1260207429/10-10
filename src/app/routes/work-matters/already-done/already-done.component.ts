@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
 //import { AppManageService } from '../app-manage.service'
 import { NzMessageService } from 'ng-zorro-antd';
 import { MessageBox } from 'src/app/services/message-box';
+import { Router } from '@angular/router';
 //import { PageDataHelper } from 'src/app/model/page-data-helper';
 // import { SFSchema } from '@delon/form';
 
@@ -46,6 +47,7 @@ export class WorkMattersAlreadyDoneComponent implements OnInit {
     //  private AppManageService: AppManageService,
     private messageBox: MessageBox,
     private fb: FormBuilder,
+    private router: Router,
 
   ) {
 
@@ -178,6 +180,10 @@ export class WorkMattersAlreadyDoneComponent implements OnInit {
       }
     }
     // this.isEdit = false;
+  }
+
+  watchItem(item) {
+    this.router.navigate([`/details/completed-acceptance-assembly`]);
   }
 
   protected validateForm(): boolean {

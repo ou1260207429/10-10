@@ -12,6 +12,12 @@ import { CustomGuard } from '../services/custom-guard';
 
 const routes: Routes = [
   {
+    path: 'print-pages',
+    component: LayoutFullScreenComponent,
+    data: { title: '打印', reuse: false },
+    loadChildren: './print-pages/print-pages.module#PrintPagesModule'
+  },
+  {
     path: '',
     component: LayoutDefaultComponent,
     canActivate: [CustomGuard],
@@ -24,11 +30,11 @@ const routes: Routes = [
       // { path: 'work-matters', loadChildren: () => import('./work-matters/work-matters.module').then(m => m.WorkMattersModule) },
       { path: 'work-matters', loadChildren: './work-matters/work-matters.module#WorkMattersModule' },
       { path: 'warning-center', loadChildren: './warning-center/warning-center.module#WarningCenterModule' },
-      { path: 'print-pages', loadChildren: './print-pages/print-pages.module#PrintPagesModule' },
       { path: 'statistics', loadChildren: './statistics/statistics.module#StatisticsModule' },
       { path: 'details', loadChildren: './details/details.module#DetailsModule' },
       { path: 'user-center', loadChildren: () => import('./user-center/user-center.module').then(m => m.UserCenterModule) },
       { path: 'org-setting', loadChildren: './org-setting/org-setting.module#OrgSettingModule' },
+
     ],
   },
   {

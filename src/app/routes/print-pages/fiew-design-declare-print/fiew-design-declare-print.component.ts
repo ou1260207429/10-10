@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { _HttpClient, ModalHelper } from '@delon/theme';
-import { STColumn, STComponent } from '@delon/abc';
-import { SFSchema } from '@delon/form';
 
 @Component({
   selector: 'app-print-pages-fiew-design-declare-print',
@@ -29,7 +27,9 @@ export class PrintPagesFiewDesignDeclarePrintComponent implements OnInit {
     window.print()
   }
   ngAfterViewInit() {
+
     let rows = this.el.nativeElement.querySelectorAll(".row");
+    //  console.log(rows);
     for (var i = 0; i < rows.length; i++) {
       let ss = rows[i].offsetTop / 1470;
       let num = Math.floor(ss);
@@ -44,3 +44,4 @@ export class PrintPagesFiewDesignDeclarePrintComponent implements OnInit {
     history.go(-1);
   }
 }
+
