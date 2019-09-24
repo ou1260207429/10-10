@@ -21,6 +21,7 @@ import { NgxTinymceModule } from 'ngx-tinymce';
 
 import { TokenService } from '@delon/auth';
 import { DirectiveModule } from '../directive/directive.module';
+import { ApproveOrgSelect } from '../custom-widget/approve-org-select';
 
 
 const THIRDMODULES = [NgZorroAntdModule, CountdownModule, EditorModule, NgxTinymceModule];
@@ -52,6 +53,7 @@ const DIRECTIVES = [];
     // your components
     ...COMPONENTS,
     ...DIRECTIVES,
+    ApproveOrgSelect,
   ],
   exports: [
     CommonModule,
@@ -65,6 +67,7 @@ const DIRECTIVES = [];
     DelonACLModule,
     DelonFormModule,
     DirectiveModule,
+    ApproveOrgSelect,
     // i18n
     // TranslateModule,
     // third libs
