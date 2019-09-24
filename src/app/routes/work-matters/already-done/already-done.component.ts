@@ -22,9 +22,9 @@ export class WorkMattersAlreadyDoneComponent implements OnInit {
     currentPage: 1,
     pageSize: 10,
     sorting: '',
-    // startDateTime: "2019-8-10",
-    // endDateTime: "2019-8-20"
+
   }
+  data;
 
   formGroup: FormGroup;
 
@@ -63,12 +63,26 @@ export class WorkMattersAlreadyDoneComponent implements OnInit {
       userID: [false],
       appID: [false],
     });
-    this.listData = {};
+    this.listData = {
+
+    };
   }
 
   ngOnInit() {
-    //debugger
+
     this.getlist();
+    this.data = {
+      appName: '哈哈哈',
+      appCode: '123456',
+      disable: -1,
+      userID: 0,
+      currentPage: 1,
+      pageSize: 10,
+      sorting: '',
+      // startDateTime: "2019-8-10",
+      // endDateTime: "2019-8-20"
+    }
+
   }
 
   // 获取列表
