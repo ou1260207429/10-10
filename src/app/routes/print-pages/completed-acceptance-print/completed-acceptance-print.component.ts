@@ -16,7 +16,15 @@ export class PrintPagesCompletedAcceptancePrintComponent implements OnInit {
 
   ngOnInit() {
     //this.data = JSON.parse(this.getToken());
-    this.data = {};
+    this.data = {
+      jsconstructionUnit: '哈哈哈',
+      legalRepresentative: '哈哈哈',
+      legalRepresentativeNo: '111111111',
+      contacts: '哈哈哈',
+      contactsNumber: '66666666',
+      projectName: '哈哈哈哈',
+
+    };
     this.box = {};
   }
   ngOnDestroy(): void {
