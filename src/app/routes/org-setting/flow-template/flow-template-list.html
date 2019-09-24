@@ -3,28 +3,28 @@
         <div nz-row class="search-form">
             <div class="form-item-search">
                 <nz-form-item nzFlex>
-                    <nz-form-label nzFor="appID">应用名称：</nz-form-label>
+                    <nz-form-label nzFor="appID">单位名称：</nz-form-label>
                     <nz-form-control>
-                        <app-list-select name="appID" [(ngModel)]="searchData.appID"
+                        <approve-org-select name="appID" [(ngModel)]="searchData.appID"
                             (initComplete)="initAppListComplete()" (selectChange)='appSelectChange($event)'
                             [allowClear]='false' [defaultFirstOption]='true'>
-                        </app-list-select>
+                        </approve-org-select>
                     </nz-form-control>
                 </nz-form-item>
             </div>
             <div class="form-item-search">
                 <nz-form-item nzFlex>
-                    <nz-form-label nzFor="roleName">角色名称：</nz-form-label>
+                    <nz-form-label nzFor="roleName">流程类型：</nz-form-label>
                     <nz-form-control>
-                        <input nz-input placeholder="模糊匹配" name="roleName" [(ngModel)]="searchData.roleName">
-                    </nz-form-control>
-                </nz-form-item>
-            </div>
-            <div class="form-item-search">
-                <nz-form-item nzFlex>
-                    <nz-form-label nzFor="roleCode">角色编码：</nz-form-label>
-                    <nz-form-control>
-                        <input nz-input placeholder="全匹配" name="searchData.roleCode" [(ngModel)]="searchData.roleCode">
+                        <nz-select [nzAllowClear]='true' [nzServerSearch]="false" [(ngModel)]="searchData.flowType"
+                            nzPlaceHolder="流程类型">
+                            <nz-option nzLabel="设计审查" nzValue="1">
+                            </nz-option>
+                            <nz-option nzLabel="消防验收" nzValue="2">
+                            </nz-option>
+                            <nz-option nzLabel="竣工备案" nzValue="3">
+                            </nz-option>
+                        </nz-select>
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -55,7 +55,9 @@
                 <th>模板ID</th>
                 <th>模板编码</th>
                 <th>模板名称</th>
-                <th>是否禁用</th>
+                <th>单位名称</th>
+                <th>版本</th>
+                <th>流程时限</th>
                 <th class="action-column">操作</th>
             </tr>
         </thead>
@@ -85,7 +87,7 @@
     </nz-table>
 </div>
 
-<role-edit *ngIf="isEdit==true" [(visible)]='isEdit' [date4Search]='editData' (complete)="goPage()">
+<!-- <role-edit *ngIf="isEdit==true" [(visible)]='isEdit' [date4Search]='editData' (complete)="goPage()">
 </role-edit>
 
-<role-res *ngIf="isAuthorize==true" [(visible)]='isAuthorize' [date4Search]='editData'></role-res>
+<role-res *ngIf="isAuthorize==true" [(visible)]='isAuthorize' [date4Search]='editData'></role-res> -->
