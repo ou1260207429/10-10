@@ -5,34 +5,35 @@ import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
 //import { AppManageService } from '../app-manage.service'
 import { NzMessageService } from 'ng-zorro-antd';
 import { MessageBox } from 'src/app/services/message-box';
-import { EngManageService } from '../engineering-management.service';
+
 import { PageDataHelper } from 'src/app/model/page-data-helper';
+import { EngManageService } from '../../engineering-management/engineering-management.service';
 
 
 @Component({
-  selector: 'app-engineering-management-drafts',
-  templateUrl: './drafts.component.html',
+  selector: 'app-content-manage-form-download',
+  templateUrl: './form-download.component.html',
 })
-export class EngineeringManagementDraftsComponent implements OnInit {
+export class ContentManageFormDownloadComponent implements OnInit {
   postmodel = {
-    DraftId: 0,
-    draftName: '',
-    Content: '',
-    CreateTime: '',
-    LastUpdateTime: '',
-    LastUpdateUserCode: '',
-    LastUpdateUserName: '',
-    applyType: 0,
+    isAsc: false,
+    orderby: "",
+    totalCount: 200,
+    search: "",
+    startTime: "",
+    endTime: "",
     currentPage: 1,
     pageSize: 10,
     sorting: '',
-    startDateTime: '',
-    endDateTime: '',
   }
 
+  //  nzPlaceHolder = ['创建开始时间', '创建结束时间']
   formGroup: FormGroup;
 
   listData;// 接收列表数据
+  //接收id数据
+  idData;
+  draftById;
 
 
   pageConfig: STPage = {
@@ -57,10 +58,10 @@ export class EngineeringManagementDraftsComponent implements OnInit {
     this.editData = new AppModel();
     this.listData = PageDataHelper.initPageData();
     this.formGroup = this.fb.group({
-      draftName: [null, [Validators.required]],
-      applyType: [null, [Validators.required]],
-      content: [null],
-      draftId: [false],
+      attachmentName: [null, [Validators.required]],
+      // applyType: [null, [Validators.required]],
+      // content: [null],
+      // draftId: [false],
 
     });
     this.listData = {};
@@ -73,7 +74,7 @@ export class EngineeringManagementDraftsComponent implements OnInit {
 
   // 获取列表
   getlist() {
-    // this.postmodel.currentPage = this.listData.currentPage;
+    this.postmodel.currentPage = this.listData.currentPage;
     // this.postmodel.pageSize = this.listData.pageSize;
     // this.engManageService.GetDraftList(this.postmodel, data => {
     //   this.listData = data;
@@ -81,7 +82,13 @@ export class EngineeringManagementDraftsComponent implements OnInit {
     // });
   }
 
+  //获取ID
 
+  getId() {
+    this.engManageService.getDraftById(this.draftById, data => {
+      this.idData = data;
+    });
+  }
 
   getDraftTypeName(applyType) {
     var draftTypeName = "";
@@ -97,25 +104,25 @@ export class EngineeringManagementDraftsComponent implements OnInit {
 
   // 添加
   addDraft() {
-    // this.engManageService.AddDraft(this.editData, data => {
-    //   this.messageBox.success('添加数据成功');
-    //   this.isEdit = false;
-    //   this.getlist();
-    // });
+    this.engManageService.AddDraft(this.editData, data => {
+      this.messageBox.success('添加数据成功');
+      this.isEdit = false;
+      this.getlist();
+    });
   }
 
   // 编辑
   updateDraft() {
-    // this.engManageService.UpdateDraft(this.editData, data => {
-    //   this.messageBox.success('修改数据成功');
-    //   this.isEdit = false;
-    //   this.getlist();
-    // });
+    this.engManageService.UpdateDraft(this.editData, data => {
+      this.messageBox.success('修改数据成功');
+      this.isEdit = false;
+      this.getlist();
+    });
   }
 
   // 搜索
   search() {
-    //  this.postmodel.draftName = this.postmodel.draftName.trim();
+    // this.postmodel.draftName = this.postmodel.draftName.trim();
     // this.postmodel.appName = this.postmodel.appName.trim();
     this.listData.currentPage = 1,
       this.getlist()
@@ -125,19 +132,16 @@ export class EngineeringManagementDraftsComponent implements OnInit {
   // 重置
   reset() {
     this.postmodel = {
-      DraftId: 0,
-      draftName: '',
-      applyType: 0,
-      CreateTime: '',
-      LastUpdateTime: '',
-      LastUpdateUserCode: '',
-      LastUpdateUserName: '',
-      Content: '',
+      isAsc: false,
+      orderby: "",
+      totalCount: 200,
+      search: "",
+      startTime: "",
+      endTime: "",
       currentPage: 1,
       pageSize: 10,
       sorting: '',
-      startDateTime: '',
-      endDateTime: '',
+
     }
 
     this.listData.currentPage = 1;
@@ -218,3 +222,4 @@ export class AppModel {
   }
 
 }
+

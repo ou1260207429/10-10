@@ -5,15 +5,15 @@ import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
 //import { AppManageService } from '../app-manage.service'
 import { NzMessageService } from 'ng-zorro-antd';
 import { MessageBox } from 'src/app/services/message-box';
-import { EngManageService } from '../engineering-management.service';
-import { PageDataHelper } from 'src/app/model/page-data-helper';
 
+import { PageDataHelper } from 'src/app/model/page-data-helper';
+import { EngManageService } from '../../engineering-management/engineering-management.service';
 
 @Component({
-  selector: 'app-engineering-management-drafts',
-  templateUrl: './drafts.component.html',
+  selector: 'app-content-manage-policies-and-regulations',
+  templateUrl: './policies-and-regulations.component.html',
 })
-export class EngineeringManagementDraftsComponent implements OnInit {
+export class ContentManagePoliciesAndRegulationsComponent implements OnInit {
   postmodel = {
     DraftId: 0,
     draftName: '',
@@ -33,6 +33,9 @@ export class EngineeringManagementDraftsComponent implements OnInit {
   formGroup: FormGroup;
 
   listData;// 接收列表数据
+  //接收id数据
+  idData;
+  draftById;
 
 
   pageConfig: STPage = {
@@ -73,7 +76,7 @@ export class EngineeringManagementDraftsComponent implements OnInit {
 
   // 获取列表
   getlist() {
-    // this.postmodel.currentPage = this.listData.currentPage;
+    this.postmodel.currentPage = this.listData.currentPage;
     // this.postmodel.pageSize = this.listData.pageSize;
     // this.engManageService.GetDraftList(this.postmodel, data => {
     //   this.listData = data;
@@ -81,7 +84,13 @@ export class EngineeringManagementDraftsComponent implements OnInit {
     // });
   }
 
+  //获取ID
 
+  getId() {
+    this.engManageService.getDraftById(this.draftById, data => {
+      this.idData = data;
+    });
+  }
 
   getDraftTypeName(applyType) {
     var draftTypeName = "";
@@ -97,25 +106,25 @@ export class EngineeringManagementDraftsComponent implements OnInit {
 
   // 添加
   addDraft() {
-    // this.engManageService.AddDraft(this.editData, data => {
-    //   this.messageBox.success('添加数据成功');
-    //   this.isEdit = false;
-    //   this.getlist();
-    // });
+    this.engManageService.AddDraft(this.editData, data => {
+      this.messageBox.success('添加数据成功');
+      this.isEdit = false;
+      this.getlist();
+    });
   }
 
   // 编辑
   updateDraft() {
-    // this.engManageService.UpdateDraft(this.editData, data => {
-    //   this.messageBox.success('修改数据成功');
-    //   this.isEdit = false;
-    //   this.getlist();
-    // });
+    this.engManageService.UpdateDraft(this.editData, data => {
+      this.messageBox.success('修改数据成功');
+      this.isEdit = false;
+      this.getlist();
+    });
   }
 
   // 搜索
   search() {
-    //  this.postmodel.draftName = this.postmodel.draftName.trim();
+    this.postmodel.draftName = this.postmodel.draftName.trim();
     // this.postmodel.appName = this.postmodel.appName.trim();
     this.listData.currentPage = 1,
       this.getlist()
@@ -218,3 +227,4 @@ export class AppModel {
   }
 
 }
+

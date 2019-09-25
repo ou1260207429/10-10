@@ -4,9 +4,19 @@
 
       <div class="form-item-search">
         <nz-form-item nzFlex>
-          <nz-form-label>草稿箱名称：</nz-form-label>
+          <nz-form-label>标题名称：</nz-form-label>
           <nz-form-control>
-            <input nz-input placeholder="草稿箱名称" [(ngModel)]="postmodel.draftName" name="draftName">
+            <input nz-input placeholder="标题名称" [(ngModel)]="postmodel.draftName" name="draftName">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div class="form-item-search">
+        <nz-form-item nzFlex>
+          <nz-form-label nzFor="rangeTime">发布时间：</nz-form-label>
+          <nz-form-control>
+            <nz-range-picker [(ngModel)]="rangeTime" name="rangeTime" nzFormat="yyyy/MM/dd">
+            </nz-range-picker>
           </nz-form-control>
         </nz-form-item>
       </div>
@@ -28,8 +38,8 @@
 </div>
 
 <!-- <st *ngIf="listData" [data]="listData.items" [columns]="columns" [page]="pageConfig" [total]="listData.totalNum"
-    [pi]="listData.currentPage" [ps]="listData.pageSize" (change)="change($event)">
-  </st> -->
+      [pi]="listData.currentPage" [ps]="listData.pageSize" (change)="change($event)">
+    </st> -->
 
 
 
@@ -43,13 +53,13 @@
 
     <thead>
       <tr>
-        <th>草稿箱名称</th>
-        <th>申报类型</th>
-        <th>创建时间</th>
-        <th>最近更新时间</th>
-        <th>最近更新用户编码</th>
-        <th>最近更新用户姓名</th>
-        <th>草稿箱内容</th>
+        <th>法规类型</th>
+        <th>标题名称</th>
+        <th>发布时间</th>
+        <th>生效时间</th>
+        <th>最近修改时间</th>
+        <th>最近操作人账号</th>
+        <th>浏览量</th>
         <th class="action-column">操作</th>
       </tr>
     </thead>
@@ -63,8 +73,15 @@
         <td>{{data.lastUpdateUserName}}</td>
         <td>{{data.content}}</td>
         <td class="data-center">
+          <a href="javascript:void(0);" nzTitle="详情" nzPlacement="top" nz-tooltip (click)="edit(data)">
+            <i nz-icon type="edit"></i>
+          </a>
           <a href="javascript:void(0);" nzTitle="编辑" nzPlacement="top" nz-tooltip (click)="edit(data)">
-            <i nz-icon type="edit"></i></a>
+            <i nz-icon type="edit"></i>
+          </a>
+          <a href="javascript:void(0);" nzTitle="删除" nzPlacement="top" nz-tooltip (click)="edit(data)">
+            <i nz-icon type="edit"></i>
+          </a>
         </td>
       </tr>
     </tbody>
@@ -114,17 +131,17 @@
       </div>
 
       <!-- <div nz-col [nzSpan]="24" class="gutter-box">
-        <nz-form-item nzFlex>
-          <nz-form-label [nzSm]="6" nzFor="createTime" nzRequired>创建时间：</nz-form-label>
-          <nz-form-control [nzSm]="18">
-            <nz-date-picker [(ngModel)]="searchData.createTime" name="searchData.createTime" style="width: 200px">
-            </nz-date-picker>
-            <nz-form-explain *ngIf="formGroup.get('createTime').dirty && formGroup.get('createTime').errors">
-              请填写创建时间
-            </nz-form-explain>
-          </nz-form-control>
-        </nz-form-item>
-      </div> -->
+          <nz-form-item nzFlex>
+            <nz-form-label [nzSm]="6" nzFor="createTime" nzRequired>创建时间：</nz-form-label>
+            <nz-form-control [nzSm]="18">
+              <nz-date-picker [(ngModel)]="searchData.createTime" name="searchData.createTime" style="width: 200px">
+              </nz-date-picker>
+              <nz-form-explain *ngIf="formGroup.get('createTime').dirty && formGroup.get('createTime').errors">
+                请填写创建时间
+              </nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+        </div> -->
 
       <div nz-col [nzSpan]="24" class="gutter-box">
         <nz-form-item nzFlex>

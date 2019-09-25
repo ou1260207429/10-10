@@ -5,34 +5,35 @@ import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
 //import { AppManageService } from '../app-manage.service'
 import { NzMessageService } from 'ng-zorro-antd';
 import { MessageBox } from 'src/app/services/message-box';
-import { EngManageService } from '../engineering-management.service';
-import { PageDataHelper } from 'src/app/model/page-data-helper';
 
+import { PageDataHelper } from 'src/app/model/page-data-helper';
+import { EngManageService } from '../../engineering-management/engineering-management.service';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-engineering-management-drafts',
-  templateUrl: './drafts.component.html',
+  selector: 'app-content-manage-handling-guide',
+  templateUrl: './handling-guide.component.html',
 })
-export class EngineeringManagementDraftsComponent implements OnInit {
+export class ContentManageHandlingGuideComponent implements OnInit {
   postmodel = {
-    DraftId: 0,
-    draftName: '',
-    Content: '',
-    CreateTime: '',
-    LastUpdateTime: '',
-    LastUpdateUserCode: '',
-    LastUpdateUserName: '',
-    applyType: 0,
     currentPage: 1,
     pageSize: 10,
     sorting: '',
-    startDateTime: '',
-    endDateTime: '',
+    isAsc: false,
+    orderby: "",
+    totalCount: 200,
+    group: "",
+    search: "",
+    startTime: null,
+    endTime: null,
   }
 
   formGroup: FormGroup;
 
   listData;// 接收列表数据
+  //接收id数据
+  idData;
+  draftById;
 
 
   pageConfig: STPage = {
@@ -51,7 +52,7 @@ export class EngineeringManagementDraftsComponent implements OnInit {
     private engManageService: EngManageService,
     private messageBox: MessageBox,
     private fb: FormBuilder,
-
+    private router: Router,
   ) {
 
     this.editData = new AppModel();
@@ -73,7 +74,7 @@ export class EngineeringManagementDraftsComponent implements OnInit {
 
   // 获取列表
   getlist() {
-    // this.postmodel.currentPage = this.listData.currentPage;
+    this.postmodel.currentPage = this.listData.currentPage;
     // this.postmodel.pageSize = this.listData.pageSize;
     // this.engManageService.GetDraftList(this.postmodel, data => {
     //   this.listData = data;
@@ -81,7 +82,13 @@ export class EngineeringManagementDraftsComponent implements OnInit {
     // });
   }
 
+  //获取ID
 
+  getId() {
+    this.engManageService.getDraftById(this.draftById, data => {
+      this.idData = data;
+    });
+  }
 
   getDraftTypeName(applyType) {
     var draftTypeName = "";
@@ -97,25 +104,25 @@ export class EngineeringManagementDraftsComponent implements OnInit {
 
   // 添加
   addDraft() {
-    // this.engManageService.AddDraft(this.editData, data => {
-    //   this.messageBox.success('添加数据成功');
-    //   this.isEdit = false;
-    //   this.getlist();
-    // });
+    this.engManageService.AddDraft(this.editData, data => {
+      this.messageBox.success('添加数据成功');
+      this.isEdit = false;
+      this.getlist();
+    });
   }
 
   // 编辑
   updateDraft() {
-    // this.engManageService.UpdateDraft(this.editData, data => {
-    //   this.messageBox.success('修改数据成功');
-    //   this.isEdit = false;
-    //   this.getlist();
-    // });
+    this.engManageService.UpdateDraft(this.editData, data => {
+      this.messageBox.success('修改数据成功');
+      this.isEdit = false;
+      this.getlist();
+    });
   }
 
   // 搜索
   search() {
-    //  this.postmodel.draftName = this.postmodel.draftName.trim();
+    // this.postmodel.draftName = this.postmodel.draftName.trim();
     // this.postmodel.appName = this.postmodel.appName.trim();
     this.listData.currentPage = 1,
       this.getlist()
@@ -125,19 +132,16 @@ export class EngineeringManagementDraftsComponent implements OnInit {
   // 重置
   reset() {
     this.postmodel = {
-      DraftId: 0,
-      draftName: '',
-      applyType: 0,
-      CreateTime: '',
-      LastUpdateTime: '',
-      LastUpdateUserCode: '',
-      LastUpdateUserName: '',
-      Content: '',
       currentPage: 1,
       pageSize: 10,
       sorting: '',
-      startDateTime: '',
-      endDateTime: '',
+      isAsc: false,
+      orderby: "",
+      totalCount: 200,
+      group: "",
+      search: "",
+      startTime: null,
+      endTime: null,
     }
 
     this.listData.currentPage = 1;
@@ -164,7 +168,9 @@ export class EngineeringManagementDraftsComponent implements OnInit {
     this.isEdit = false;
   }
 
-
+  detail() {
+    this.router.navigate([`/content-manage/handling-guid-detail`]);
+  }
   edit(data) {
     this.isEdit = true;
     if (data == null) {//添加
@@ -218,3 +224,4 @@ export class AppModel {
   }
 
 }
+

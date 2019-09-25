@@ -24,16 +24,14 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', loadChildren: './home/home.module#HomeModule' },
-      // { path: 'catagory', loadChildren: () => import('./catagory/catagory.module').then(m => m.CatagoryModule) },
       { path: 'engineering-management', loadChildren: './engineering-management/engineering-management.module#EngineeringManagementModule' },
-      // { path: 'engineering-management', loadChildren: () => import('./engineering-management/engineering-management.module').then(m => m.EngineeringManagementModule) },
-      // { path: 'work-matters', loadChildren: () => import('./work-matters/work-matters.module').then(m => m.WorkMattersModule) },
       { path: 'work-matters', loadChildren: './work-matters/work-matters.module#WorkMattersModule' },
       { path: 'warning-center', loadChildren: './warning-center/warning-center.module#WarningCenterModule' },
       { path: 'statistics', loadChildren: './statistics/statistics.module#StatisticsModule' },
       { path: 'details', loadChildren: './details/details.module#DetailsModule' },
       { path: 'user-center', loadChildren: () => import('./user-center/user-center.module').then(m => m.UserCenterModule) },
       { path: 'org-setting', loadChildren: './org-setting/org-setting.module#OrgSettingModule' },
+      { path: 'content-manage', loadChildren: './content-manage/content-manage.module#ContentManageModule' },
 
     ],
   },
