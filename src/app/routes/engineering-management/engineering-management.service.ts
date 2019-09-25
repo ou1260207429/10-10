@@ -19,4 +19,12 @@ export class EngManageService {
             successFun(data);
         }, null, null);
     }
+    AddDraft(model: any, successFun: (data) => void) {
+        return this.httpService.post('/api/v1/Fire/Draft/AddDraft', model, null, successFun, null, null);
+    }
+    UpdateDraft(model: any, successFun: (data) => void) {
+        return this.httpService.post('/api/v1/Fire/Draft/UpdateDraft', model, null, successFun, null, null);
+    }
+
+
 }

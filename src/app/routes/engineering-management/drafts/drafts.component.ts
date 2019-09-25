@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
 import { MessageBox } from 'src/app/services/message-box';
 import { EngManageService } from '../engineering-management.service';
+import { PageDataHelper } from 'src/app/model/page-data-helper';
 //import { PageDataHelper } from 'src/app/model/page-data-helper';
 // import { SFSchema } from '@delon/form';
 
@@ -59,16 +60,13 @@ export class EngineeringManagementDraftsComponent implements OnInit {
   ) {
 
     this.editData = new AppModel();
-    //this.listData = PageDataHelper.initPageData();
+    this.listData = PageDataHelper.initPageData();
     this.formGroup = this.fb.group({
-      appCode: [null, [Validators.required]],
-      appName: [null, [Validators.required]],
-      appType: [null, [Validators.required]],
-      host: [null],
-      isClusteredApp: [null],
-      disable: [false],
-      userID: [false],
-      appID: [false],
+      draftName: [null, [Validators.required]],
+      applyType: [null, [Validators.required]],
+      content: [null],
+      draftId: [false],
+
     });
     this.listData = {};
   }
@@ -80,7 +78,6 @@ export class EngineeringManagementDraftsComponent implements OnInit {
 
   // 获取列表
   getlist() {
-    this.postmodel.DraftId = this.draftById;
     this.postmodel.currentPage = this.listData.currentPage;
     this.postmodel.pageSize = this.listData.pageSize;
     this.engManageService.GetDraftList(this.postmodel, data => {
@@ -97,52 +94,51 @@ export class EngineeringManagementDraftsComponent implements OnInit {
     });
   }
 
-  getAppTypeName(appType) {
-    var appTypeName = "";
-    switch (appType) {
-      case 1: appTypeName = 'bs'; break;
-      case 2: appTypeName = 'cs'; break;
-      case 3: appTypeName = 'app'; break;
+  getDraftTypeName(applyType) {
+    var draftTypeName = "";
+    switch (applyType) {
+      case 1: draftTypeName = '设计审查'; break;
+      case 2: draftTypeName = '消防验收'; break;
+      case 3: draftTypeName = '竣工备案'; break;
     }
 
-    return appTypeName;
+    return draftTypeName;
   }
 
 
   // 添加
-  addapp() {
-    // this.AppManageService.AddApp(this.editData, data => {
-    //   this.messageBox.success('添加数据成功');
-    //   this.isEdit = false;
-    //   this.getlist();
-    // });
+  addDraft() {
+    this.engManageService.AddDraft(this.editData, data => {
+      this.messageBox.success('添加数据成功');
+      this.isEdit = false;
+      this.getlist();
+    });
   }
 
   // 编辑
-  editapp() {
-    // this.AppManageService.UpdateApp(this.editData, data => {
-    //   this.messageBox.success('修改数据成功');
-    //   this.isEdit = false;
-    //   this.getlist();
-
-    // });
+  updateDraft() {
+    this.engManageService.UpdateDraft(this.editData, data => {
+      this.messageBox.success('修改数据成功');
+      this.isEdit = false;
+      this.getlist();
+    });
   }
 
   // 搜索
   search() {
-    // this.postmodel.appCode = this.postmodel.appCode.trim();
+    this.postmodel.draftName = this.postmodel.draftName.trim();
     // this.postmodel.appName = this.postmodel.appName.trim();
-    // this.listData.currentPage = 1,
-    this.getlist()
+    this.listData.currentPage = 1,
+      this.getlist()
 
   };
 
   // 重置
   reset() {
     this.postmodel = {
-      DraftId: 1,
+      DraftId: 0,
       draftName: '',
-      applyType: 1,
+      applyType: 0,
       CreateTime: '',
       LastUpdateTime: '',
       LastUpdateUserCode: '',
@@ -185,7 +181,6 @@ export class EngineeringManagementDraftsComponent implements OnInit {
     if (data == null) {//添加
       this.editData.init();
     } else {//编辑
-      // debugger
       this.editData.clone(data);
 
 
@@ -193,13 +188,12 @@ export class EngineeringManagementDraftsComponent implements OnInit {
   }
   save(): void {
     if (this.validateForm()) { // TODO: 数据验证
-      if (this.editData.appID == null) { // 添加
-        this.addapp();
+      if (this.editData.draftId == null) { // 添加
+        this.addDraft();
       } else { // 编辑
-        this.editapp();
+        this.updateDraft();
       }
     }
-    // this.isEdit = false;
   }
 
   protected validateForm(): boolean {
@@ -216,14 +210,11 @@ export class EngineeringManagementDraftsComponent implements OnInit {
 }
 
 export class AppModel {
-  public appID;
-  public appName: string
-  public appCode;
-  public isClusteredApp;
-  public host;
-  public appType;
-  public disable;
-  public userID;
+  public draftId;
+  public draftName;
+  public applyType;
+  public content;
+
 
   public init() {
     let appTmp = { disable: 0 };
@@ -231,15 +222,10 @@ export class AppModel {
   }
 
   public clone(data) {
-    this.appID = data.appID;
-    this.appName = data.appName;
-    this.appCode = data.appCode;
-    this.isClusteredApp = data.isClusteredApp;
-    this.host = data.host;
-    this.appType = data.appType;
-    this.disable = data.disable;
-    this.userID = data.userID;
-
+    this.draftId = data.draftId;
+    this.draftName = data.draftName;
+    this.applyType = data.applyType;
+    this.content = data.content;
   }
 
 }
