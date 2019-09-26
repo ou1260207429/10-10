@@ -6,7 +6,7 @@ import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
 import { MessageBox } from 'src/app/services/message-box';
 import { EngManageService } from '../engineering-management.service';
-import { PageDataHelper } from 'src/app/model/page-data-helper';
+import { PageDataHelper } from 'src/app/services/page-data-helper';
 
 
 @Component({
@@ -73,12 +73,12 @@ export class EngineeringManagementDraftsComponent implements OnInit {
 
   // 获取列表
   getlist() {
-    // this.postmodel.currentPage = this.listData.currentPage;
-    // this.postmodel.pageSize = this.listData.pageSize;
-    // this.engManageService.GetDraftList(this.postmodel, data => {
-    //   this.listData = data;
-    // }, () => {
-    // });
+    this.postmodel.currentPage = this.listData.currentPage;
+    this.postmodel.pageSize = this.listData.pageSize;
+    this.engManageService.GetDraftList(this.postmodel, data => {
+      this.listData = data;
+    }, () => {
+    });
   }
 
 
@@ -97,25 +97,25 @@ export class EngineeringManagementDraftsComponent implements OnInit {
 
   // 添加
   addDraft() {
-    // this.engManageService.AddDraft(this.editData, data => {
-    //   this.messageBox.success('添加数据成功');
-    //   this.isEdit = false;
-    //   this.getlist();
-    // });
+    this.engManageService.AddDraft(this.editData, data => {
+      this.messageBox.success('添加数据成功');
+      this.isEdit = false;
+      this.getlist();
+    });
   }
 
   // 编辑
   updateDraft() {
-    // this.engManageService.UpdateDraft(this.editData, data => {
-    //   this.messageBox.success('修改数据成功');
-    //   this.isEdit = false;
-    //   this.getlist();
-    // });
+    this.engManageService.UpdateDraft(this.editData, data => {
+      this.messageBox.success('修改数据成功');
+      this.isEdit = false;
+      this.getlist();
+    });
   }
 
   // 搜索
   search() {
-    //  this.postmodel.draftName = this.postmodel.draftName.trim();
+    this.postmodel.draftName = this.postmodel.draftName.trim();
     // this.postmodel.appName = this.postmodel.appName.trim();
     this.listData.currentPage = 1,
       this.getlist()
@@ -171,8 +171,6 @@ export class EngineeringManagementDraftsComponent implements OnInit {
       this.editData.init();
     } else {//编辑
       this.editData.clone(data);
-
-
     }
   }
   save(): void {

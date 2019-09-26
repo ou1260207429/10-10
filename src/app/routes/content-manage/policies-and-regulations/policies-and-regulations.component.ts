@@ -6,8 +6,10 @@ import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
 import { MessageBox } from 'src/app/services/message-box';
 
-import { PageDataHelper } from 'src/app/model/page-data-helper';
 import { EngManageService } from '../../engineering-management/engineering-management.service';
+import { Router } from '@angular/router';
+import { ConManageService } from '../content-manage.service';
+import { PageDataHelper } from 'src/app/services/page-data-helper';
 
 @Component({
   selector: 'app-content-manage-policies-and-regulations',
@@ -15,14 +17,19 @@ import { EngManageService } from '../../engineering-management/engineering-manag
 })
 export class ContentManagePoliciesAndRegulationsComponent implements OnInit {
   postmodel = {
-    DraftId: 0,
-    draftName: '',
-    Content: '',
-    CreateTime: '',
-    LastUpdateTime: '',
-    LastUpdateUserCode: '',
-    LastUpdateUserName: '',
-    applyType: 0,
+    regulationTypeId: '',
+    contentUrl: '',
+    coverUrl: '',
+    createTime: '',
+    disable: 0,
+    issueDate: '',
+    issueOrg: '',
+    lastUpdateTime: '',
+    lastUpdateUserName: '',
+    regulationCode: '',
+    regulationId: 0,
+    title: '',
+    visitCount: '',
     currentPage: 1,
     pageSize: 10,
     sorting: '',
@@ -33,9 +40,6 @@ export class ContentManagePoliciesAndRegulationsComponent implements OnInit {
   formGroup: FormGroup;
 
   listData;// 接收列表数据
-  //接收id数据
-  idData;
-  draftById;
 
 
   pageConfig: STPage = {
@@ -43,7 +47,7 @@ export class ContentManagePoliciesAndRegulationsComponent implements OnInit {
     show: true,
   };
 
-  editData: AppModel; // 添加和编辑数据模型
+  // editData: AppModel; // 添加和编辑数据模型
 
   // fliterForm: FormGroup;
 
@@ -54,18 +58,20 @@ export class ContentManagePoliciesAndRegulationsComponent implements OnInit {
     private engManageService: EngManageService,
     private messageBox: MessageBox,
     private fb: FormBuilder,
+    private router: Router,
+    private conManageService: ConManageService,
 
   ) {
 
-    this.editData = new AppModel();
-    this.listData = PageDataHelper.initPageData();
-    this.formGroup = this.fb.group({
-      draftName: [null, [Validators.required]],
-      applyType: [null, [Validators.required]],
-      content: [null],
-      draftId: [false],
+    // this.editData = new AppModel();
+    // this.listData = PageDataHelper.initPageData();
+    // this.formGroup = this.fb.group({
+    //   draftName: [null, [Validators.required]],
+    //   applyType: [null, [Validators.required]],
+    //   content: [null],
+    //   draftId: [false],
 
-    });
+    // });
     this.listData = {};
   }
 
@@ -77,55 +83,47 @@ export class ContentManagePoliciesAndRegulationsComponent implements OnInit {
   // 获取列表
   getlist() {
     this.postmodel.currentPage = this.listData.currentPage;
-    // this.postmodel.pageSize = this.listData.pageSize;
-    // this.engManageService.GetDraftList(this.postmodel, data => {
-    //   this.listData = data;
-    // }, () => {
-    // });
-  }
-
-  //获取ID
-
-  getId() {
-    this.engManageService.getDraftById(this.draftById, data => {
-      this.idData = data;
+    this.postmodel.pageSize = this.listData.pageSize;
+    this.conManageService.GetLawList(this.postmodel, data => {
+      this.listData = data;
+    }, () => {
     });
   }
 
-  getDraftTypeName(applyType) {
-    var draftTypeName = "";
-    switch (applyType) {
-      case 1: draftTypeName = '设计审查'; break;
-      case 2: draftTypeName = '消防验收'; break;
-      case 3: draftTypeName = '竣工备案'; break;
+  getRegulationTypeName(regulationTypeId) {
+    var regulationTypeName = "";
+    switch (regulationTypeId) {
+      case '1': regulationTypeName = '法律法规'; break;
+      case '2': regulationTypeName = '规范性文件'; break;
+
     }
 
-    return draftTypeName;
+    return regulationTypeName;
   }
 
 
   // 添加
   addDraft() {
-    this.engManageService.AddDraft(this.editData, data => {
-      this.messageBox.success('添加数据成功');
-      this.isEdit = false;
-      this.getlist();
-    });
+    // this.engManageService.AddDraft(this.editData, data => {
+    //   this.messageBox.success('添加数据成功');
+    //   this.isEdit = false;
+    //   this.getlist();
+    // });
   }
 
   // 编辑
   updateDraft() {
-    this.engManageService.UpdateDraft(this.editData, data => {
-      this.messageBox.success('修改数据成功');
-      this.isEdit = false;
-      this.getlist();
-    });
+    // this.engManageService.UpdateDraft(this.editData, data => {
+    //   this.messageBox.success('修改数据成功');
+    //   this.isEdit = false;
+    //   this.getlist();
+    // });
   }
 
   // 搜索
   search() {
-    this.postmodel.draftName = this.postmodel.draftName.trim();
-    // this.postmodel.appName = this.postmodel.appName.trim();
+    this.postmodel.title = this.postmodel.title.trim();
+    //this.postmodel.appName = this.postmodel.appName.trim();
     this.listData.currentPage = 1,
       this.getlist()
 
@@ -134,14 +132,19 @@ export class ContentManagePoliciesAndRegulationsComponent implements OnInit {
   // 重置
   reset() {
     this.postmodel = {
-      DraftId: 0,
-      draftName: '',
-      applyType: 0,
-      CreateTime: '',
-      LastUpdateTime: '',
-      LastUpdateUserCode: '',
-      LastUpdateUserName: '',
-      Content: '',
+      regulationTypeId: '',
+      contentUrl: '',
+      coverUrl: '',
+      createTime: '',
+      disable: 0,
+      issueDate: '',
+      issueOrg: '',
+      lastUpdateTime: '',
+      lastUpdateUserName: '',
+      regulationCode: '',
+      regulationId: 0,
+      title: '',
+      visitCount: '',
       currentPage: 1,
       pageSize: 10,
       sorting: '',
@@ -173,58 +176,64 @@ export class ContentManagePoliciesAndRegulationsComponent implements OnInit {
     this.isEdit = false;
   }
 
+  //详情
+  detail() {
 
-  edit(data) {
-    this.isEdit = true;
-    if (data == null) {//添加
-      this.editData.init();
-    } else {//编辑
-      this.editData.clone(data);
-
-
-    }
-  }
-  save(): void {
-    if (this.validateForm()) { // TODO: 数据验证
-      if (this.editData.draftId == null) { // 添加
-        this.addDraft();
-      } else { // 编辑
-        this.updateDraft();
-      }
-    }
+    this.router.navigate([`/content-manage/policies-and-regulations-details`, { operate: 1 }]);
   }
 
-  protected validateForm(): boolean {
-    let result = true;
-    for (const i in this.formGroup.controls) {
-      this.formGroup.controls[i].markAsDirty();
-      this.formGroup.controls[i].updateValueAndValidity();
-      if (this.formGroup.controls[i].dirty && this.formGroup.controls[i].errors) {
-        result = false;
-      }
-    }
-    return result;
+  edit() {
+    this.router.navigate([`/content-manage/policies-and-regulations-details`, { operate: 2 }]);
   }
+  add() {
+    this.router.navigate([`/content-manage/policies-and-regulations-details`, { operate: 0 }]);
+  }
+
+  //删除
+  delete() {
+
+  }
+  // save(): void {
+  //   if (this.validateForm()) { // TODO: 数据验证
+  //     if (this.editData.draftId == null) { // 添加
+  //       this.addDraft();
+  //     } else { // 编辑
+  //       this.updateDraft();
+  //     }
+  //   }
+  // }
+
+  //   protected validateForm(): boolean {
+  //     let result = true;
+  //     for (const i in this.formGroup.controls) {
+  //       this.formGroup.controls[i].markAsDirty();
+  //       this.formGroup.controls[i].updateValueAndValidity();
+  //       if (this.formGroup.controls[i].dirty && this.formGroup.controls[i].errors) {
+  //         result = false;
+  //       }
+  //     }
+  //     return result;
+  //   }
 }
 
-export class AppModel {
-  public draftId;
-  public draftName;
-  public applyType;
-  public content;
+// export class AppModel {
+//   public draftId;
+//   public draftName;
+//   public applyType;
+//   public content;
 
 
-  public init() {
-    let appTmp = { disable: 0 };
-    this.clone(appTmp);
-  }
+//   public init() {
+//     let appTmp = { disable: 0 };
+//     this.clone(appTmp);
+//   }
 
-  public clone(data) {
-    this.draftId = data.draftId;
-    this.draftName = data.draftName;
-    this.applyType = data.applyType;
-    this.content = data.content;
-  }
+//   public clone(data) {
+//     this.draftId = data.draftId;
+//     this.draftName = data.draftName;
+//     this.applyType = data.applyType;
+//     this.content = data.content;
+//   }
 
-}
+// }
 

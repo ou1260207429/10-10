@@ -5,6 +5,8 @@ import { ContentManagePoliciesAndRegulationsComponent } from './policies-and-reg
 import { ContentManageHandlingGuideComponent } from './handling-guide/handling-guide.component';
 import { ContentManageFormDownloadComponent } from './form-download/form-download.component';
 import { ContentManageHandlingGuidDetailComponent } from './handling-guid-detail/handling-guid-detail.component';
+import { ComponentsModule } from 'src/app/components/components.module';
+import { ContentManagePoliciesAndRegulationsDetailsComponent } from './policies-and-regulations-details/policies-and-regulations-details.component';
 
 
 
@@ -12,7 +14,8 @@ const COMPONENTS = [
   ContentManagePoliciesAndRegulationsComponent,
   ContentManageHandlingGuideComponent,
   ContentManageFormDownloadComponent,
-  ContentManageHandlingGuidDetailComponent];
+  ContentManageHandlingGuidDetailComponent,
+  ContentManagePoliciesAndRegulationsDetailsComponent];
 const COMPONENTS_NOROUNT = [];
 
 @NgModule({
@@ -21,6 +24,7 @@ const COMPONENTS_NOROUNT = [];
     // PipesModule,
     ContentManageRoutingModule,
     // UEditorModule
+    ComponentsModule,
   ],
   declarations: [...COMPONENTS, ...COMPONENTS_NOROUNT,],
   entryComponents: COMPONENTS_NOROUNT

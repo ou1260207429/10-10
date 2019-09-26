@@ -6,9 +6,9 @@ import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
 import { MessageBox } from 'src/app/services/message-box';
 
-import { PageDataHelper } from 'src/app/model/page-data-helper';
 import { EngManageService } from '../../engineering-management/engineering-management.service';
 import { Router } from '@angular/router';
+import { PageDataHelper } from 'src/app/services/page-data-helper';
 
 @Component({
   selector: 'app-content-manage-handling-guide',
