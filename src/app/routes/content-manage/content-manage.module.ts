@@ -7,6 +7,7 @@ import { ContentManageFormDownloadComponent } from './form-download/form-downloa
 import { ContentManageHandlingGuidDetailComponent } from './handling-guid-detail/handling-guid-detail.component';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { ContentManagePoliciesAndRegulationsDetailsComponent } from './policies-and-regulations-details/policies-and-regulations-details.component';
+import { ContentManageFormDownloadDetailComponent } from './form-download-detail/form-download-detail.component';
 
 
 
@@ -15,7 +16,8 @@ const COMPONENTS = [
   ContentManageHandlingGuideComponent,
   ContentManageFormDownloadComponent,
   ContentManageHandlingGuidDetailComponent,
-  ContentManagePoliciesAndRegulationsDetailsComponent];
+  ContentManagePoliciesAndRegulationsDetailsComponent,
+  ContentManageFormDownloadDetailComponent];
 const COMPONENTS_NOROUNT = [];
 
 @NgModule({

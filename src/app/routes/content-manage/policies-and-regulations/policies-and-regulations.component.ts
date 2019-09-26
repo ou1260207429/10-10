@@ -36,7 +36,7 @@ export class ContentManagePoliciesAndRegulationsComponent implements OnInit {
     startDateTime: '',
     endDateTime: '',
   }
-
+  //nzPlaceHolder = ['发布开始时间', '发布结束时间']
   formGroup: FormGroup;
 
   listData;// 接收列表数据
@@ -51,7 +51,7 @@ export class ContentManagePoliciesAndRegulationsComponent implements OnInit {
 
   // fliterForm: FormGroup;
 
-  isEdit = false; // 是否编辑状态
+  //isEdit = false; // 是否编辑状态
 
   constructor(
     private formBuilder: FormBuilder,
@@ -152,6 +152,7 @@ export class ContentManagePoliciesAndRegulationsComponent implements OnInit {
       endDateTime: '',
     }
 
+
     this.listData.currentPage = 1;
     this.getlist();
   }
@@ -172,13 +173,12 @@ export class ContentManagePoliciesAndRegulationsComponent implements OnInit {
     // this.loading = true;
   }
 
-  handleCancel(): void {
-    this.isEdit = false;
-  }
+  // handleCancel(): void {
+  //   //this.isEdit = false;
+  // }
 
   //详情
   detail() {
-
     this.router.navigate([`/content-manage/policies-and-regulations-details`, { operate: 1 }]);
   }
 

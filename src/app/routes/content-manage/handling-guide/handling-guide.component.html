@@ -15,8 +15,15 @@
         <nz-form-item nzFlex>
           <nz-form-label nzFor="rangeTime">发布时间：</nz-form-label>
           <nz-form-control>
-            <nz-range-picker [(ngModel)]="rangeTime" name="rangeTime" nzFormat="yyyy/MM/dd">
-            </nz-range-picker>
+            <!-- <nz-range-picker [(ngModel)]="rangeTime" name="rangeTime" nzFormat="yyyy/MM/dd"></nz-range-picker>-->
+
+            <nz-date-picker nzShowTime [nzFormat]="'yyyy/MM/dd HH:mm:ss'" [(ngModel)]="postmodel.startTime"
+              name="startDateTime" nzPlaceHolder="发布开始时间">
+            </nz-date-picker>~
+            <nz-date-picker nzShowTime [nzFormat]="'yyyy/MM/dd HH:mm:ss'" [(ngModel)]="postmodel.endTime"
+              name="endDateTime" nzPlaceHolder="发布结束时间">
+            </nz-date-picker>
+
           </nz-form-control>
         </nz-form-item>
       </div>
@@ -33,9 +40,9 @@
 </div>
 
 
-<div>
+<!-- <div>
   <button nz-button [nzType]="'primary'" (click)="edit(null)"><i nz-icon type="plus"></i>添加</button>
-</div>
+</div> -->
 
 <!-- <st *ngIf="listData" [data]="listData.items" [columns]="columns" [page]="pageConfig" [total]="listData.totalNum"
         [pi]="listData.currentPage" [ps]="listData.pageSize" (change)="change($event)">
@@ -59,7 +66,6 @@
         <th>操作人</th>
         <th>操作人账号</th>
         <th>最近操作时间</th>
-
         <th>浏览量</th>
         <th class="action-column">操作</th>
       </tr>
@@ -90,7 +96,7 @@
 </div>
 
 
-<!-- 添加 -->
+<!-- 添加
 <nz-modal [nzMaskClosable]='false' [(nzVisible)]="isEdit" nzTitle="草稿箱" (nzOnCancel)="handleCancel()" (nzOnOk)="save()">
   <form nz-form class="edit-form" [formGroup]="formGroup">
     <div nz-row>
@@ -130,20 +136,6 @@
           </nz-form-control>
         </nz-form-item>
       </div>
-
-      <!-- <div nz-col [nzSpan]="24" class="gutter-box">
-            <nz-form-item nzFlex>
-              <nz-form-label [nzSm]="6" nzFor="createTime" nzRequired>创建时间：</nz-form-label>
-              <nz-form-control [nzSm]="18">
-                <nz-date-picker [(ngModel)]="searchData.createTime" name="searchData.createTime" style="width: 200px">
-                </nz-date-picker>
-                <nz-form-explain *ngIf="formGroup.get('createTime').dirty && formGroup.get('createTime').errors">
-                  请填写创建时间
-                </nz-form-explain>
-              </nz-form-control>
-            </nz-form-item>
-          </div> -->
-
       <div nz-col [nzSpan]="24" class="gutter-box">
         <nz-form-item nzFlex>
           <nz-form-label [nzSm]="6" nzFor="content" nzRequired>草稿箱内容：</nz-form-label>
@@ -158,4 +150,4 @@
     </div>
 
   </form>
-</nz-modal>
+</nz-modal> -->

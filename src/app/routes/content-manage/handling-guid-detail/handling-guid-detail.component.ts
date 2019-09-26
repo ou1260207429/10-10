@@ -15,6 +15,7 @@ import { PublicServices } from 'src/app/services/public.services';
 @Component({
   selector: 'app-content-manage-handling-guid-detail',
   templateUrl: './handling-guid-detail.component.html',
+  styleUrls: ['./handling-guid-detail.less']
 })
 export class ContentManageHandlingGuidDetailComponent implements OnInit {
   fileList: any = [];

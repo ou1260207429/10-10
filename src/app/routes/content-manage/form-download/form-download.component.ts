@@ -9,6 +9,7 @@ import { MessageBox } from 'src/app/services/message-box';
 
 import { EngManageService } from '../../engineering-management/engineering-management.service';
 import { PageDataHelper } from 'src/app/services/page-data-helper';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -53,7 +54,7 @@ export class ContentManageFormDownloadComponent implements OnInit {
     private engManageService: EngManageService,
     private messageBox: MessageBox,
     private fb: FormBuilder,
-
+    private router: Router,
   ) {
 
     this.editData = new AppModel();
@@ -169,17 +170,19 @@ export class ContentManageFormDownloadComponent implements OnInit {
     this.isEdit = false;
   }
 
-
-  edit(data) {
-    this.isEdit = true;
-    if (data == null) {//添加
-      this.editData.init();
-    } else {//编辑
-      this.editData.clone(data);
-
-
-    }
+  add() {
+    this.router.navigate([`/content-manage/form-download-detail`]);
   }
+  // edit(data) {
+  //   this.isEdit = true;
+  //   if (data == null) {//添加
+  //     this.editData.init();
+  //   } else {//编辑
+  //     this.editData.clone(data);
+
+
+  //   }
+  // }
   save(): void {
     if (this.validateForm()) { // TODO: 数据验证
       if (this.editData.draftId == null) { // 添加

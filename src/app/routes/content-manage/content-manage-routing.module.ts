@@ -5,6 +5,7 @@ import { ContentManageHandlingGuideComponent } from './handling-guide/handling-g
 import { ContentManageFormDownloadComponent } from './form-download/form-download.component';
 import { ContentManageHandlingGuidDetailComponent } from './handling-guid-detail/handling-guid-detail.component';
 import { ContentManagePoliciesAndRegulationsDetailsComponent } from './policies-and-regulations-details/policies-and-regulations-details.component';
+import { ContentManageFormDownloadDetailComponent } from './form-download-detail/form-download-detail.component';
 
 const routes: Routes = [
   // {
@@ -69,7 +70,12 @@ const routes: Routes = [
     component: ContentManagePoliciesAndRegulationsDetailsComponent,
     data: { title: "政策法规详情" },
   }
-];
+  ,
+  {
+    path: 'form-download-detail',
+    component: ContentManageFormDownloadDetailComponent,
+    data: { title: "表格下载详情" },
+  }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

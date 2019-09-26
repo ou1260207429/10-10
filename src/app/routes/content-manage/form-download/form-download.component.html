@@ -18,10 +18,12 @@
             <nz-range-picker [(ngModel)]="rangeTime" name="rangeTime" nzFormat="yyyy/MM/dd">
             </nz-range-picker>
 
-            <!-- <nz-date-picker nzShowTime [nzFormat]="'yyyy/MM/dd hh:mm:ss'" [(ngModel)]="postmodel.startTime"
-              name="startTime"></nz-date-picker>~
-            <nz-date-picker nzShowTime [nzFormat]="'yyyy/MM/dd hh:mm:ss'" [(ngModel)]="postmodel.endTime"
-              name="endTime"></nz-date-picker> -->
+            <nz-date-picker nzShowTime [nzFormat]="'yyyy/MM/dd HH:mm:ss'" [(ngModel)]="postmodel.startTime"
+              name="startDateTime" nzPlaceHolder="开始创建时间">
+            </nz-date-picker>~
+            <nz-date-picker nzShowTime [nzFormat]="'yyyy/MM/dd HH:mm:ss'" [(ngModel)]="postmodel.endTime"
+              name="endDateTime" nzPlaceHolder="结束创建时间">
+            </nz-date-picker>
           </nz-form-control>
         </nz-form-item>
       </div>
@@ -39,7 +41,7 @@
 
 
 <div>
-  <button nz-button [nzType]="'primary'" (click)="edit(null)"><i nz-icon type="plus"></i>添加</button>
+  <button nz-button [nzType]="'primary'" (click)="add(null)"><i nz-icon type="plus"></i>添加</button>
 </div>
 
 <!-- <st *ngIf="listData" [data]="listData.items" [columns]="columns" [page]="pageConfig" [total]="listData.totalNum"

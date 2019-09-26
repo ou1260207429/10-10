@@ -11,12 +11,18 @@
         </nz-form-item>
       </div>
 
-      <div class="form-item-search">
+      <div class="form-item-search" style="width: 500px">
         <nz-form-item nzFlex>
           <nz-form-label nzFor="rangeTime">发布时间：</nz-form-label>
           <nz-form-control>
-            <nz-range-picker [(ngModel)]="rangeTime" name="rangeTime" nzFormat="yyyy/MM/dd">
-            </nz-range-picker>
+            <!-- <nz-range-picker [(ngMoel)]="rangeTime" name="rangeTime" nzFormat="yyyy/MM/dd"></nz-range-picker> -->
+
+            <nz-date-picker nzShowTime [nzFormat]="'yyyy/MM/dd HH:mm:ss'" [(ngModel)]="postmodel.startTime"
+              name="startDateTime" nzPlaceHolder="发布开始时间">
+            </nz-date-picker>~
+            <nz-date-picker nzShowTime [nzFormat]="'yyyy/MM/dd HH:mm:ss'" [(ngModel)]="postmodel.endTime"
+              name="endDateTime" nzPlaceHolder="发布结束时间">
+            </nz-date-picker>
           </nz-form-control>
         </nz-form-item>
       </div>
