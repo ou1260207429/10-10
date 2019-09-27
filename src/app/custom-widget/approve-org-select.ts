@@ -38,7 +38,6 @@ export class ApproveOrgSelect implements ControlValueAccessor {
     search(): void {
         this.isLoading = true;
         this.httpService.post('/api/v1/Fire/Org/GetOrg', {}, null, data => {
-            debugger
             this.list = data;
             if (this.defaultFirstOption == true && this.list != null && this.list.length > 0) {
                 this.value = this.list[0].orgId;

@@ -1,5 +1,5 @@
 import { Directive, ElementRef, HostListener, Input, HostBinding, EventEmitter, Output } from '@angular/core';
-import { NgControl } from '@angular/forms';
+import { NgControl, NgModel } from '@angular/forms';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd';
 
 @Directive({
@@ -7,7 +7,7 @@ import { NzCheckBoxOptionInterface } from 'ng-zorro-antd';
 })
 export class CheckboxNumberDirective {
 
-    constructor(private model: NgControl) { }
+    constructor(private model: NgModel) { }
 
     value = 0;
     @Input() set checkboxNumber(v) {

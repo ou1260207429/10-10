@@ -1,0 +1,150 @@
+<nz-modal [(nzVisible)]="visible" [nzTitle]="date4Search.orgName+'（'+flowTemplateData.flowTemplate.flowTemplateName+'）'"
+    (nzOnCancel)="close()" (nzOnOk)="close()" nzMaskClosable='false' [nzFooter]="footer">
+    <form nz-form class="ant-advanced-search-form">
+        <div nz-row>
+            <nz-timeline nzMode='left'>
+                <div *ngFor="let data of flowTemplateData.flowNodes; let i = index">
+
+                    <ng-template #lockTemplate>
+                        <button nz-button nzType="primary" [nzSize]="size" nzShape="circle"><i nz-icon nzType="lock"
+                                nzTheme="outline"></i></button>
+                    </ng-template>
+
+                    <ng-template #editTemplate>
+                        <div nz-tooltip nzTooltipTitle="编辑节点" nzTooltipPlacement="right">
+                            <button nz-button nzType="primary" [nzSize]="size" nzShape="circle" (click)="edit(data);"
+                                [disabled]="(data.newData!=null || isEdit==true)"><i nz-icon nzType="edit"
+                                    nzTheme="outline"></i></button>
+                        </div>
+                    </ng-template>
+
+                    <ng-template #manageTemplatet>
+                        <button nz-button nzType="primary" nzShape="circle" nz-popover
+                            [nzPopoverContent]="contentTemplate" [nzPopoverPlacement]="'right'"
+                            [disabled]="(data.newData!=null || isEdit==true)">
+                            <i nz-icon nzType="menu-unfold" nzTheme="outline"></i>
+                        </button>
+                        <ng-template #contentTemplate>
+                            <button nz-button nzType="primary" [nzSize]="'small'" nzShape="circle" nz-tooltip
+                                nzTooltipTitle="编辑节点" nzTooltipPlacement="top" (click)="edit(data);">
+                                <i nz-icon nzType="edit" nzTheme="outline"></i>
+                            </button>
+                            <button *ngIf="data.nodeType==4 && (flowTemplateData.flowNodes.length-2)!=i" nz-button
+                                nzType="primary" [nzSize]="'small'" nzShape="circle" nz-tooltip
+                                nzTooltipTitle="添加下一审批节点" nzTooltipPlacement="top" (click)="add(i, 1);">
+                                <i nz-icon nzType="plus" nzTheme="outline"></i>
+                            </button>
+                            <button *ngIf="data.nodeType==4 && (flowTemplateData.flowNodes.length-2)==i" nz-button
+                                nzType="primary" [nzSize]="'small'" nzShape="circle" nz-tooltip
+                                nzTooltipTitle="添加上一审批节点" nzTooltipPlacement="top" (click)="add(i, 0);">
+                                <i nz-icon nzType="plus" nzTheme="outline"></i>
+                            </button>
+                            <button *ngIf="data.nodeType==4 && (flowTemplateData.flowNodes.length-2)!=i" nz-button
+                                nzType="primary" [nzSize]="'small'" nzShape="circle" nz-tooltip nzTooltipTitle="删除"
+                                nzTooltipPlacement="top" (click)="delete(i);">
+                                <i nz-icon nzType="delete" nzTheme="outline"></i>
+                            </button>
+                        </ng-template>
+                    </ng-template>
+
+                    <nz-timeline-item *ngIf="data.nodeType==1 || data.nodeType==5" [nzDot]="lockTemplate">
+                        <div class="timeline-title">{{data.nodeName}}</div>
+                    </nz-timeline-item>
+
+                    <nz-timeline-item *ngIf="data.nodeType==2 || data.nodeType==3" [nzDot]="editTemplate">
+                        <div class="timeline-title">{{data.nodeName}}</div>
+                        <div *ngIf="data.newData==null">
+                            <label>办理时限：</label><label
+                                class="label-value">{{data.limitTime==null?'不限制':((data.limitTime/24)+"天")}}</label>
+                        </div>
+                        <div *ngIf="data.newData!=null">
+                            <nz-form-item class="form-item" nzFlex>
+                                <nz-form-label nzFor="nodeName">节点名称：</nz-form-label>
+                                <nz-form-control>
+                                    <input nz-input placeholder="节点名称" name="nodeName"
+                                        [(ngModel)]="data.newData.nodeName">
+                                </nz-form-control>
+                            </nz-form-item>
+                            <nz-form-item class="form-item" nzFlex>
+                                <nz-form-label nzFor="limitTime">办理时限：</nz-form-label>
+                                <nz-form-control>
+                                    <nz-input-number [nzMin]="0" [nzMax]="100" [nzStep]="1" [nzFormatter]="formatterDay"
+                                        placeholder="办理时限（天）" name="limitTime" [(ngModel)]="data.newData.limitTime">
+                                    </nz-input-number>
+                                </nz-form-control>
+                            </nz-form-item>
+                            <nz-form-item class="form-item-btn" nzFlex>
+                                <div class="search-btn-group">
+                                    <button nz-button type="button" nzType="primary" [nzSize]="'small'"
+                                        (click)="sure(data,i)">确定</button>
+                                    <button nz-button type="button" nzType="default" [nzSize]="'small'"
+                                        (click)="cancelEdit(data, i)">取消</button>
+                                </div>
+                            </nz-form-item>
+                        </div>
+                    </nz-timeline-item>
+                    <nz-timeline-item *ngIf="data.nodeType==4" [nzDot]="manageTemplatet">
+                        <div class="timeline-title">{{data.nodeName}}</div>
+                        <div *ngIf="data.newData==null">
+                            <label>办理时限：</label><label
+                                class="label-value">{{data.limitTime==null?'不限制':((data.limitTime/24)+"天")}}</label>
+                            <br />
+                            <label>岗位条件：</label><label
+                                class="label-value">{{data.authorityGroup==null?'不限制':data.authorityGroup}}</label>
+                            <br />
+                            <label>是否能指定下节点：</label><label
+                                class="label-value">{{data.limitTime==null?'不限制':((data.limitTime/24)+"天")}}</label>
+                            <br />
+                        </div>
+                        <div *ngIf="data.newData!=null">
+                            <nz-form-item class="form-item" nzFlex>
+                                <nz-form-label nzFor="nodeName">节点名称：</nz-form-label>
+                                <nz-form-control>
+                                    <input nz-input placeholder="节点名称" name="nodeName"
+                                        [(ngModel)]="data.newData.nodeName">
+                                </nz-form-control>
+                            </nz-form-item>
+                            <nz-form-item class="form-item" nzFlex>
+                                <nz-form-label nzFor="limitTime">办理时限：</nz-form-label>
+                                <nz-form-control>
+                                    <nz-input-number [nzMin]="0" [nzMax]="100" [nzStep]="1" [nzFormatter]="formatterDay"
+                                        placeholder="办理时限（天）" name="limitTime" [(ngModel)]="data.newData.limitTime">
+                                    </nz-input-number>
+                                </nz-form-control>
+                            </nz-form-item>
+                            <nz-form-item class="form-item" nzFlex>
+                                <nz-form-label nzFor="authorityGroup">岗位条件：</nz-form-label>
+                                <nz-form-control>
+                                    <nz-select name="authorityGroup" [nzAllowClear]='true' [nzServerSearch]="false"
+                                        nzPlaceHolder="办理人员岗位限制" style="width:174px;"
+                                        [(ngModel)]="data.newData.authorityGroup">
+                                        <nz-option [nzLabel]="'设计审查'" [nzValue]="'1'">
+                                        </nz-option>
+                                        <nz-option [nzLabel]="'消防验收'" [nzValue]="'2'">
+                                        </nz-option>
+                                        <nz-option [nzLabel]="'竣工备案'" [nzValue]="'3'">
+                                        </nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </nz-form-item>
+                            <nz-form-item class="form-item" nzFlex>
+                                <div style="margin-left: 120px;margin-top: 8px;">
+                                    <label nz-checkbox name="disable" [(checkboxNumber)]="data.newData.disable"
+                                        [(ngModel)]="data.newData.disableEx">禁用</label>
+                                </div>
+                            </nz-form-item>
+                            <nz-form-item class="form-item-btn" nzFlex>
+                                <div class="search-btn-group">
+                                    <button nz-button type="button" nzType="primary" [nzSize]="'small'"
+                                        (click)="sure(data, i)">确定</button>
+                                    <button nz-button type="button" nzType="default" [nzSize]="'small'"
+                                        (click)="cancelEdit(data, i)">取消</button>
+                                </div>
+                            </nz-form-item>
+                        </div>
+                    </nz-timeline-item>
+                </div>
+            </nz-timeline>
+        </div>
+    </form>
+</nz-modal>

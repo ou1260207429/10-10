@@ -98,6 +98,7 @@ import { ConfigService } from './services/config.service';
 import { AuthenticationService } from './services/authentication.service';
 import { CustomGuard } from './services/custom-guard';
 import { UserInfoService } from './services/user-info-sevice';
+import { DirectiveModule } from './directive/directive.module';
 
 @NgModule({
   declarations: [AppComponent],

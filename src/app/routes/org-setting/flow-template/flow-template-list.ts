@@ -2,6 +2,7 @@ import { Component, OnInit, } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
 import { PageDataHelper } from 'src/app/services/page-data-helper';
 import { FlowTemplateService } from 'src/app/services/flow-template.service';
+import { MessageBox } from 'src/app/services/message-box';
 
 @Component({
     selector: 'app-app-manage-role-manage',
@@ -12,26 +13,17 @@ export class FlowTemplateListComponent {
 
     loading = false; // 列表加载状态
     isEdit = false; // 是否显示编辑
-    isAuthorize = false; // 是否授权
-    editData = {}; // 编辑数据
+    editData; // 编辑数据
     pageData: any; // 分页数据
     searchData: any; // 搜索条件
-    selectAppName: string; // 选择应用名称
 
-    constructor(private flowTemplateService: FlowTemplateService) {
+    constructor(private flowTemplateService: FlowTemplateService, private messageBox: MessageBox) {
         this.pageData = PageDataHelper.initPageData();
         this.searchData = {};
+        this.editData = {};
     }
 
-    appSelectChange(event) {
-        if (event != null) {
-            this.selectAppName = event.name;
-        } else {
-            this.selectAppName = null;
-        }
-    }
-
-    initAppListComplete() {
+    initComplete() {
         this.search();
     }
 
@@ -47,31 +39,35 @@ export class FlowTemplateListComponent {
     }
 
     goPage() {
-        this.searchData.disable = -1;
-        this.searchData.userID = -1;
         this.searchData.currentPage = this.pageData.currentPage;
         this.searchData.pageSize = this.pageData.pageSize;
         this.pageData.items = null;
 
         this.loading = true;
-        this.flowTemplateService.getFlowTemplateList(this.searchData, data => {
+        this.flowTemplateService.getFlowTemplatePage(this.searchData, data => {
             this.pageData = data;
         }, () => {
             this.loading = false;
         });
     }
 
-    edit(data) {
-        if (data == null) {
-            data = {};
-            data.appID = this.searchData.appID;
-            data.appName = this.selectAppName
-        }
-        this.editData = data;
-        this.isEdit = true;
+    // 启用、禁用模板
+    enableFlowTemplate(templateId, disable) {
+        const data = { templateId: null, disable: null };
+        data.templateId = templateId;
+        data.disable = disable;
+        this.flowTemplateService.enableFlowTemplate(data, res => {
+            this.messageBox.success("修改成功");
+        }, () => {
+            this.goPage();
+        });
     }
 
-    delete(id: any) {
+    edit(data) {
+        this.editData.flowTemplateId = data.flowTemplateID;
+        this.editData.orgId = data.orgID;
+        this.editData.orgName = data.orgName;
+        this.isEdit = true;
     }
 
 }

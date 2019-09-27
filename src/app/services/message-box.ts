@@ -39,4 +39,16 @@ export class MessageBox {
         });
     }
 
+    confirm(msg: string, title: string = null, okFun = null, cancelFun = null): void {
+        if (title == null) {
+            title = '警告提示';
+        }
+        this.modalService.confirm({
+            nzTitle: title,
+            nzContent: msg,
+            nzOnOk: okFun,
+            nzOnCancel: cancelFun,
+        });
+    }
+
 }

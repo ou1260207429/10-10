@@ -3,10 +3,9 @@
         <div nz-row class="search-form">
             <div class="form-item-search">
                 <nz-form-item nzFlex>
-                    <nz-form-label nzFor="appID">单位名称：</nz-form-label>
+                    <nz-form-label nzFor="orgId">单位名称：</nz-form-label>
                     <nz-form-control>
-                        <approve-org-select name="appID" [(ngModel)]="searchData.appID"
-                            (initComplete)="initAppListComplete()" (selectChange)='appSelectChange($event)'
+                        <approve-org-select name="orgId" [(ngModel)]="searchData.orgId" (initComplete)="initComplete()"
                             [allowClear]='false' [defaultFirstOption]='true'>
                         </approve-org-select>
                     </nz-form-control>
@@ -14,15 +13,15 @@
             </div>
             <div class="form-item-search">
                 <nz-form-item nzFlex>
-                    <nz-form-label nzFor="roleName">流程类型：</nz-form-label>
+                    <nz-form-label nzFor="flowType">流程类型：</nz-form-label>
                     <nz-form-control>
-                        <nz-select [nzAllowClear]='true' [nzServerSearch]="false" [(ngModel)]="searchData.flowType"
-                            nzPlaceHolder="流程类型">
-                            <nz-option nzLabel="设计审查" nzValue="1">
+                        <nz-select name="flowType" [nzAllowClear]='true' [nzServerSearch]="false"
+                            [(ngModel)]="searchData.flowType" nzPlaceHolder="流程类型">
+                            <nz-option [nzLabel]="'设计审查'" [nzValue]="'1'">
                             </nz-option>
-                            <nz-option nzLabel="消防验收" nzValue="2">
+                            <nz-option [nzLabel]="'消防验收'" [nzValue]="'2'">
                             </nz-option>
-                            <nz-option nzLabel="竣工备案" nzValue="3">
+                            <nz-option [nzLabel]="'竣工备案'" [nzValue]="'3'">
                             </nz-option>
                         </nz-select>
                     </nz-form-control>
@@ -32,18 +31,19 @@
             <div class="form-item-search btn-control">
                 <div class="search-btn-group">
                     <button nz-button type="button" nzType="primary" (click)="search()"><i nz-icon
-                            type="search"></i>搜索</button>
+                            nzType="search"></i>搜索</button>
                     <button nz-button type="button" nzType="default" (click)="reset()"><i nz-icon
-                            type="redo"></i>重置</button>
+                            nzType="redo"></i>重置</button>
                 </div>
             </div>
         </div>
     </form>
 </div>
 
+<!-- 
 <div>
-    <button nz-button [nzType]="'primary'" (click)="edit(null)"><i nz-icon type="plus"></i>添加</button>
-</div>
+    <button nz-button [nzType]="'primary'" (click)="edit(null)"><i nz-icon nzType="plus"></i>添加</button>
+</div> -->
 
 <div class="search-result-list">
     <nz-table #ajaxTable nzBordered nzSize="small" nzShowSizeChanger [nzShowQuickJumper]="true"
@@ -52,42 +52,61 @@
         (nzPageSizeChange)="search()">
         <thead>
             <tr>
-                <th>模板ID</th>
+                <!-- <th>模板ID</th> -->
                 <th>模板编码</th>
                 <th>模板名称</th>
                 <th>单位名称</th>
                 <th>版本</th>
-                <th>流程时限</th>
+                <th>流程时限(天)</th>
+                <th>默认模板</th>
+                <th>启用</th>
                 <th class="action-column">操作</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let data of ajaxTable.data">
-                <td>{{data.appName}}</td>
-                <td>{{data.roleName}}</td>
-                <td>{{data.roleCode}}</td>
-                <td class="data-center">
-                    <i nz-icon [type]="'close'" class="disable-data"
-                        [style.display]="data.disable==1?'block':'none'"></i>
+                <!-- <td>{{data.flowTemplateID}}</td> -->
+                <td>{{data.flowTemplateCode}}</td>
+                <td>{{data.flowTemplateName}}</td>
+                <td>{{data.orgName}}</td>
+                <td class="data-center">{{data.flowVersion}}</td>
+                <td class="data-center">{{data.limitDay}}</td>
+                <td>
+                    <i nz-icon [nzType]="'check'" class="success-data"
+                        [style.display]="data.isDefault==1?'block':'none'"></i>
                 </td>
                 <td class="data-center">
-                    <a href="javascript:void(0);" nzTitle="编辑" nzPlacement="top" nz-tooltip (click)="edit(data)">
-                        <i nz-icon type="edit"></i></a>
-                    <nz-divider nzType="vertical"></nz-divider>
-                    <a href="javascript:void(0);" nzTitle="资源授权" nzPlacement="top" nz-tooltip (click)="authorize(data)">
-                        <!-- <i nz-icon type="team"></i> -->
-                        <i nz-icon nzType="lock" nzTheme="outline"></i></a>
-                    <!-- <nz-divider nzType="vertical"></nz-divider>
-            <nz-popconfirm [nzTitle]="'确定禁用吗？'" (nzOnConfirm)="delete(data.appId, data.roleId)">
-              <a nz-popconfirm> <i nz-icon type="eye-invisible" nzTitle="禁用" nzPlacement="top" nz-tooltip></i></a>
-            </nz-popconfirm> -->
+                    <i nz-icon [nzType]="'close'" class="disable-data"
+                        [style.display]="data.disable==1?'block':'none'"></i>
+                    <i nz-icon [nzType]="'check'" class="success-data"
+                        [style.display]="data.disable!=1?'block':'none'"></i>
+                </td>
+
+                <td class="data-center">
+                    <a href="javascript:void(0);" nz-tooltip nzTooltipTitle="编辑" nzTooltipPlacement="top"
+                        (click)="edit(data)">
+                        <i nz-icon nzType="edit" nzTheme="outline"></i></a>
+
+                    <nz-divider nzType="vertical" *ngIf="data.isDefault!=1"></nz-divider>
+
+                    <span nz-tooltip nzTooltipTitle="禁用" nzTooltipPlacement="top">
+                        <nz-popconfirm *ngIf="data.isDefault!=1 && data.disable!=1" [nzTitle]="'确定禁用吗？'"
+                            (nzOnConfirm)="enableFlowTemplate(data.flowTemplateID, 1)">
+                            <a nz-popconfirm> <i nz-icon nzType="close-circle" nzTheme="outline"></i></a>
+                        </nz-popconfirm>
+                    </span>
+                    <span nz-tooltip nzTooltipTitle="启用" nzTooltipPlacement="top">
+                        <nz-popconfirm *ngIf="data.isDefault!=1 && data.disable==1" [nzTitle]="'确定启用吗？'"
+                            (nzOnConfirm)="enableFlowTemplate(data.flowTemplateID, 0)">
+                            <a nz-popconfirm> <i nz-icon class="success-data" nzType="check-circle" nzTheme="outline"
+                                    nzTheme="outline"></i></a>
+                        </nz-popconfirm>
+                    </span>
                 </td>
             </tr>
         </tbody>
     </nz-table>
 </div>
 
-<!-- <role-edit *ngIf="isEdit==true" [(visible)]='isEdit' [date4Search]='editData' (complete)="goPage()">
-</role-edit>
-
-<role-res *ngIf="isAuthorize==true" [(visible)]='isAuthorize' [date4Search]='editData'></role-res> -->
+<flow-template-node *ngIf="isEdit==true" [(visible)]='isEdit' [date4Search]='editData' (complete)="goPage()">
+</flow-template-node>
