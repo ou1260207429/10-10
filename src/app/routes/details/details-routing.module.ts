@@ -6,9 +6,21 @@ import { DetailsFireDesignDeclareAssemblyComponent } from './fire-design-declare
 
 const routes: Routes = [
 
-  { path: 'completed-acceptance-assembly', component: DetailsCompletedAcceptanceAssemblyComponent },
-  { path: 'fire-acceptance-assembly', component: DetailsFireAcceptanceAssemblyComponent },
-  { path: 'fire-design-declare-assembly', component: DetailsFireDesignDeclareAssemblyComponent }];
+  {
+    path: 'completed-acceptance-assembly',
+    component: DetailsCompletedAcceptanceAssemblyComponent,
+    data: { title: "已办流程详情" },
+  },
+  {
+    path: 'fire-acceptance-assembly',
+    component: DetailsFireAcceptanceAssemblyComponent,
+    data: { title: "已办流程详情" },
+  },
+  {
+    path: 'fire-design-declare-assembly',
+    component: DetailsFireDesignDeclareAssemblyComponent,
+    data: { title: "已办流程详情" },
+  }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

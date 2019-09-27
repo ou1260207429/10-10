@@ -1,0 +1,55 @@
+<div nz-row>
+  <div nz-col nzSpan="3" style="letter-spacing: 2px;font-size: 15px;">
+  </div>
+  <div nz-col nzSpan="16" style="padding-top: 40px;height: 100%;margin-bottom: 30px;">
+    <form nz-form #f="ngForm" se-container="1">
+      <se label="标题名称：" required col="2">
+        <input type="text" nz-input required>
+      </se>
+      <se label="类型：" required col="2">
+        <nz-select nzAllowClear required>
+          <nz-option [nzValue]="" [nzLabel]=""></nz-option>
+        </nz-select>
+      </se>
+
+      <se label="附件上传：" required>
+        <nz-upload style="width: 100%;display: block" [nzFileList]="fileList" nzMultiple [nzAction]="uploadUrl"
+          [nzBeforeUpload]="beforeUpload" [nzRemove]="removeFile">
+          <button style="width: 100%;" nz-button><i nz-icon type="upload" nzTheme="outline"></i><span>上传</span></button>
+        </nz-upload>
+        <div id="File">
+          <div style="margin-top: 10px;">
+            <div class="links" style="position: relative;cursor: pointer;">
+              <a style="text-decoration: none;display: block;" class="ant-upload-list"><i nz-icon type="link"
+                  style="margin-right: 11px;" nzTheme="outline"></i><span style="color: #BD1127"></span>
+              </a>
+              <span (click)="deleteFile(item.id)" class="deleteFile"
+                style="position: absolute;top: -2px;right: 10px;display: none;font-size: 18px;">x</span>
+            </div>
+          </div>
+        </div>
+
+      </se>
+
+      <se label="简要信息管理：" required>
+        <textarea nz-input [disabled]="operate=='1'" placeholder="" [(ngModel)]="data.brief"
+          [nzAutosize]="{ minRows: 4, maxRows: 12 }" name="brief"></textarea>
+      </se>
+
+
+      <se label="富文本：" required>
+        <app-tiny-editor *ngIf="operate!='1'" (onEditorContentChange)="keyupHandler($event)" [content]="data.content"
+          [params]="editorParams"></app-tiny-editor>
+
+        <div *ngIf="operate=='1'" id="textContent"
+          style="min-height: 50px;border: 1px solid #d9d9d9;padding: 10px 15px;box-sizing: border-box;"
+          [innerHTML]="data.content"></div>
+        <!-- <ueditor *ngIf="operate!='1'" name="content" [(ngModel)]="data.content"></ueditor> -->
+      </se>
+      <se *ngIf="operate!=1">
+        <button nz-button nzType="primary" (click)="save()" [disabled]="f.invalid">提交</button>
+        <button (click)="goBack()" nz-button nzType="default">返回</button>
+      </se>
+    </form>
+  </div>
+</div>

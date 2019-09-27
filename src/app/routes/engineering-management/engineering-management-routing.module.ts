@@ -26,10 +26,27 @@ const routes: Routes = [
   // },
 
 
-  { path: 'completed-acceptance', component: EngineeringManagementCompletedAcceptanceComponent },
-  { path: 'drafts', component: EngineeringManagementDraftsComponent },
-  { path: 'fire-acceptance', component: EngineeringManagementFireAcceptanceComponent },
-  { path: 'fire-design', component: EngineeringManagementFireDesignComponent }];
+  {
+    path: 'completed-acceptance',
+    component: EngineeringManagementCompletedAcceptanceComponent,
+    data: { title: "竣工验收备案" },
+  },
+  {
+    path: 'drafts',
+    component: EngineeringManagementDraftsComponent,
+    data: { title: "草稿箱" },
+  },
+  {
+    path: 'fire-acceptance',
+    component: EngineeringManagementFireAcceptanceComponent,
+    data: { title: "消防验收管理" },
+
+  },
+  {
+    path: 'fire-design',
+    component: EngineeringManagementFireDesignComponent,
+    data: { title: "消防设计审查" },
+  }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

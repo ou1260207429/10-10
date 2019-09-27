@@ -99,6 +99,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { CustomGuard } from './services/custom-guard';
 import { UserInfoService } from './services/user-info-sevice';
 import { DirectiveModule } from './directive/directive.module';
+import { PublicServices } from './services/public.services';
 
 @NgModule({
   declarations: [AppComponent],
@@ -121,6 +122,7 @@ import { DirectiveModule } from './directive/directive.module';
     ConfigService,
     AuthenticationService,
     UserInfoService,
+    PublicServices,
     CustomGuard],
   bootstrap: [AppComponent],
 })

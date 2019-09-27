@@ -5,34 +5,37 @@ import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
 //import { AppManageService } from '../app-manage.service'
 import { NzMessageService } from 'ng-zorro-antd';
 import { MessageBox } from 'src/app/services/message-box';
-import { EngManageService } from '../engineering-management.service';
+
+
+import { EngManageService } from '../../engineering-management/engineering-management.service';
 import { PageDataHelper } from 'src/app/services/page-data-helper';
+import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'app-engineering-management-drafts',
-  templateUrl: './drafts.component.html',
+  selector: 'app-content-manage-form-download',
+  templateUrl: './form-download.component.html',
 })
-export class EngineeringManagementDraftsComponent implements OnInit {
+export class ContentManageFormDownloadComponent implements OnInit {
   postmodel = {
-    DraftId: 0,
-    draftName: '',
-    Content: '',
-    CreateTime: '',
-    LastUpdateTime: '',
-    LastUpdateUserCode: '',
-    LastUpdateUserName: '',
-    applyType: 0,
+    isAsc: false,
+    orderby: "",
+    totalCount: 200,
+    search: "",
+    startTime: "",
+    endTime: "",
     currentPage: 1,
     pageSize: 10,
     sorting: '',
-    startDateTime: '',
-    endDateTime: '',
   }
 
+  //  nzPlaceHolder = ['创建开始时间', '创建结束时间']
   formGroup: FormGroup;
 
   listData;// 接收列表数据
+  //接收id数据
+  idData;
+  draftById;
 
 
   pageConfig: STPage = {
@@ -51,16 +54,16 @@ export class EngineeringManagementDraftsComponent implements OnInit {
     private engManageService: EngManageService,
     private messageBox: MessageBox,
     private fb: FormBuilder,
-
+    private router: Router,
   ) {
 
     this.editData = new AppModel();
     this.listData = PageDataHelper.initPageData();
     this.formGroup = this.fb.group({
-      draftName: [null, [Validators.required]],
-      applyType: [null, [Validators.required]],
-      content: [null],
-      draftId: [false],
+      attachmentName: [null, [Validators.required]],
+      // applyType: [null, [Validators.required]],
+      // content: [null],
+      // draftId: [false],
 
     });
     this.listData = {};
@@ -74,14 +77,20 @@ export class EngineeringManagementDraftsComponent implements OnInit {
   // 获取列表
   getlist() {
     this.postmodel.currentPage = this.listData.currentPage;
-    this.postmodel.pageSize = this.listData.pageSize;
-    this.engManageService.GetDraftList(this.postmodel, data => {
-      this.listData = data;
-    }, () => {
-    });
+    // this.postmodel.pageSize = this.listData.pageSize;
+    // this.engManageService.GetDraftList(this.postmodel, data => {
+    //   this.listData = data;
+    // }, () => {
+    // });
   }
 
+  //获取ID
 
+  getId() {
+    this.engManageService.getDraftById(this.draftById, data => {
+      this.idData = data;
+    });
+  }
 
   getDraftTypeName(applyType) {
     var draftTypeName = "";
@@ -115,7 +124,7 @@ export class EngineeringManagementDraftsComponent implements OnInit {
 
   // 搜索
   search() {
-    this.postmodel.draftName = this.postmodel.draftName.trim();
+    // this.postmodel.draftName = this.postmodel.draftName.trim();
     // this.postmodel.appName = this.postmodel.appName.trim();
     this.listData.currentPage = 1,
       this.getlist()
@@ -125,19 +134,16 @@ export class EngineeringManagementDraftsComponent implements OnInit {
   // 重置
   reset() {
     this.postmodel = {
-      DraftId: 0,
-      draftName: '',
-      applyType: 0,
-      CreateTime: '',
-      LastUpdateTime: '',
-      LastUpdateUserCode: '',
-      LastUpdateUserName: '',
-      Content: '',
+      isAsc: false,
+      orderby: "",
+      totalCount: 200,
+      search: "",
+      startTime: "",
+      endTime: "",
       currentPage: 1,
       pageSize: 10,
       sorting: '',
-      startDateTime: '',
-      endDateTime: '',
+
     }
 
     this.listData.currentPage = 1;
@@ -164,15 +170,19 @@ export class EngineeringManagementDraftsComponent implements OnInit {
     this.isEdit = false;
   }
 
-
-  edit(data) {
-    this.isEdit = true;
-    if (data == null) {//添加
-      this.editData.init();
-    } else {//编辑
-      this.editData.clone(data);
-    }
+  add() {
+    this.router.navigate([`/content-manage/form-download-detail`]);
   }
+  // edit(data) {
+  //   this.isEdit = true;
+  //   if (data == null) {//添加
+  //     this.editData.init();
+  //   } else {//编辑
+  //     this.editData.clone(data);
+
+
+  //   }
+  // }
   save(): void {
     if (this.validateForm()) { // TODO: 数据验证
       if (this.editData.draftId == null) { // 添加
@@ -216,3 +226,4 @@ export class AppModel {
   }
 
 }
+

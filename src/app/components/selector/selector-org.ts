@@ -19,7 +19,6 @@ import { NzMessageService } from 'ng-zorro-antd';
     <input  nz-input 
       [name]="name"
       [placeholder]="placeHolder"
-     
       [(ngModel)]="ngModel"
       (input)="onInput($event.target?.value)"
       [nzAutocomplete]="auto"
@@ -82,18 +81,18 @@ export class SelectorOrgComponent {
 
 
 
-    //@Output() onSelectorEvent = new EventEmitter<EnterpriseDto>();
+    // @Output() onSelectorEvent = new EventEmitter<EnterpriseDto>();
 
     onChange(value) {
         // this.ngModelChange.emit(value);
         // if (this.orgList && this.orgList.length > 0) {
-        //   for (let i of this.orgList) {
-        //     if (i.name == value) {
-        //       this.onSelectorEvent.emit(i);
-        //       return;
-        //     }
+        //     for (let i of this.orgList) {
+        //         if (i.name == value) {
+        //             this.onSelectorEvent.emit(i);
+        //             return;
+        //         }
 
-        //   }
+        //     }
         // }
 
     }
@@ -103,15 +102,15 @@ export class SelectorOrgComponent {
         this.isLoading = true;
 
         // this._HomeServiceProxy.getOrganizationsByName(value).subscribe((res: EnterpriseDto[]) => {
-        //   this.isLoading = false;
+        //     this.isLoading = false;
 
-        //   this.orgList = res;
-        //   // console.log(res);
+        //     this.orgList = res;
+        //     // console.log(res);
 
         // }, err => {
-        //   // console.log(err);
-        //   this.isLoading = false;
-        //   this.orgList = [];
+        //     // console.log(err);
+        //     this.isLoading = false;
+        //     this.orgList = [];
         // });
     }
 }
