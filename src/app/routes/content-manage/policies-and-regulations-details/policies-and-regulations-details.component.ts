@@ -2,15 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { _HttpClient } from '@delon/theme';
 import { FormBuilder, FormGroup } from '@angular/forms';
-//import { PublicModel } from 'infrastructure/public-model';
-//import { timeTrans, createguid } from 'infrastructure/regular-expression';
+// import { PublicModel } from 'infrastructure/public-model';
+// import { timeTrans, createguid } from 'infrastructure/regular-expression';
 import { NzMessageService, UploadFile, UploadFilter } from 'ng-zorro-antd';
-//import { EventEmiter } from 'infrastructure/eventEmiter';
-//import { UploadFileModel, PublicServices } from 'services/public.services';
+// import { EventEmiter } from 'infrastructure/eventEmiter';
+// import { UploadFileModel, PublicServices } from 'services/public.services';
 import { Buffer } from "buffer"
-//import { AppId } from 'infrastructure/expression';
+// import { AppId } from 'infrastructure/expression';
 import lodash from 'lodash';
-import { URLConfig } from "@shared/config/host";
 import { PublicServices } from 'src/app/services/public.services';
 
 
@@ -24,7 +23,7 @@ export class ContentManagePoliciesAndRegulationsDetailsComponent implements OnIn
   fileUrl: string
   fileUrlList = []
   operate
-  //0是新增  1是查看 2是编辑
+  // 0是新增  1是查看 2是编辑
   type
   id
 
@@ -32,12 +31,12 @@ export class ContentManagePoliciesAndRegulationsDetailsComponent implements OnIn
   uploading = false;
   // acceptType: ".doc,.docx,.xls,.xlsx,.pdf"
   acceptType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-  uploadUrl = "http://demo.rjtx.net:5001/api/Upload/Upload"
+  // uploadUrl = "http://demo.rjtx.net:5001/api/Upload/Upload"
   files = []
   AppId;
   sourceId: string
 
-  //表单对象
+  // 表单对象
   data: any = {
     title: '',
     issueOrg: '',
@@ -61,7 +60,7 @@ export class ContentManagePoliciesAndRegulationsDetailsComponent implements OnIn
     this.id = parseInt(this._activatedRoute.snapshot.paramMap.get('id'));
     this.operate = parseInt(this._activatedRoute.snapshot.paramMap.get('operate'));
     this.initType();
-    this.fileUrl = URLConfig.getInstance().REGISTER_URL
+    this.fileUrl = null;
 
   }
   ngOnInit() {
@@ -148,7 +147,7 @@ export class ContentManagePoliciesAndRegulationsDetailsComponent implements OnIn
    * 上传文件
    */
   uploadFiles(guid) {
-    let params = {
+    const params = {
       // sourceId: guid,
       // AppId: AppId,
       // module: "table",
@@ -180,7 +179,7 @@ export class ContentManagePoliciesAndRegulationsDetailsComponent implements OnIn
     // })
 
   }
-  //编辑器change事件
+  // 编辑器change事件
   keyupHandler(value) {
     this.editContent = value;
   }
@@ -218,15 +217,15 @@ export class ContentManagePoliciesAndRegulationsDetailsComponent implements OnIn
       tid: file.uid,
       isUpLoad: true
     })
-    let params = {
+    const params = {
       sourceId: this.sourceId,
-      //AppId: AppId,
+      // AppId: AppId,
       AppId: this.AppId,
       module: "table",
     }
     const formData: any = new FormData();
     formData.append('files', file);
-    let index = this.fileList.length - 1
+    const index = this.fileList.length - 1
     this._publicServices.newUpload(formData, params).subscribe(data => {
       // if (data.result == 0) {
       //   this.fileList[index].url = this.fileUrl + 'api/Attachment/Download?appId=' + AppId + '&id=' + data.data[0].id

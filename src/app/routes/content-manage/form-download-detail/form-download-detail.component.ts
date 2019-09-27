@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-//import { AttachmentServiceProxy, AttachmentDto } from '@shared/service-proxies/service-proxies';
+// import { AttachmentServiceProxy, AttachmentDto } from '@shared/service-proxies/service-proxies';
 import { NzMessageService, UploadFile, UploadFilter } from 'ng-zorro-antd';
-//import { EventEmiter } from 'infrastructure/eventEmiter';
-//import { PublicServices } from 'services/public.services';
-//import { createguid } from 'infrastructure/regular-expression';
-//import { AppId } from 'infrastructure/expression';
-import { URLConfig } from "@shared/config/host";
+// import { EventEmiter } from 'infrastructure/eventEmiter';
+// import { PublicServices } from 'services/public.services';
+// import { createguid } from 'infrastructure/regular-expression';
+// import { AppId } from 'infrastructure/expression';
 import lodash from 'lodash'
 import { PublicServices } from 'src/app/services/public.services';
 @Component({
@@ -15,18 +14,18 @@ import { PublicServices } from 'src/app/services/public.services';
   styleUrls: ['./form-download-detail.less']
 })
 export class ContentManageFormDownloadDetailComponent implements OnInit {
-  //表单对象
+  // 表单对象
   data: any;
   fileList: any = [];
   // acceptType: ".doc,.docx,.xls,.xlsx,.pdf"
   acceptType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-  uploadUrl = "http://demo.rjtx.net:5001/api/Upload/Upload"
+  // uploadUrl = "http://demo.rjtx.net:5001/api/Upload/Upload"
   filesUrl: any = {}
   sourceId: string
   AppId;
   constructor(
     private _publicServices: PublicServices,
-    //private _eventEmiter: EventEmiter,
+    // private _eventEmiter: EventEmiter,
     private message: NzMessageService,
     // private _attachmentServiceProxy: AttachmentServiceProxy,
     private _activatedRoute: ActivatedRoute
@@ -51,7 +50,7 @@ export class ContentManageFormDownloadDetailComponent implements OnInit {
     //   this.goBack();
     // })
   }
-  //阻止自动上传
+  // 阻止自动上传
   beforeUpload = (file: UploadFile): boolean => {
     this.fileList = []
     this.fileList.push({
@@ -60,7 +59,7 @@ export class ContentManageFormDownloadDetailComponent implements OnInit {
       tid: file.uid,
       isUpLoad: true
     })
-    let params = {
+    const params = {
       sourceId: this.sourceId,
       // AppId: AppId,
       AppId: this.AppId,
@@ -71,7 +70,7 @@ export class ContentManageFormDownloadDetailComponent implements OnInit {
     formData.append('files', file);
     this._publicServices.newUpload(formData, params).subscribe(data => {
       if (data.result == 0) {
-        this.fileList[0].url = URLConfig.getInstance().REGISTER_URL + 'api/Attachment/Download?appId=' + this.AppId + '&id=' + data.data[0].id
+        this.fileList[0].url = null + 'api/Attachment/Download?appId=' + this.AppId + '&id=' + data.data[0].id
         this.fileList[0].status = 'done'
         this.fileList[0].tid = data.data[0].id
         const fileList = lodash.cloneDeep(this.fileList);
@@ -92,10 +91,10 @@ export class ContentManageFormDownloadDetailComponent implements OnInit {
     })
     return false;
   };
-  //删除上传文件
+  // 删除上传文件
   removeFile = (file: UploadFile): boolean => {
     if (file.isUpLoad) {
-      let params = {
+      const params = {
         // AppId: AppId,
         AppId: this.AppId,
         id: file.tid,

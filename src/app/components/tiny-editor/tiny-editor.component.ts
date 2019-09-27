@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { URLConfig } from "@shared/config/host";
 import { PublicServices } from 'src/app/services/public.services';
 
 @Component({
@@ -10,13 +9,13 @@ import { PublicServices } from 'src/app/services/public.services';
 export class TinyEditorComponent implements OnInit {
 
   constructor(private _publicServices: PublicServices, ) { }
-  //从父页面传来的数据
+  // 从父页面传来的数据
   @Input() content: any
   @Input() params: any
   @Output() onEditorContentChange = new EventEmitter();
   editor;
   init = {
-    //selector: '#textarea',  // change this value according to your HTML
+    // selector: '#textarea',  // change this value according to your HTML
     plugins: 'advlist autolink link image lists preview hr anchor pagebreak ' +
       'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime nonbreaking ' +
       'save table contextmenu directionality emoticons paste textcolor',
@@ -25,7 +24,7 @@ export class TinyEditorComponent implements OnInit {
     language: "zh_CN",
     width: '100%',
     height: 500,
-    toolbar_drawer: 'sliding',   //工具栏太多，页面宽度太小时用省略号替代
+    toolbar_drawer: 'sliding',   // 工具栏太多，页面宽度太小时用省略号替代
     branding: false,
     menubar: true,
     // CONFIG: Paste
@@ -46,8 +45,8 @@ export class TinyEditorComponent implements OnInit {
     image_caption: true,
     image_advtab: true,
     // images_upload_url: "http://222.84.250.158:8111/api/services/app/Attachment/EditorUploadFile",
-    images_upload_url: URLConfig.getInstance().REGISTER_URL,
-    images_upload_base_path: URLConfig.getInstance().REGISTER_URL,
+    images_upload_url: null,
+    images_upload_base_path: null,
     setup: editor => {
       this.editor = editor;
       editor.on('keyup change', () => {
@@ -56,13 +55,13 @@ export class TinyEditorComponent implements OnInit {
       });
     },
     images_upload_handler: (blobInfo, success, failure) => {
-      let formData = new FormData();
+      const formData = new FormData();
       formData.append("files", blobInfo.blob(), blobInfo.filename());
       this._publicServices.newUpload(formData, this.params).subscribe(data => {
-        success(URLConfig.getInstance().REGISTER_URL + data.data[0].localUrl);
+        success(null + data.data[0].localUrl);
       })
     },
-    fontsize_formats: '11px 12px 14px 16px 18px 24px 36px 48px',  //字体大小
+    fontsize_formats: '11px 12px 14px 16px 18px 24px 36px 48px',  // 字体大小
     font_formats: `
     微软雅黑=微软雅黑;
     宋体=宋体;
@@ -89,7 +88,7 @@ export class TinyEditorComponent implements OnInit {
     Verdana=verdana,geneva;
     Webdings=webdings;
     Wingdings=wingdings,zapf dingbats`,
-    style_formats: [  //行高设置
+    style_formats: [  // 行高设置
       {
         title: '行高',
         items: [
