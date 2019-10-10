@@ -6,7 +6,7 @@ import { SFSchema } from '@delon/form';
 @Component({
   selector: 'app-print-pages-acceptance-management-print',
   templateUrl: './acceptance-management-print.component.html',
-  styleUrls: ['../print.less']
+  styleUrls: ['../apply-form.less']
 })
 export class PrintPagesAcceptanceManagementPrintComponent implements OnInit {
   constructor(private el: ElementRef) {
@@ -34,11 +34,11 @@ export class PrintPagesAcceptanceManagementPrintComponent implements OnInit {
     window.print()
   }
   ngAfterViewInit() {
-    let rows = this.el.nativeElement.querySelectorAll(".row");
+    const rows = this.el.nativeElement.querySelectorAll(".row");
     console.log(rows);
-    for (var i = 0; i < rows.length; i++) {
-      let ss = rows[i].offsetTop / 1470;
-      let num = Math.floor(ss);
+    for (let i = 0; i < rows.length; i++) {
+      const ss = rows[i].offsetTop / 1470;
+      const num = Math.floor(ss);
 
       if (num > 0) {
         if (rows[i].offsetTop - 1470 * num < 60) {

@@ -2,12 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { _HttpClient, ModalHelper } from '@delon/theme';
 import { STColumn, STComponent, STPage } from '@delon/abc';
 import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
-//import { AppManageService } from '../app-manage.service'
+// import { AppManageService } from '../app-manage.service'
 import { NzMessageService } from 'ng-zorro-antd';
 import { MessageBox } from 'src/app/services/message-box';
 import { EngManageService } from '../engineering-management.service';
-//import { PageDataHelper } from 'src/app/model/page-data-helper';
-//import { EngineeringManagementService } from '../engineering-management.service';
+import { Router } from '@angular/router';
+// import { PageDataHelper } from 'src/app/model/page-data-helper';
+// import { EngineeringManagementService } from '../engineering-management.service';
 // import { SFSchema } from '@delon/form';
 
 @Component({
@@ -46,7 +47,7 @@ export class EngineeringManagementFireDesignComponent implements OnInit {
   };
 
   editData: AppModel; // 添加和编辑数据模型
-  rangeTime: [];//时间
+  rangeTime: [];// 时间
   // fliterForm: FormGroup;
 
   isEdit = false; // 是否编辑状态
@@ -57,11 +58,11 @@ export class EngineeringManagementFireDesignComponent implements OnInit {
     private messageBox: MessageBox,
     private fb: FormBuilder,
     private engManageService: EngManageService,
-
+    private router: Router,
   ) {
 
     this.editData = new AppModel();
-    //this.listData = PageDataHelper.initPageData();
+    // this.listData = PageDataHelper.initPageData();
     this.formGroup = this.fb.group({
       appCode: [null, [Validators.required]],
       appName: [null, [Validators.required]],
@@ -91,7 +92,7 @@ export class EngineeringManagementFireDesignComponent implements OnInit {
   }
 
   getAppTypeName(appType) {
-    var appTypeName = "";
+    let appTypeName = "";
     switch (appType) {
       case 1: appTypeName = 'bs'; break;
       case 2: appTypeName = 'cs'; break;
@@ -178,15 +179,15 @@ export class EngineeringManagementFireDesignComponent implements OnInit {
 
 
   edit(data) {
-    this.isEdit = true;
-    if (data == null) {//添加
-      this.editData.init();
-    } else {//编辑
-      // debugger
-      this.editData.clone(data);
+    // this.isEdit = true;
+    // if (data == null) {// 添加
+    //   this.editData.init();
+    // } else {// 编辑
+    //   // debugger
+    //   this.editData.clone(data);
+    // }
 
-
-    }
+    this.router.navigate(["/apply-form/investigate-form"], { queryParams: { id: 1 } });
   }
   save(): void {
     if (this.validateForm()) { // TODO: 数据验证
@@ -223,7 +224,7 @@ export class AppModel {
   public userID;
 
   public init() {
-    let appTmp = { disable: 0 };
+    const appTmp = { disable: 0 };
     this.clone(appTmp);
   }
 

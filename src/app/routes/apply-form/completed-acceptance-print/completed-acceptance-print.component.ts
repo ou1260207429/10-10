@@ -6,7 +6,7 @@ import { SFSchema } from '@delon/form';
 @Component({
   selector: 'app-print-pages-completed-acceptance-print',
   templateUrl: './completed-acceptance-print.component.html',
-  styleUrls: ['../print.less']
+  styleUrls: ['../apply-form.less']
 })
 export class PrintPagesCompletedAcceptancePrintComponent implements OnInit {
   constructor(private el: ElementRef) {

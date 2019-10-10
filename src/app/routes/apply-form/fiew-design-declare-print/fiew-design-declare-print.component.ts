@@ -4,7 +4,7 @@ import { _HttpClient, ModalHelper } from '@delon/theme';
 @Component({
   selector: 'app-print-pages-fiew-design-declare-print',
   templateUrl: './fiew-design-declare-print.component.html',
-  styleUrls: ['../print.less']
+  styleUrls: ['../apply-form.less']
 })
 export class PrintPagesFiewDesignDeclarePrintComponent implements OnInit {
   constructor(private el: ElementRef) {
